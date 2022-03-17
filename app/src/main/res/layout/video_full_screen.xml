@@ -1,0 +1,21 @@
+    <RelativeLayout
+        android:id="@+id/fullscreen_video_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_border_fullscreenvideo"
+        android:padding="@dimen/general_margin"
+        android:gravity="center"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <VideoView
+            android:id="@+id/fullscreen_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="stellarnear.lost_ark_companion.Activities.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbarAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_bar_gradient_stance"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@drawable/main_back_title_bar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/LinearMainHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_bar_gradient"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/button_to_stance"
+                    android:layout_width="@dimen/size_icon_main"
+                    android:layout_height="@dimen/size_icon_main"
+                    android:layout_gravity="center_vertical|left"
+                    android:adjustViewBounds="true"
+                    android:backgroundTint="@android:color/transparent"
+                    android:padding="@dimen/general_margin"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/stance_icon" />
+
+                <ImageView
+                    android:layout_width="@dimen/size_icon_main_rota"
+                    android:layout_height="@dimen/size_icon_main_rota"
+                    android:layout_gravity="center_vertical|left"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/rotate_left" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewMainScreen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Menu principal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/size_icon_main_rota"
+                    android:layout_height="@dimen/size_icon_main_rota"
+                    android:layout_gravity="center_vertical|right"
+                    android:scaleType="fitCenter"
+
+                    app:srcCompat="@drawable/rotate_right" />
+
+                <ImageButton
+                    android:id="@+id/button_to_help"
+                    android:layout_width="@dimen/size_icon_main"
+                    android:layout_height="@dimen/size_icon_main"
+                    android:layout_gravity="center_vertical|right"
+                    android:backgroundTint="@android:color/transparent"
+                    android:padding="@dimen/general_margin"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/help" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_main_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <VideoView
+            android:id="@+id/campaignContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

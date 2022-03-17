@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="percent_fullscreen_customdialog">90</integer>
+
+    <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
+    <integer name="custom_alert_long_duration_DEF">10000</integer>
+    <integer name="display_stats_bin_def">50</integer>
+</resources>

@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- These settings pref are only used on tablets. -->
+
+    <PreferenceScreen
+        android:key="pref_character"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Roaster"
+        android:summary="Characters's list"/>
+
+    <PreferenceScreen
+        android:key="pref_tasks"
+        android:icon="@drawable/ic_embrassed_energy"
+        android:title="Tasks"
+        android:summary="Tasks's list"/>
+
+    <PreferenceScreen
+        android:key="pref_appli"
+        android:title="Gestion de l'application"
+        android:summary="Paramètres et informations de l'application"
+        android:icon="@drawable/ic_smartphone" />
+
+</PreferenceScreen>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Parametres -->
+    <bool name="switch_fullscreen_mode_DEF">true</bool>
+
+
+</resources>

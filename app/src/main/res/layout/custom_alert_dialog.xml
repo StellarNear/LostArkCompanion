@@ -1,0 +1,121 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:gravity="center"
+    android:id="@+id/custom_dialog_RelativeLayoutMain"
+    android:background="@drawable/background_border_dialog">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_customDialog_text"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/customDialogTestIcon"
+            app:srcCompat="@drawable/mire_test" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_customDialog_text"
+            android:id="@+id/customDialogTestTitle"
+            android:gravity="center_horizontal"
+            android:text="Test de compétence :"
+            android:textColor="@android:color/black" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_customDialog_text"
+            android:id="@+id/customDialogTestSummary"
+            android:textSize="16sp"
+            android:text="Blabla : maitrise : Abilité +6 : Bonus +8 > 65"
+            android:textColor="@color/secondaryTextCustomDialog" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/customDialogLinearButtonHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        android:gravity="center">
+        <Button
+            android:id="@+id/button_customDialog_test_diceroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_basic_gradient"
+            android:textSize="12dp"
+            android:text="@string/custom_dialog_test_rolldice"/>
+
+        <Button
+            android:id="@+id/button_customDialog_test_passive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_margin"
+            android:background="@drawable/button_basic_gradient"
+            android:textSize="12dp"
+            android:text="@string/custom_dialog_test_passive"/>
+        <Button
+            android:id="@+id/button_customDialog_test_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_basic_gradient"
+            android:textSize="12dp"
+            android:text="@string/custom_dialog_test_focus"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="@dimen/icon_dices_testalertdialog"
+            android:layout_height="@dimen/icon_dices_testalertdialog"
+            android:id="@+id/customDialogTestResultDice"
+            android:layout_marginBottom="@dimen/margin_customDialog_text" />
+
+        <TextView
+            android:id="@+id/customDialogTitleResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text=""
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/customDialogTestResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text=""
+            android:textSize="@dimen/sizeTextCustomDialogResult"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/customDialogTestCallToAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text="Choisis ton action"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+</RelativeLayout>

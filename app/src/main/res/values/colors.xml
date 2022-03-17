@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#bd3e1e</color>
+    <color name="colorPrimaryDark">#822616</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="colorBackground">#f5f5dc</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
+    <color name="start_back_color">#000000</color>
+    <color name="divider_pref">#d7d7c1</color>
+    <color name="gray50">#808080</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+
+    <color name="validation">#0FBD40</color>
+    <color name="cancel">#FF0000</color>
+
+    <color name="secondaryTextCustomDialog">@color/gray50</color>
+
+    <color name="end_gradient_button_ok">#004d00</color>
+    <color name="start_gradient_button_ok">#0FBD40</color>
+    <color name="start_gradient_button_cancel">@color/colorPrimaryDark</color>
+    <color name="end_gradient_button_cancel">@color/colorPrimary</color>
+
+    <color name="start_gradient_button_basic">@android:color/darker_gray</color>
+    <color name="end_gradient_button_basic">@color/white</color>
+
+    <color name="colorTextButtonHealthDialog">#000000</color>
+
+    <!-- healthbar -->
+    <color name="start_gradient_health_bar_underhalf">#ffa366</color>
+    <color name="end_gradient_health_bar_underhalf">#e65c00</color>
+    <color name="end_gradient_health_bar_ok">@color/end_gradient_button_ok</color>
+    <color name="start_gradient_health_bar_ok">@color/start_gradient_button_ok</color>
+    <color name="start_gradient_health_bar_notok">@color/end_gradient_button_cancel</color>
+    <color name="end_gradient_health_bar_notok">@color/start_gradient_button_cancel</color>
+    <color name="start_gradient_health_bar_abovehalf">#ffff00</color>
+    <color name="end_gradient_health_bar_abovehalf">#b3b300</color>
+
+    <color name="information">#81BEF7</color>
+    <color name="information_light">#d4e9ff</color>
+    <color name="back_gif_player">#d3d3d5</color>
+
+
+
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/toast_RelativeLayout"
+    android:background="@drawable/background_border_infos"
+    android:padding="@dimen/general_margin"
+    >
+
+    <LinearLayout
+        android:id="@+id/toast_LinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/toast_image"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/custom_toast_icon_size"
+            android:maxHeight="@dimen/custom_toast_icon_size"
+            android:layout_margin="@dimen/general_margin"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="3dp">
+
+
+            <TextView
+                android:id="@+id/toast_textName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Test long name of magical item PM is here"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/black"/>
+                <ImageView
+                    android:id="@+id/toast_info_swap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_forth"
+                    android:layout_gravity="top|end"
+
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/toast_info_unequip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_hanger"
+                    android:layout_gravity="top|end"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/toast_textVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:text="sub title"/>
+
+            <TextView
+                android:id="@+id/toast_textDescr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is the demo of Custom Toast Notification"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

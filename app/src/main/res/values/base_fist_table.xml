@@ -1,0 +1,18 @@
+<resources>
+
+    <string-array name="base_dmg_fist">
+        <item>2d10</item>
+        <item>4d8</item>
+        <item>6d8</item>
+        <item>8d8</item>
+    </string-array>
+
+    <string name="base_dmg_fist_DEF">0</string>
+
+    <string-array name="base_dmg_fist_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>
