@@ -19,7 +19,7 @@ import stellarnear.aquene_companion.R;
 
 public class PrefResetScreenFragment extends Preference {
     private Context mC;
-    private Perso aquene=MainActivity.aquene;
+    private final Perso aquene = MainActivity.aquene;
     private View mainView;
 
     public PrefResetScreenFragment(Context context, AttributeSet attrs) {
@@ -31,15 +31,15 @@ public class PrefResetScreenFragment extends Preference {
         super(context, attrs, defStyle);
 
     }
+
     public PrefResetScreenFragment(Context context) {
         super(context);
     }
 
     @Override
-    protected View onCreateView(ViewGroup parent)
-    {
+    protected View onCreateView(ViewGroup parent) {
         super.onCreateView(parent);
-        this.mC=getContext();
+        this.mC = getContext();
 
         mainView = new View(getContext());
         final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(parent.getWidth(), parent.getHeight());  //pour full screen

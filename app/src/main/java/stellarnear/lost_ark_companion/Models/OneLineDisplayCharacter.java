@@ -12,7 +12,7 @@ import stellarnear.lost_ark_companion.R;
 
 public class OneLineDisplayCharacter {
 
-    private Context mC;
+    private final Context mC;
     private Character c;
 
     public OneLineDisplayCharacter(Context context) {

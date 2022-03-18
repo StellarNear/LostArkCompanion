@@ -24,11 +24,10 @@ import stellarnear.lost_ark_companion.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final boolean campaignShow = true;
     public static Expedition expedition = null;
-
     private final boolean loading = false;
     private final boolean touched = false;
-    private static final boolean campaignShow = true;
     private FrameLayout mainFrameFrag;
     private SharedPreferences settings;
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if (expedition == null) {
             Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
-            this.expedition = ExpeditionManager.getInstance(getApplicationContext()).getExpedition();
+            expedition = ExpeditionManager.getInstance(getApplicationContext()).getExpedition();
             buildMainPage();
         }
     }

@@ -31,12 +31,12 @@ import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.R;
 
 public class CustomLog {
-    private static Set<LogMsg> allLogs = new LinkedHashSet<>();
-    private static SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
+    private static final Set<LogMsg> allLogs = new LinkedHashSet<>();
+    private static final SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
 
-    private static Tools tools = Tools.getTools();
+    private static final Tools tools = Tools.getTools();
 
-    private Class currentLoggedClass;
+    private final Class currentLoggedClass;
 
     public CustomLog(Class<?> clazz) {
         this.currentLoggedClass = clazz;
@@ -116,7 +116,7 @@ public class CustomLog {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
         emailIntent.setType("vnd.android.cursor.dir/email");
-        String to[] = {"jeremie.chatron@free.fr"};
+        String[] to = {"jeremie.chatron@free.fr"};
         emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
 
         emailIntent.putExtra(Intent.EXTRA_STREAM, path);
@@ -142,11 +142,18 @@ public class CustomLog {
         sendEmail(mA, "");
     }
 
+    private enum Level {
+        INFO,
+        WARN,
+        ERROR,
+        FATAL_ERROR
+    }
+
     private class LogMsg {
-        private String prefix = currentLoggedClass.getName();
-        private Level level;
-        private String timeStamp;
-        private String msg;
+        private final String prefix = currentLoggedClass.getName();
+        private final Level level;
+        private final String timeStamp;
+        private final String msg;
         private Exception exception;
 
         private LogMsg(Level level, String msg) {
@@ -190,7 +197,7 @@ public class CustomLog {
                     lineHtml += "<br>-" + elem.toString();
                 }
                 lineHtml += "</p>";
-                if(exception.getCause()!=null) {
+                if (exception.getCause() != null) {
                     lineHtml += "<p class='cause'>";
                     lineHtml += "<font color=#ff4d4d>-Caused by : " + exception.getCause().getMessage() + "</font>";
                     for (StackTraceElement elem : exception.getCause().getStackTrace()) {
@@ -201,12 +208,5 @@ public class CustomLog {
             }
             return lineHtml;
         }
-    }
-
-    private enum Level {
-        INFO,
-        WARN,
-        ERROR,
-        FATAL_ERROR
     }
 }

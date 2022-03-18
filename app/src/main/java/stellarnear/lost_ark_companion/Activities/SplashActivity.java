@@ -47,9 +47,9 @@ import stellarnear.lost_ark_companion.VersionCheck.VersionData;
 
 
 public class SplashActivity extends CustomActivity {
-    private Tools tools = Tools.getTools();
-    private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
+    private final Tools tools = Tools.getTools();
+    private ProgressDialog pDialog;
 
     @Override
     protected void doActivity() {
@@ -222,6 +222,12 @@ public class SplashActivity extends CustomActivity {
         }
     }
 
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     /**
      * Background Async Task to download file
      */
@@ -263,7 +269,7 @@ public class SplashActivity extends CustomActivity {
                         + "/" + BuildConfig.APPLICATION_ID + "_" + versionData[0].getVersion_name() + ".apk";
                 OutputStream output = new FileOutputStream(savedPathApk);
 
-                byte data[] = new byte[1024];
+                byte[] data = new byte[1024];
 
                 long total = 0;
 
@@ -314,11 +320,5 @@ public class SplashActivity extends CustomActivity {
             startActivity(intent);
             finish();
         }
-    }
-
-    private void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

@@ -19,13 +19,14 @@ import stellarnear.lost_ark_companion.R;
 
 public class PrefCharacterFragment {
 
-    private Activity mA;
-    private Context mC;
-    private Tools tools= Tools.getTools();
+    private final Activity mA;
+    private final Context mC;
+    private final Tools tools = Tools.getTools();
+    private OnRefreshEventListener mListener;
 
-    public PrefCharacterFragment(Activity mA,Context mC){
-        this.mA=mA;
-        this.mC=mC;
+    public PrefCharacterFragment(Activity mA, Context mC) {
+        this.mA = mA;
+        this.mC = mC;
     }
 
     public void chargeList(PreferenceCategory otherList) {
@@ -33,7 +34,7 @@ public class PrefCharacterFragment {
             Preference pref = new Preference(mC);
             pref.setKey("char_" + c.getName());
             pref.setTitle(c.getName());
-            String txt = c.getWork()+" ilvl:" + c.getIlvl();
+            String txt = c.getWork() + " ilvl:" + c.getIlvl();
 
             pref.setSummary(txt);
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -42,12 +43,12 @@ public class PrefCharacterFragment {
                     new AlertDialog.Builder(mC)
                             .setIcon(R.drawable.ic_warning_black_24dp)
                             .setTitle("Remove this character ?")
-                            .setMessage("Do you really want to delete "+c.getName()+" ?" )
+                            .setMessage("Do you really want to delete " + c.getName() + " ?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.expedition.getCharacters().remove(c);
-									ExpeditionManager.getInstance(mC).saveToDB();
+                                    ExpeditionManager.getInstance(mC).saveToDB();
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -66,45 +67,45 @@ public class PrefCharacterFragment {
     private void createCharacter() {
         LayoutInflater inflater = mA.getLayoutInflater();
         final View creationView = inflater.inflate(R.layout.custom_toast_character_creation, null);
-        CustomAlertDialog creationCharacterAlert = new CustomAlertDialog(mA,mC, creationView);
+        CustomAlertDialog creationCharacterAlert = new CustomAlertDialog(mA, mC, creationView);
 
 
         creationView.findViewById(R.id.add_skill_create_item);
         creationCharacterAlert.setPermanent(true);
         creationCharacterAlert.addConfirmButton("Create");
         creationCharacterAlert.addCancelButton("Cancel");
-		EditText work = ((EditText) creationView.findViewById(R.id.work_character_creation));
-		work.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				popupSelectWork();
-			}
-		});
+        final EditText work = creationView.findViewById(R.id.work_character_creation);
+        work.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupSelectWork(work);
+            }
+        });
 
         creationCharacterAlert.setAcceptEventListener(new CustomAlertDialog.OnAcceptEventListener() {
             @Override
             public void onEvent() {
                 String name = ((EditText) creationView.findViewById(R.id.name_character_creation)).getText().toString();
                 String ilvl = ((EditText) creationView.findViewById(R.id.ilvl_character_creation)).getText().toString();
-				String selectedWork = ((EditText) creationView.findViewById(R.id.work_character_creation)).getText().toString();
+                String selectedWork = ((EditText) creationView.findViewById(R.id.work_character_creation)).getText().toString();
                 Character c = new Character(name, ilvl, selectedWork);
 
-				if(!charAlreadyExist){
-					MainActivity.expedition.createCharacter(c);
-					ExpeditionManager.getInstance(mC).saveToDB();
+                if (!charAlreadyExist(c)) {
+                    MainActivity.expedition.createCharacter(c);
+                    ExpeditionManager.getInstance(mC).saveToDB();
 
-					mListener.onEvent();
-					tools.customToast(mC, c.getName() + " created !");
-				} else {
-					tools.customToast(mC, c.getName() + " already exists !");
-				}
+                    mListener.onEvent();
+                    tools.customToast(mC, c.getName() + " created !");
+                } else {
+                    tools.customToast(mC, c.getName() + " already exists !");
+                }
 
             }
         });
         creationCharacterAlert.showAlert();
 
 
-        final EditText editName = ((EditText) creationView.findViewById(R.id.name_character_creation));
+        final EditText editName = creationView.findViewById(R.id.name_character_creation);
         editName.post(new Runnable() {
             public void run() {
                 editName.setFocusableInTouchMode(true);
@@ -115,39 +116,39 @@ public class PrefCharacterFragment {
         });
     }
 
-	private void popupSelectWork(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(mA);
+    private void popupSelectWork(final EditText work) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mA);
         builder.setTitle("Choose the class");
         // add a radio button list
 
         int checkedItem = -1;
-        String[] works = {"SharpShooter", "Bard","Berserker","Spirit","WarDancer","DeathBlade"};
+        final String[] works = {"SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade"};
         builder.setSingleChoiceItems(works, checkedItem, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog,int which) {
-                ((EditText) creationView.findViewById(R.id.work_character_creation)).setText(works[which]);
+            public void onClick(DialogInterface dialog, int which) {
+                work.setText(works[which]);
             }
         });
 
         builder.setPositiveButton("Ok", null);
         AlertDialog dialog = builder.create();
         dialog.show();
-	}
+    }
 
-	private bool charAlreadyExist(Character c){
-		for (Character cExisting  : MainActivity.expedition.getCharacters()){
-			if (cExisting.getId().equalsIgnoreCase(c.getId())){
-				return true;
-			}
-		}
-		return false;
-	}
-
-    public interface OnRefreshEventListener {
-        void onEvent();
+    private boolean charAlreadyExist(Character c) {
+        for (Character cExisting : MainActivity.expedition.getCharacters()) {
+            if (cExisting.getId().equalsIgnoreCase(c.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setRefreshEventListener(OnRefreshEventListener eventListener) {
         mListener = eventListener;
+    }
+
+    public interface OnRefreshEventListener {
+        void onEvent();
     }
 }

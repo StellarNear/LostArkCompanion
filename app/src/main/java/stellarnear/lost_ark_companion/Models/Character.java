@@ -3,131 +3,132 @@ package stellarnear.lost_ark_companion.Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character{
-	private String name;
-	private String work;
-	private int ilvl;
-	private int restGuardian;
-	private int restChaos;
-	private String id;
-	private String workId;
+import stellarnear.lost_ark_companion.Log.CustomLog;
 
-	private CustomLog log = new CustomLog(this.class);
+public class Character {
+    private String name;
+    private String work;
+    private Integer ilvl;
+    private int restGuardian;
+    private int restChaos;
+    private String id;
+    private String workId;
 
-	private List<Task> characterTasks=new ArrayList<>();
+    private final CustomLog log = new CustomLog(this.getClass());
 
-	public Character(String name,String work, int ilvl){
-		this.setName(name);
-		this.setWork(work);
-		this.setIlvl(ilvl);
-		this.setRestGuardian(0);
-		this.setRestChaos(0);
-		this.setId(name.replace(" ","_").toLowerCase());
-		this.setWorkId(work.replace(" ","_").toLowerCase());
-		characterTasks.add(new Task(true, "Chaos", 2, "iconId"));
-		characterTasks.add(new Task(true, "Guardian", 2, "iconId"));
-	}
+	private List<Task> characterTasks = new ArrayList<>();
 
-	public String getId() {
-		return this.id;
-	}
+    public Character(String name, String work, Integer ilvl) {
+        this.setName(name);
+        this.setWork(work);
+        this.setIlvl(ilvl);
+        this.setRestGuardian(0);
+        this.setRestChaos(0);
+        this.setId(name.replace(" ", "_").toLowerCase());
+        this.setWorkId(work.replace(" ", "_").toLowerCase());
+        characterTasks.add(new Task(true, "Chaos", 2, "iconId"));
+        characterTasks.add(new Task(true, "Guardian", 2, "iconId"));
+    }
 
-	public void setId(String id) {
-		this.id=id;
-	}
+    public String getId() {
+        return this.id;
+    }
 
-
-	public String getWorkId() {
-		return this.workId;
-	}
-
-	public void setWorkId(String workId) {
-		this.workId=workId;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
-	public void setWork(String work) {
-		this.work=work;
-	}
+    public String getWorkId() {
+        return this.workId;
+    }
 
-	public String getWork(){
-		return this.work;
-	}
+    public void setWorkId(String workId) {
+        this.workId = workId;
+    }
 
-	public int getRestChaos() {
-		return restChaos;
-	}
+    public String getWork() {
+        return this.work;
+    }
 
-	public void setRestChaos(int restChaos) {
-		this.restChaos = restChaos;
-		ExpeditionManager.saveToDB();
-	}
+    public void setWork(String work) {
+        this.work = work;
+    }
 
-	public int getRestGuardian() {
-		return restGuardian;
-	}
+    public int getRestChaos() {
+        return restChaos;
+    }
 
-	public void setRestGuardian(int restGuardian) {
-		this.restGuardian = restGuardian;
-		ExpeditionManager.saveToDB();
-	}
+    public void setRestChaos(int restChaos) {
+        this.restChaos = restChaos;
+        ExpeditionManager.saveToDB();
+    }
 
-	public int getIlvl() {
-		return ilvl;
-	}
+    public int getRestGuardian() {
+        return restGuardian;
+    }
 
-	public void setIlvl(int ilvl) {
-		this.ilvl = ilvl;
-		ExpeditionManager.saveToDB();
-	}
+    public void setRestGuardian(int restGuardian) {
+        this.restGuardian = restGuardian;
+        ExpeditionManager.saveToDB();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getIlvl() {
+        return ilvl;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-		ExpeditionManager.saveToDB();
-	}
+    public void setIlvl(int ilvl) {
+        this.ilvl = ilvl;
+        ExpeditionManager.saveToDB();
+    }
 
-	public void computeResetDaily() {
-		try {
-			this.restChaos+=(2-getTaskByID("chaos").getCurrentDone())*10;
-			this.restGuardian+=(2-getTaskByID("guardian").getCurrentDone())*10;
-		} catch (Exception e) {
-			log.err("Could not set rest bar for chaos and guardian",e)
-		}
-		for(Task task : this.characterTasks){
-			if(task.isDaily()){
-				task.reset();
-			}
-		}
-	}
+    public String getName() {
+        return name;
+    }
 
-	private Task getTaskByID(String searchID) {
-		for(Task task : this.characterTasks){
-			if(task.getId().equalsIgnoreCase(searchID)){
-				return task;
-			}
-		}
-		return null;
-	}
+    public void setName(String name) {
+        this.name = name;
+        ExpeditionManager.saveToDB();
+    }
 
-	public void resetWeekly() {
-		for(Task task : this.characterTasks){
-			if(!task.isDaily()){
-				task.reset();
-			}
-		}
-		//other daily task will be reset here
-		computeResetDaily();
-	}
+    public void computeResetDaily() {
+        try {
+            this.restChaos += (2 - getTaskByID("chaos").getCurrentDone()) * 10;
+            this.restGuardian += (2 - getTaskByID("guardian").getCurrentDone()) * 10;
+        } catch (Exception e) {
+            log.err("Could not set rest bar for chaos and guardian", e)
+        }
+        for (Task task : this.characterTasks) {
+            if (task.isDaily()) {
+                task.reset();
+            }
+        }
+    }
 
-	public List<Task> getTasks() {
-		return characterTasks;
-	}
+    private Task getTaskByID(String searchID) {
+        for (Task task : this.characterTasks) {
+            if (task.getId().equalsIgnoreCase(searchID)) {
+                return task;
+            }
+        }
+        return null;
+    }
 
-	public void setTasks(List<Task> tasks){
-		this.characterTasks=tasks;
-	}
+    public void resetWeekly() {
+        for (Task task : this.characterTasks) {
+            if (!task.isDaily()) {
+                task.reset();
+            }
+        }
+        //other daily task will be reset here
+        computeResetDaily();
+    }
+
+    public List<Task> getTasks() {
+        return characterTasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.characterTasks = tasks;
+    }
 }

@@ -1,4 +1,3 @@
-
 package stellarnear.lost_ark_companion.Models;
 
 import android.content.Context;
@@ -11,30 +10,27 @@ import stellarnear.lost_ark_companion.Activities.MainActivity;
 import stellarnear.lost_ark_companion.Divers.Tools;
 
 public class TimeChecker {
-	private Context mC;
-	Expedition expedition = MainActivity.expedition;
-	private Tools tools = Tools.getTools();
+    private static TimeChecker instance = null;
+    Expedition expedition = MainActivity.expedition;
+    private final Context mC;
+    private final Tools tools = Tools.getTools();
 
-	private static TimeChecker instance=null;
+    private TimeChecker(Context mC) {
+        this.mC = mC;
+    }
 
-	public static TimeChecker getInstance(Context mC) {
-		if (instance == null) {
-			instance = new TimeChecker(mC);
-		}
-		return instance;
-	}
+    public static TimeChecker getInstance(Context mC) {
+        if (instance == null) {
+            instance = new TimeChecker(mC);
+        }
+        return instance;
+    }
 
-	private TimeChecker(Context mC){
-		this.mC=mC;
-	}
-
-
-	public void checkCurrentTime() {
-		tools.customToast(mC,"Checking time");
+    public void checkCurrentTime() {
+        tools.customToast(mC, "Checking time");
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatterHour = new SimpleDateFormat("HH");
         Date date = new Date();
-        ;
         //todo get from settings in phone the storedDate
         String storedDate = "";
         if (!storedDate.equalsIgnoreCase(formatter.format(date)) && (Integer.parseInt(formatterHour.format(date)) >= 11)) {

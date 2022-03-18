@@ -15,34 +15,34 @@ import java.util.List;
 public class SettingsFragment extends CustomPreferenceFragment {
     private Activity mA;
     private Context mC;
-    private List<String> histoPrefKeys = new ArrayList<>();
-    private List<String> histoTitle = new ArrayList<>();
+    private final List<String> histoPrefKeys = new ArrayList<>();
+    private final List<String> histoTitle = new ArrayList<>();
 
     private String currentPageKey;
     private String currentPageTitle;
 
-    private Tools tools = Tools.getTools();
+    private final Tools tools = Tools.getTools();
 
-	private PrefInfoScreenFragment prefInfoScreenFragment;
-	private PrefCharacterFragment prefCharactersFragment;
-	private PrefTaskFragment prefTaskFragment;
+    private PrefInfoScreenFragment prefInfoScreenFragment;
+    private PrefCharacterFragment prefCharactersFragment;
+    private PrefTaskFragment prefTaskFragment;
 
     @Override
     protected void onCreateFragment() {
         settings.registerOnSharedPreferenceChangeListener(listener);
-        this.mA=getActivity();
-        this.mC=getContext();
+        this.mA = getActivity();
+        this.mC = getContext();
         addPreferencesFromResource(R.xml.pref);
-		prefInfoScreenFragment=new PrefInfoScreenFragment(mA,mC);
-		prefCharactersFragment=new PrefCharacterFragment(mA,mC);
-		prefCharactersFragment.setRefreshEventListener(new PrefCharacterFragment.OnRefreshEventListener() {
+        prefInfoScreenFragment = new PrefInfoScreenFragment(mA, mC);
+        prefCharactersFragment = new PrefCharacterFragment(mA, mC);
+        prefCharactersFragment.setRefreshEventListener(new PrefCharacterFragment.OnRefreshEventListener() {
             @Override
             public void onEvent() {
                 navigate();
             }
         });
-		prefTaskFragment=new PrefTaskFragment(mA,mC);
-		prefTaskFragment.setRefreshEventListener(new PrefTaskFragment.OnRefreshEventListener() {
+        prefTaskFragment = new PrefTaskFragment(mA, mC);
+        prefTaskFragment.setRefreshEventListener(new PrefTaskFragment.OnRefreshEventListener() {
             @Override
             public void onEvent() {
                 navigate();
@@ -61,8 +61,8 @@ public class SettingsFragment extends CustomPreferenceFragment {
             mA.startActivity(intent);
         } else // in sub-level
         {
-            currentPageKey=histoPrefKeys.get(histoPrefKeys.size() - 2);
-            currentPageTitle=histoTitle.get(histoTitle.size() - 2);
+            currentPageKey = histoPrefKeys.get(histoPrefKeys.size() - 2);
+            currentPageTitle = histoTitle.get(histoTitle.size() - 2);
             navigate();
             histoPrefKeys.remove(histoPrefKeys.size() - 1);
             histoTitle.remove(histoTitle.size() - 1);
@@ -77,8 +77,8 @@ public class SettingsFragment extends CustomPreferenceFragment {
         }
 
         if (preference.getKey().startsWith("pref")) {
-            this.currentPageKey =preference.getKey();
-            this.currentPageTitle =preference.getTitle().toString();
+            this.currentPageKey = preference.getKey();
+            this.currentPageTitle = preference.getTitle().toString();
             navigate();
         } else {
             action(preference);
@@ -98,24 +98,24 @@ public class SettingsFragment extends CustomPreferenceFragment {
 
 
     private void navigate() {
-        if(currentPageKey.equalsIgnoreCase("pref")){
+        if (currentPageKey.equalsIgnoreCase("pref")) {
             getPreferenceScreen().removeAll();
             addPreferencesFromResource(R.xml.pref);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(currentPageTitle);
         } else if (currentPageKey.contains("pref_")) {
             loadPage();
-			switch (currentPageKey) {
-			case "pref_characters":
+            switch (currentPageKey) {
+                case "pref_characters":
                     PreferenceCategory list = (PreferenceCategory) findPreference("characters_list");
-					prefCharactersFragment.chargeList(list);
+                    prefCharactersFragment.chargeList(list);
                     break;
-			case "pref_tasks":
+                case "pref_tasks":
                     PreferenceCategory listExpeTask = (PreferenceCategory) findPreference("expedition_tasks");
-					prefCharactersFragment.chargeExpeTaskList(listExpeTask);
-					PreferenceCategory listCharTask = (PreferenceCategory) findPreference("character_tasks");
-					prefCharactersFragment.chargeCharTaskList(listCharTask);
+                    prefCharactersFragment.chargeExpeTaskList(listExpeTask);
+                    PreferenceCategory listCharTask = (PreferenceCategory) findPreference("character_tasks");
+                    prefCharactersFragment.chargeCharTaskList(listCharTask);
                     break;
-			}
+            }
         }
     }
 
@@ -131,11 +131,11 @@ public class SettingsFragment extends CustomPreferenceFragment {
             case "infos":
                 prefInfoScreenFragment.showInfo();
                 break;
-			case "create_task":
+            case "create_task":
                 prefTasksFragment.createTask();
                 break;
             case "create_character":
-			prefCharactersFragment.createCharacter();
+                prefCharactersFragment.createCharacter();
                 break;
         }
     }

@@ -7,11 +7,11 @@ import stellarnear.lost_ark_companion.Divers.TinyDB;
 
 public class ExpeditionManager {
 
-    private Context mC;
     private static ExpeditionManager instance = null;
+    private final Context mC;
 
     public ExpeditionManager(Context mC) {
-        this.mC=mC;
+        this.mC = mC;
     }
 
     public static ExpeditionManager getInstance(Context mC) {

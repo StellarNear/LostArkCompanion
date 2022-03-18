@@ -5,12 +5,10 @@ import java.util.List;
 
 public class Expedition {
 
-    private String name;
-
-    private List<Task> expeditionTasks = new ArrayList<>();
-    private List<Task> commonCharacterTasks = new ArrayList<>();
-
     public List<Character> characters = new ArrayList<>(); //todo inti from settings
+    private String name;
+    private final List<Task> expeditionTasks = new ArrayList<>();
+    private final List<Task> commonCharacterTasks = new ArrayList<>();
 
 
     public Expedition(String name) {
@@ -25,13 +23,13 @@ public class Expedition {
         this.name = name;
     }
 
-public List<Task> getExpeditionTasks(){
-	return expeditionTasks;
-}
+    public List<Task> getExpeditionTasks() {
+        return expeditionTasks;
+    }
 
-public List<Task> getCommonCharacterTasks(){
-	return commonCharacterTasks;
-}
+    public List<Task> getCommonCharacterTasks() {
+        return commonCharacterTasks;
+    }
 
     public List<Character> getCharacters() {
         //TODO order by ilvl
@@ -71,19 +69,19 @@ public List<Task> getCommonCharacterTasks(){
         if (task.isCrossAccount()) {
             expeditionTasks.add(task);
         } else {
-			commonCharacterTasks.add(task);
+            commonCharacterTasks.add(task);
             for (Character c : this.characters) {
                 c.getTasks().add(task);
             }
         }
     }
 
-	public void deleteTask(Task task) {
-		this.expeditionTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
+    public void deleteTask(Task task) {
+        this.expeditionTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
 
-		for (Character c : this.characters) {
-			c.getTasks().removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
-		}
+        for (Character c : this.characters) {
+            c.getTasks().removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
+        }
 
     }
 

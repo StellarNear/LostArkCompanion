@@ -17,6 +17,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import stellarnear.lost_ark_companion.Activities.CustomAlertDialog;
 import stellarnear.lost_ark_companion.R;
 
 /**
@@ -27,10 +28,11 @@ public class Tools {
 
     private static Tools instance;
 
-    public Tools(){  }
+    public Tools() {
+    }
 
-    public static Tools getTools(){
-        if (instance==null){
+    public static Tools getTools() {
+        if (instance == null) {
             instance = new Tools();
         }
         return instance;
@@ -82,7 +84,7 @@ public class Tools {
     }
 
     public void resize(ImageView img, int dimensionPixelSize) {
-        img.setLayoutParams(new LinearLayout.LayoutParams(dimensionPixelSize,dimensionPixelSize)); //note that it don't work with relative layout para
+        img.setLayoutParams(new LinearLayout.LayoutParams(dimensionPixelSize, dimensionPixelSize)); //note that it don't work with relative layout para
     }
 
 
@@ -92,7 +94,7 @@ public class Tools {
         Toast mToastToShow = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
 
         if (mode.contains("center")) {
-            TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
+            TextView v = mToastToShow.getView().findViewById(android.R.id.message);
             if (v != null) v.setGravity(Gravity.CENTER);
         }
         mToastToShow.setGravity(Gravity.CENTER, 0, 0);
@@ -105,7 +107,7 @@ public class Tools {
         final View layoutRecordVideo = inflater.inflate(R.layout.video_full_screen, null);
         final CustomAlertDialog customVideo = new CustomAlertDialog(activity, context, layoutRecordVideo);
         customVideo.setPermanent(true);
-        final VideoView video = (VideoView) layoutRecordVideo.findViewById(R.id.fullscreen_video);
+        final VideoView video = layoutRecordVideo.findViewById(R.id.fullscreen_video);
         video.setVisibility(View.VISIBLE);
         String fileName = "android.resource://" + activity.getPackageName() + rawPath;
         video.setMediaController(null);

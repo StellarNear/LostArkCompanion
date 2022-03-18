@@ -2,4 +2,5 @@
 <resources>
 
 
- </resources>
+    <integer name="custom_alert_long_duration_DEF">10000</integer>
+</resources>

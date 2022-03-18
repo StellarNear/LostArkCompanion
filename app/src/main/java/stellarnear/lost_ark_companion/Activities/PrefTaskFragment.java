@@ -14,22 +14,22 @@ import android.widget.EditText;
 
 public class PrefTaskFragment {
 
-    private Activity mA;
-    private Context mC;
-    private Tools tools=Tools.getTools();
+    private final Activity mA;
+    private final Context mC;
+    private final Tools tools = Tools.getTools();
 
-    public PrefTaskFragment(Activity mA,Context mC){
-        this.mA=mA;
-        this.mC=mC;
+    public PrefTaskFragment(Activity mA, Context mC) {
+        this.mA = mA;
+        this.mC = mC;
     }
 
-    public void chargeList(PreferenceCategory listCat,List<Task> list) {
+    public void chargeList(PreferenceCategory listCat, List<Task> list) {
         for (final Task task : list) {
             Preference pref = new Preference(mC);
             pref.setKey("task_" + task.getName());
             pref.setTitle(task.getName());
 
-			String txt = task.getOccurance()+" time per "+ task.isDaily()? "day":"week"+ " for "+task.isCrossAccount()?"the expedition":"each character";
+            String txt = task.getOccurance() + " time per " + task.isDaily() ? "day" : "week" + " for " + task.isCrossAccount() ? "the expedition" : "each character";
             pref.setSummary(txt);
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -37,12 +37,12 @@ public class PrefTaskFragment {
                     new AlertDialog.Builder(mC)
                             .setIcon(R.drawable.ic_warning_black_24dp)
                             .setTitle("Remove this task ?")
-                            .setMessage("Do you really want to delete "+task.getName()+" ?" )
+                            .setMessage("Do you really want to delete " + task.getName() + " ?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.expedition.deleteTask(task);
-									ExpeditionManager.saveToDB();
+                                    ExpeditionManager.saveToDB();
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -61,7 +61,7 @@ public class PrefTaskFragment {
     private void createTask() {
         LayoutInflater inflater = mA.getLayoutInflater();
         final View creationView = inflater.inflate(R.layout.custom_toast_task_creation, null);
-        CustomAlertDialog creationTaskAlert = new CustomAlertDialog(mA,mC, creationView);
+        CustomAlertDialog creationTaskAlert = new CustomAlertDialog(mA, mC, creationView);
 
 
         creationView.findViewById(R.id.add_skill_create_item);
@@ -73,28 +73,28 @@ public class PrefTaskFragment {
             public void onEvent() {
                 String name = ((EditText) creationView.findViewById(R.id.name_task_creation)).getText().toString();
 
-				bool daily = ((EditText) creationView.findViewById(R.id.daily_creation)).isSelected();
-				bool crossAccount = ((EditText) creationView.findViewById(R.id.cross_account_creation)).isSelected();
-				String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
-				int occurance=Integer.parseInt(occuranceTxt);
-                Task task = new Taks(daily,crossAccount, name, occurance);
+                bool daily = creationView.findViewById(R.id.daily_creation).isSelected();
+                bool crossAccount = creationView.findViewById(R.id.cross_account_creation).isSelected();
+                String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
+                int occurance = Integer.parseInt(occuranceTxt);
+                Task task = new Taks(daily, crossAccount, name, occurance);
 
-				if(!taskAlreadyExist(task)){
-					MainActivity.expedition.createTask(task);
-					ExpeditionManager.saveToDB();
+                if (!taskAlreadyExist(task)) {
+                    MainActivity.expedition.createTask(task);
+                    ExpeditionManager.saveToDB();
 
-					mListener.onEvent();
-					tools.customToast(mC, task.getName() + " created !");
-				} else {
-					tools.customToast(mC, task.getName() + " already present !");
-				}
+                    mListener.onEvent();
+                    tools.customToast(mC, task.getName() + " created !");
+                } else {
+                    tools.customToast(mC, task.getName() + " already present !");
+                }
 
             }
         });
         creationTaskAlert.showAlert();
 
 
-        final EditText editName = ((EditText) creationView.findViewById(R.id.name_task_creation));
+        final EditText editName = creationView.findViewById(R.id.name_task_creation);
         editName.post(new Runnable() {
             public void run() {
                 editName.setFocusableInTouchMode(true);
@@ -105,25 +105,25 @@ public class PrefTaskFragment {
         });
     }
 
-	private bool taskAlreadyExist(Task task){
-		for (Task common  : MainActivity.expedition.getCommonCharacterTasks()){
-			if (common.getId().equalsIgnoreCase(task.getId())){
-				return true;
-			}
-		}
-		for (Task t : MainActivity.expedition.getExpeditionTasks()){
-			if (t.getId().equalsIgnoreCase(task.getId())){
-				return true;
-			}
-		}
-		return false;
-	}
-
-    public interface OnRefreshEventListener {
-        void onEvent();
+    private bool taskAlreadyExist(Task task) {
+        for (Task common : MainActivity.expedition.getCommonCharacterTasks()) {
+            if (common.getId().equalsIgnoreCase(task.getId())) {
+                return true;
+            }
+        }
+        for (Task t : MainActivity.expedition.getExpeditionTasks()) {
+            if (t.getId().equalsIgnoreCase(task.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setRefreshEventListener(OnRefreshEventListener eventListener) {
         mListener = eventListener;
+    }
+
+    public interface OnRefreshEventListener {
+        void onEvent();
     }
 }
