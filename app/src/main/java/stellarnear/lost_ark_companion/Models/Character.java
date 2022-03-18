@@ -9,18 +9,49 @@ public class Character{
 	private int ilvl;
 	private int restGuardian;
 	private int restChaos;
+	private String id;
+	private String workId;
+
+	private CustomLog log = new CustomLog(this.class);
 
 	private List<Task> characterTasks=new ArrayList<>();
 
 	public Character(String name,String work, int ilvl){
 		this.setName(name);
-		this.work=work;
+		this.setWork(work);
 		this.setIlvl(ilvl);
 		this.setRestGuardian(0);
 		this.setRestChaos(0);
-
+		this.setId(name.replace(" ","_").toLowerCase());
+		this.setWorkId(work.replace(" ","_").toLowerCase());
 		characterTasks.add(new Task(true, "Chaos", 2, "iconId"));
 		characterTasks.add(new Task(true, "Guardian", 2, "iconId"));
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id=id;
+	}
+
+
+	public String getWorkId() {
+		return this.workId;
+	}
+
+	public void setWorkId(String workId) {
+		this.workId=workId;
+	}
+
+
+	public void setWork(String work) {
+		this.work=work;
+	}
+
+	public String getWork(){
+		return this.work;
 	}
 
 	public int getRestChaos() {
@@ -63,15 +94,14 @@ public class Character{
 		try {
 			this.restChaos+=(2-getTaskByID("chaos").getCurrentDone())*10;
 			this.restGuardian+=(2-getTaskByID("guardian").getCurrentDone())*10;
-			for(Task task : this.characterTasks){
-				if(task.isDaily()){
-					task.reset();
-				}
-			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.err("Could not set rest bar for chaos and guardian",e)
 		}
-
+		for(Task task : this.characterTasks){
+			if(task.isDaily()){
+				task.reset();
+			}
+		}
 	}
 
 	private Task getTaskByID(String searchID) {

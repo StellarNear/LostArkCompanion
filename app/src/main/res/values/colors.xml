@@ -16,7 +16,7 @@
     <color name="validation">#0FBD40</color>
     <color name="cancel">#FF0000</color>
 
-    <color name="secondaryTextCustomDialog">@color/gray50</color>
+
 
     <color name="end_gradient_button_ok">#004d00</color>
     <color name="start_gradient_button_ok">#0FBD40</color>
@@ -25,8 +25,6 @@
 
     <color name="start_gradient_button_basic">@android:color/darker_gray</color>
     <color name="end_gradient_button_basic">@color/white</color>
-
-    <color name="colorTextButtonHealthDialog">#000000</color>
 
     <!-- healthbar -->
     <color name="start_gradient_health_bar_underhalf">#ffa366</color>

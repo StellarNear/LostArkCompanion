@@ -10,7 +10,7 @@ public class Expedition {
     private List<Task> expeditionTasks = new ArrayList<>();
     private List<Task> commonCharacterTasks = new ArrayList<>();
 
-    public static List<Character> characters = new ArrayList<>(); //todo inti from settings
+    public List<Character> characters = new ArrayList<>(); //todo inti from settings
 
 
     public Expedition(String name) {
@@ -25,7 +25,15 @@ public class Expedition {
         this.name = name;
     }
 
-    public static List<Character> getCharacters() {
+public List<Task> getExpeditionTasks(){
+	return expeditionTasks;
+}
+
+public List<Task> getCommonCharacterTasks(){
+	return commonCharacterTasks;
+}
+
+    public List<Character> getCharacters() {
         //TODO order by ilvl
         return characters;
     }
@@ -63,10 +71,20 @@ public class Expedition {
         if (task.isCrossAccount()) {
             expeditionTasks.add(task);
         } else {
+			commonCharacterTasks.add(task);
             for (Character c : this.characters) {
                 c.getTasks().add(task);
             }
         }
+    }
+
+	public void deleteTask(Task task) {
+		this.expeditionTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
+
+		for (Character c : this.characters) {
+			c.getTasks().removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
+		}
+
     }
 
 

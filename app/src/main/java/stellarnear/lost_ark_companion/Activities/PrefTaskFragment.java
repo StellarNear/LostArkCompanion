@@ -23,12 +23,13 @@ public class PrefTaskFragment {
         this.mC=mC;
     }
 
-    public void chargeList(PreferenceCategory otherList) {
-        for (final Task task : MainActivity.expedition.getAllTasks()) {
+    public void chargeList(PreferenceCategory listCat,List<Task> list) {
+        for (final Task task : list) {
             Preference pref = new Preference(mC);
             pref.setKey("task_" + task.getName());
             pref.setTitle(task.getName());
-            //todo add all charac
+
+			String txt = task.getOccurance()+" time per "+ task.isDaily()? "day":"week"+ " for "+task.isCrossAccount()?"the expedition":"each character";
             pref.setSummary(txt);
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -53,43 +54,47 @@ public class PrefTaskFragment {
                     return false;
                 }
             });
-            otherList.addPreference(pref);
+            listCat.addPreference(pref);
         }
     }
 
     private void createTask() {
         LayoutInflater inflater = mA.getLayoutInflater();
-        final View creationView = inflater.inflate(R.layout.custom_toast_equipment_creation, null);
-        CustomAlertDialog creationEquipmentAlert = new CustomAlertDialog(mA,mC, creationView);
+        final View creationView = inflater.inflate(R.layout.custom_toast_task_creation, null);
+        CustomAlertDialog creationTaskAlert = new CustomAlertDialog(mA,mC, creationView);
 
 
         creationView.findViewById(R.id.add_skill_create_item);
-        creationEquipmentAlert.setPermanent(true);
-        creationEquipmentAlert.addConfirmButton("Create");
-        creationEquipmentAlert.addCancelButton("Cancel");
-        creationEquipmentAlert.setAcceptEventListener(new CustomAlertDialog.OnAcceptEventListener() {
+        creationTaskAlert.setPermanent(true);
+        creationTaskAlert.addConfirmButton("Create");
+        creationTaskAlert.addCancelButton("Cancel");
+        creationTaskAlert.setAcceptEventListener(new CustomAlertDialog.OnAcceptEventListener() {
             @Override
             public void onEvent() {
-                String name = ((EditText) creationView.findViewById(R.id.name_equipment_creation)).getText().toString();
-                //todo all fields
+                String name = ((EditText) creationView.findViewById(R.id.name_task_creation)).getText().toString();
 
-                Task task = new Taks(name,etc..);
-				//todo check si elle existe
-				if(task already tehre){
-					tools.customToast(neine)
+				bool daily = ((EditText) creationView.findViewById(R.id.daily_creation)).isSelected();
+				bool crossAccount = ((EditText) creationView.findViewById(R.id.cross_account_creation)).isSelected();
+				String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
+				int occurance=Integer.parseInt(occuranceTxt);
+                Task task = new Taks(daily,crossAccount, name, occurance);
+
+				if(!taskAlreadyExist(task)){
+					MainActivity.expedition.createTask(task);
+					ExpeditionManager.saveToDB();
+
+					mListener.onEvent();
+					tools.customToast(mC, task.getName() + " created !");
+				} else {
+					tools.customToast(mC, task.getName() + " already present !");
 				}
 
-				MainActivity.expedition.createTask(task);
-				ExpeditionManager.saveToDB();
-
-                mListener.onEvent();
-                tools.customToast(mC, equi.getName() + " created !");
             }
         });
-        creationEquipmentAlert.showAlert();
+        creationTaskAlert.showAlert();
 
 
-        final EditText editName = ((EditText) creationView.findViewById(R.id.name_equipment_creation));
+        final EditText editName = ((EditText) creationView.findViewById(R.id.name_task_creation));
         editName.post(new Runnable() {
             public void run() {
                 editName.setFocusableInTouchMode(true);
@@ -99,6 +104,20 @@ public class PrefTaskFragment {
             }
         });
     }
+
+	private bool taskAlreadyExist(Task task){
+		for (Task common  : MainActivity.expedition.getCommonCharacterTasks()){
+			if (common.getId().equalsIgnoreCase(task.getId())){
+				return true;
+			}
+		}
+		for (Task t : MainActivity.expedition.getExpeditionTasks()){
+			if (t.getId().equalsIgnoreCase(task.getId())){
+				return true;
+			}
+		}
+		return false;
+	}
 
     public interface OnRefreshEventListener {
         void onEvent();

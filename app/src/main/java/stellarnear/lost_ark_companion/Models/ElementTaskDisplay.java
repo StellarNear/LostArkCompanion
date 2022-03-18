@@ -4,22 +4,26 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 public class ElementTaskDisplay {
+	private Context mC;
+	private Task task;
+	public ElementTaskDisplay(Context mC,Task task){
+		this.mC=mC;
+		this.task=task;
+	}
 
-	public static LinearLayout getTaskElement(final Task task){
-		LinearLayout tempalteTaskElement = inflate.from("task_element");
-		//todo une ressource layout avec un background et dessus un layout Vertical
-		// qui contient en haut un title Textview
-		//et en bas un linear horizontal checkboxes
+	public LinearLayout getTaskElement(final Task task){
+		LayoutInflater inflater = LayoutInflater.from(mC);
+        View templateTaskElement = inflater.inflate(R.layout.task_element,null);
 
 		if(getDrawable(task.getId())!=null){
-			elemetempalteTaskElement.getFieldByID("background").setBackground(getDrawable(task.getId()));
+			templateTaskElement.getFieldByID("task_background").setBackground(getDrawable(task.getId()));
 		//todo un drawable avec background id et le nom dessus
 		}
 
-		TextView text=tempalteTaskElement.getFieldByID("title");
+		TextView text=templateTaskElement.getFieldByID("task_name");
 		text.setText(task.getName());
 
-		LinearLayout checkboxes = tempalteTaskElement.getFieldByID("checkboxes"); //horizontal
+		LinearLayout checkboxes = templateTaskElement.getFieldByID("checkboxes"); //horizontal
 		int nDone=0;
 		for (int i=1;i<= task.getOccurance();i++){
 			final CheckBox box = new CheckBox();
@@ -42,12 +46,27 @@ public class ElementTaskDisplay {
 			box.setOnLongClickListner(new EventListener() {
 				@Override
 				public void handleEvent(Event evt) {
-					//confirmation Es tu sure d'annuler cette complétion ?
-					//on confirm
-					box.setEnable(true);
-					box.setChecked(false);
-					task.cancelOne();
-					ExpeditionManager.saveToDB();
+					//to correct missclick we allow undo on longpress on checkbox
+					//because we know that Bene can panic and do random clicks
+					new AlertDialog.Builder(mC)
+					.setIcon(R.drawable.ic_warning_black_24dp)
+					.setTitle("Undo this ?")
+					.setMessage("Do you really want to undo this completion of "+task.getName()+" ?" )
+					.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							box.setEnable(true);
+							box.setChecked(false);
+							task.cancelOne();
+							ExpeditionManager.saveToDB();
+						}
+					})
+					.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					})
+					.show();
 				}
 
 			});
@@ -56,11 +75,7 @@ public class ElementTaskDisplay {
 			)
 		}
 
-		return tempalteTaskElement;
-	}
-
-	private static Object getDrawable(String id) {
-		return null;
+		return templateTaskElement;
 	}
 
 }

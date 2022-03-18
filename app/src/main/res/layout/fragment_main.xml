@@ -1,220 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frag_main_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
+
     tools:context="stellarnear.lost_ark_companion.Activities.MainActivityFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/general_margin"
-        android:clipChildren="false"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/button_frag_to_ki"
-            android:layout_width="@dimen/size_icon_main_actions"
-            android:layout_height="@dimen/size_icon_main_actions"
-            android:adjustViewBounds="true"
-            android:backgroundTint="@android:color/transparent"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ki"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/textKiActionTooltip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/main_action_ki"
-            android:textSize="@dimen/size_text_main_actions" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:clipChildren="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/button_frag_to_combat"
-            android:layout_width="@dimen/size_icon_main_actions"
-            android:layout_height="@dimen/size_icon_main_actions"
-            android:adjustViewBounds="true"
-            android:backgroundTint="@android:color/transparent"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/combat"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/textCombatActionTooltip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/main_action_combat"
-            android:textSize="@dimen/size_text_main_actions" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/general_margin"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:clipChildren="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/button_frag_to_skill"
-            android:layout_width="@dimen/size_icon_main_actions"
-            android:layout_height="@dimen/size_icon_main_actions"
-            android:adjustViewBounds="true"
-            android:backgroundTint="@android:color/transparent"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/skill"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/textSkillActionTooltip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/main_action_skill"
-            android:textSize="@dimen/size_text_main_actions" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/general_margin"
         android:clipChildren="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/quadrantGeneralTitle"
+        <ScrollView
+            android:id="@+id/characters_grid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/general_margin"
-            android:visibility="gone"
-            android:gravity="center"
-            android:text="@string/quadrantGeneralTitle"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/black" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false">
-            <ViewSwitcher
-                android:id="@+id/viewSwitcherQuadrant"
-                android:clipChildren="false"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="h,1:1"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/general_margin"
-                    android:orientation="vertical"
-                    android:clipChildren="false"
-                    android:weightSum="2">
-
-                    <LinearLayout
-                        android:id="@+id/main_frag_stats_quadrantLine1"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:clipChildren="false"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <LinearLayout
-                            android:id="@+id/main_frag_stats_quadrant1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="@dimen/general_margin"
-                            android:layout_weight="1"
-                            android:visibility="gone"
-                            android:background="@drawable/quadrant_basic_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"/>
-
-                        <LinearLayout
-                            android:id="@+id/main_frag_stats_quadrant2"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="@dimen/general_margin"
-                            android:layout_weight="1"
-                            android:visibility="gone"
-                            android:animateLayoutChanges="true"
-                            android:background="@drawable/quadrant_basic_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/main_frag_stats_quadrantLine2"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:clipChildren="false"
-                        android:orientation="horizontal"
-                        android:weightSum="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
-
-                        <LinearLayout
-                            android:id="@+id/main_frag_stats_quadrant3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="@dimen/general_margin"
-                            android:layout_weight="1"
-                            android:visibility="gone"
-                            android:animateLayoutChanges="true"
-                            android:background="@drawable/quadrant_basic_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"/>
-
-                        <LinearLayout
-                            android:id="@+id/main_frag_stats_quadrant4"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="@dimen/general_margin"
-                            android:layout_weight="1"
-                            android:visibility="gone"
-                            android:animateLayoutChanges="true"
-                            android:background="@drawable/quadrant_basic_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"/>
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-            </ViewSwitcher>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 

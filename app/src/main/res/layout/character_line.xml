@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/relative_char_line"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/general_margin">
+
+	<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/work_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/icon"
+        android:visibility="visible"/>
+    <TextView
+        android:id="@+id/char_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/work_background"
+        android:gravity="center"
+        android:text="NAME"/>
+</RelativeLayout>
+
+
+<FrameLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/chaos_bar_frame"
+android:layout_gravity="center"
+ >
+
+ <ImageView
+ android:id="@+id/chaos_back_bar"
+ android:layout_width="match_parent"
+ android:layout_height="10dp"
+ android:layout_margin="@dimen/general_margin"
+ android:layout_gravity="bottom"
+ android:adjustViewBounds="true"
+ android:src="@color/colorPrimaryDark" />
+
+<ImageView
+	android:id="@+id/chaos_bar"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/general_margin"
+	android:layout_gravity="center"
+	android:adjustViewBounds="true"
+	android:src="@drawable/life_bar_overlay" />
+
+</FrameLayout>
+
+<FrameLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/guardian_bar_frame"
+android:layout_gravity="center"
+ >
+
+ <ImageView
+ android:id="@+id/guardian_back_bar"
+ android:layout_width="match_parent"
+ android:layout_height="10dp"
+ android:layout_margin="@dimen/general_margin"
+ android:layout_gravity="bottom"
+ android:adjustViewBounds="true"
+ android:src="@color/colorPrimaryDark" />
+
+<ImageView
+	android:id="@+id/guardian_bar"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/general_margin"
+	android:layout_gravity="center"
+	android:adjustViewBounds="true"
+	android:src="@drawable/life_bar_overlay" />
+
+</FrameLayout>
+
+
+
+    <LinearLayout
+	android:id="@+id/tasks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/general_margin">
+        </LinearLayout>
+
+</LinearLayout>

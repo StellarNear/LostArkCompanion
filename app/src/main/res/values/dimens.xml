@@ -1,13 +1,7 @@
 <resources>
     <dimen name="general_margin">5dp</dimen>
 
-    <dimen name="custom_toast_icon_size">150dp</dimen>
     <dimen name="divider_pref_height">1dp</dimen>
-    <dimen name="custom_dialog_width">250dp</dimen>
-    <dimen name="custom_dialog_height">450dp</dimen>
-    <dimen name="margin_customDialog_text">12dp</dimen>
-    <dimen name="sizeTextCustomDialogResult">50sp</dimen>
-    <dimen name="margin_healthDialog_text">30dp</dimen>
 
 
 </resources>

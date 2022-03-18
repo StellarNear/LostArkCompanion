@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="@bool/switch_fullscreen_mode_DEF"
+        android:key="switch_fullscreen_mode"
+        android:title="Mode plein écran"
+        android:summary="Display application in full screen"/>
+
+</PreferenceScreen>

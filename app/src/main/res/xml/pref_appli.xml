@@ -18,28 +18,4 @@
         android:icon="@drawable/ic_undo_black_24dp"
         android:title="Reset des paramètres" />
 
-    <PreferenceScreen
-        android:key="pref_appli_refresh"
-        android:summary="Réinitialise des paramètres"
-        android:icon="@drawable/ic_refresh_black_24dp"
-        android:title="Refresh/Reset des paramètres" />
-
-    <PreferenceScreen
-        android:icon="@drawable/ic_file_upload_black_24dp"
-        android:key="import_save"
-        android:summary="Charge les informations"
-        android:title="Charger" />
-
-    <PreferenceScreen
-        android:icon="@drawable/ic_file_download_black_24dp"
-        android:key="export_save"
-        android:summary="Sauvegarde les informations"
-        android:title="Sauvegarder" />
-
-    <PreferenceScreen
-        android:icon="@drawable/ic_baseline_bug_report_24"
-        android:key="send_report"
-        android:summary="Envoi un mail avec le rapport d'erreur"
-        android:title="Rapport d'erreur" />
-
 </PreferenceScreen>

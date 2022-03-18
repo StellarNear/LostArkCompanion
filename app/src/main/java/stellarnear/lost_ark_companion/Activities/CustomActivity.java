@@ -29,7 +29,7 @@ public abstract class CustomActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             doActivity();
         } catch (Exception e) {
-            log.fatal(this, "Error in activity : "+this.getLocalClassName(), e);
+            log.fatal(this, "Error in activity : " + this.getLocalClassName(), e);
         }
     }
 
@@ -41,7 +41,7 @@ public abstract class CustomActivity extends AppCompatActivity {
         try {
             onResumeActivity();
         } catch (Exception e) {
-            log.fatal(this,"Error in activity : "+ this.getLocalClassName(), e);
+            log.fatal(this, "Error in activity : " + this.getLocalClassName(), e);
         }
     }
 
@@ -52,7 +52,7 @@ public abstract class CustomActivity extends AppCompatActivity {
         try {
             onBackPressedActivity();
         } catch (Exception e) {
-            log.fatal(this, "Error in activity : "+this.getLocalClassName(), e);
+            log.fatal(this, "Error in activity : " + this.getLocalClassName(), e);
         }
     }
 
@@ -63,7 +63,7 @@ public abstract class CustomActivity extends AppCompatActivity {
         try {
             onDestroyActivity();
         } catch (Exception e) {
-            log.fatal(this, "Error in activity : "+this.getLocalClassName(), e);
+            log.fatal(this, "Error in activity : " + this.getLocalClassName(), e);
         }
         super.onDestroy();
     }
@@ -79,7 +79,7 @@ public abstract class CustomActivity extends AppCompatActivity {
         try {
             result = onOptionsItemSelectedActivity(item);
         } catch (Exception e) {
-            log.fatal(this, "Error in activity : "+this.getLocalClassName(), e);
+            log.fatal(this, "Error in activity : " + this.getLocalClassName(), e);
         }
 
         return result;
@@ -94,7 +94,7 @@ public abstract class CustomActivity extends AppCompatActivity {
         try {
             onConfigurationChangedActivity();
         } catch (Exception e) {
-            log.fatal(this, "Error in activity : "+this.getLocalClassName(), e);
+            log.fatal(this, "Error in activity : " + this.getLocalClassName(), e);
         }
     }
 

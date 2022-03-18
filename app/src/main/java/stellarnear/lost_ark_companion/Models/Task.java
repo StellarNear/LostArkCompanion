@@ -9,13 +9,13 @@ public class Task {
 	private int currentDone;
 	private String id;
 
-	public Task(boolean daily, boolean crossAccount,String name, int occurance, String id) {
+	public Task(boolean daily, boolean crossAccount,String name, int occurance) {
 		this.daily = daily;
 		this.crossAccount=crossAccount;
 		this.name = name;
 		this.occurance = occurance;
 		this.currentDone=0;
-		this.id = id;
+		this.id = name.replace(" ","_").toLowerCase();
 	}
 
 	public String getId() {

@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        TimeChecker.checkCurrentTime();
+        TimeChecker.getInstance(getApplicationContext()).checkCurrentTime();
+        buildMainPage();
     }
 
     private void startFragment() {
