@@ -12,6 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import stellarnear.lost_ark_companion.Divers.Tools;
+import stellarnear.lost_ark_companion.Models.Expedition;
+import stellarnear.lost_ark_companion.Models.ExpeditionManager;
+import stellarnear.lost_ark_companion.R;
+
 public class SettingsFragment extends CustomPreferenceFragment {
     private Activity mA;
     private Context mC;
@@ -29,7 +34,6 @@ public class SettingsFragment extends CustomPreferenceFragment {
 
     @Override
     protected void onCreateFragment() {
-        settings.registerOnSharedPreferenceChangeListener(listener);
         this.mA = getActivity();
         this.mC = getContext();
         addPreferencesFromResource(R.xml.pref);
@@ -93,7 +97,7 @@ public class SettingsFragment extends CustomPreferenceFragment {
 
     @Override
     protected void onDestroyFragment() {
-        settings.unregisterOnSharedPreferenceChangeListener(listener);
+
     }
 
 
@@ -111,9 +115,9 @@ public class SettingsFragment extends CustomPreferenceFragment {
                     break;
                 case "pref_tasks":
                     PreferenceCategory listExpeTask = (PreferenceCategory) findPreference("expedition_tasks");
-                    prefCharactersFragment.chargeExpeTaskList(listExpeTask);
+                    prefTaskFragment.chargeList(listExpeTask,MainActivity.expedition.getExpeditionTasks());
                     PreferenceCategory listCharTask = (PreferenceCategory) findPreference("character_tasks");
-                    prefCharactersFragment.chargeCharTaskList(listCharTask);
+                    prefTaskFragment.chargeList(listCharTask, MainActivity.expedition.getCommonCharacterTasks());
                     break;
             }
         }
@@ -132,7 +136,7 @@ public class SettingsFragment extends CustomPreferenceFragment {
                 prefInfoScreenFragment.showInfo();
                 break;
             case "create_task":
-                prefTasksFragment.createTask();
+                prefTaskFragment.createTask();
                 break;
             case "create_character":
                 prefCharactersFragment.createCharacter();

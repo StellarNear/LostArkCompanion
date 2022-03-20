@@ -1,4 +1,4 @@
-package stellarnear.aquene_companion.Divers.SettingsFragments;
+package stellarnear.lost_ark_companion.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,14 +12,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import stellarnear.aquene_companion.Activities.MainActivity;
-import stellarnear.aquene_companion.Divers.Tools;
-import stellarnear.aquene_companion.Perso.Perso;
-import stellarnear.aquene_companion.R;
+import stellarnear.lost_ark_companion.Activities.MainActivity;
+import stellarnear.lost_ark_companion.Divers.Tools;
+import stellarnear.lost_ark_companion.R;
 
 public class PrefResetScreenFragment extends Preference {
     private Context mC;
-    private final Perso aquene = MainActivity.aquene;
+
     private View mainView;
 
     public PrefResetScreenFragment(Context context, AttributeSet attrs) {
@@ -52,8 +51,8 @@ public class PrefResetScreenFragment extends Preference {
         mainView.setBackgroundResource(R.drawable.reset_background);
         new AlertDialog.Builder(mC)
                 .setIcon(R.drawable.ic_warning_black_24dp)
-                .setTitle("Remise à zéro des paramètres")
-                .setMessage("Es-tu sûre de vouloir réinitialiser ?")
+                .setTitle("Reset")
+                .setMessage("Do you really want to reset all the data ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -75,13 +74,13 @@ public class PrefResetScreenFragment extends Preference {
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
+                MainActivity.expedition=null;
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mC);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
                 editor.commit();
 
-                aquene.hardReset();
-                tools.customToast(mC, "Remise à zero des paramètres de l'application", "center");
+                tools.customToast(mC, "Reset of the application's data");
                 Intent intent = new Intent(mC, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 mC.startActivity(intent);

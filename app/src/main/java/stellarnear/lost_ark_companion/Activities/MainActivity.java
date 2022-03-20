@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if (expedition == null) {
             Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
-            expedition = ExpeditionManager.getInstance(getApplicationContext()).getExpedition();
-            buildMainPage();
+            expedition = ExpeditionManager.getInstance(getApplicationContext()).initExpeditionFromDB();
         }
     }
 

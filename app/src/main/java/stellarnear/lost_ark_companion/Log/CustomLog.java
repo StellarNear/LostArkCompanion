@@ -71,29 +71,7 @@ public class CustomLog {
     public void fatal(final Activity mA, String msg, Exception e) {
         allLogs.add(new LogMsg(Level.FATAL_ERROR, msg, e));
         Log.e("FATAL_ERROR", msg, e);
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(mA);
-        final EditText edittext = new EditText(mA);
-        edittext.setHint("Commentaire à envoyer");
-        alert.setMessage("Veux tu envoyer un rapport d'erreur ?");
-        alert.setTitle("Erreur fatale détectée");
-        alert.setView(edittext);
-        alert.setIcon(R.drawable.ic_baseline_error_24);
-        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                try {
-                    sendEmail(mA, edittext.getText().toString());
-                } catch (Exception ex) {
-                    tools.customToast(mA, "Erreur lors de l'envoi du mail rapport");
-                }
-            }
-        });
-        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                mA.finishAndRemoveTask();
-            }
-        });
-        alert.show();
+        tools.customToast(mA,"A fatal error occured");
     }
 
 

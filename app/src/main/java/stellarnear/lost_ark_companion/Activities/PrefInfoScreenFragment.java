@@ -1,4 +1,4 @@
-package stellarnear.aquene_companion.Divers.SettingsFragments;
+package stellarnear.lost_ark_companion.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import stellarnear.lost_ark_companion.Activities.CustomAlertDialog;
 import stellarnear.lost_ark_companion.BuildConfig;
 import stellarnear.lost_ark_companion.R;
 

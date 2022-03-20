@@ -9,8 +9,14 @@ import android.preference.PreferenceCategory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import stellarnear.lost_ark_companion.BuildConfig;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Character;
 import stellarnear.lost_ark_companion.Models.ExpeditionManager;
@@ -49,6 +55,8 @@ public class PrefCharacterFragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.expedition.getCharacters().remove(c);
                                     ExpeditionManager.getInstance(mC).saveToDB();
+                                    mListener.onEvent();
+                                    tools.customToast(mC, c.getName() + " deleted !");
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -64,17 +72,15 @@ public class PrefCharacterFragment {
         }
     }
 
-    private void createCharacter() {
+    public void createCharacter() {
         LayoutInflater inflater = mA.getLayoutInflater();
         final View creationView = inflater.inflate(R.layout.custom_toast_character_creation, null);
         CustomAlertDialog creationCharacterAlert = new CustomAlertDialog(mA, mC, creationView);
 
-
-        creationView.findViewById(R.id.add_skill_create_item);
         creationCharacterAlert.setPermanent(true);
         creationCharacterAlert.addConfirmButton("Create");
         creationCharacterAlert.addCancelButton("Cancel");
-        final EditText work = creationView.findViewById(R.id.work_character_creation);
+        final Button work = creationView.findViewById(R.id.work_character_creation);
         work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,8 +93,8 @@ public class PrefCharacterFragment {
             public void onEvent() {
                 String name = ((EditText) creationView.findViewById(R.id.name_character_creation)).getText().toString();
                 String ilvl = ((EditText) creationView.findViewById(R.id.ilvl_character_creation)).getText().toString();
-                String selectedWork = ((EditText) creationView.findViewById(R.id.work_character_creation)).getText().toString();
-                Character c = new Character(name, ilvl, selectedWork);
+                String selectedWork = ((Button) creationView.findViewById(R.id.work_character_creation)).getText().toString();
+                Character c = new Character(name, selectedWork,ilvl);
 
                 if (!charAlreadyExist(c)) {
                     MainActivity.expedition.createCharacter(c);
@@ -116,17 +122,18 @@ public class PrefCharacterFragment {
         });
     }
 
-    private void popupSelectWork(final EditText work) {
+    private void popupSelectWork(final Button work) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mA);
         builder.setTitle("Choose the class");
         // add a radio button list
 
         int checkedItem = -1;
-        final String[] works = {"SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade"};
-        builder.setSingleChoiceItems(works, checkedItem, new DialogInterface.OnClickListener() {
+        final List<String> works = Arrays.asList("SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade","Sorceress");
+        Collections.sort(works);
+        builder.setSingleChoiceItems((String[])works.toArray(), checkedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                work.setText(works[which]);
+                work.setText(works.get(which));
             }
         });
 

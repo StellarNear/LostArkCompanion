@@ -3,14 +3,14 @@
     <!-- These settings pref are only used on tablets. -->
 
     <PreferenceScreen
-        android:key="pref_character"
-        android:icon="@drawable/ic_person_black_24dp"
+        android:key="pref_characters"
+        android:icon="@drawable/ic_baseline_people_24"
         android:title="Roaster"
         android:summary="Characters's list"/>
 
     <PreferenceScreen
         android:key="pref_tasks"
-        android:icon="@drawable/ic_embrassed_energy"
+        android:icon="@drawable/ic_baseline_check_24"
         android:title="Tasks"
         android:summary="Tasks's list"/>
 

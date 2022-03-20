@@ -9,6 +9,7 @@ public class ExpeditionManager {
 
     private static ExpeditionManager instance = null;
     private final Context mC;
+    private Expedition expedition = null;
 
     public ExpeditionManager(Context mC) {
         this.mC = mC;
@@ -22,23 +23,26 @@ public class ExpeditionManager {
     }
 
 
-    public Expedition getExpedition() {
-        Expedition expeSaved = loadFromDB();
-        if (expeSaved != null) {
-            return expeSaved;
-        } else {
-            return new Expedition("Calvasus");
+    public Expedition initExpeditionFromDB() {
+        try {
+            expedition = loadFromDB();
+        } catch (Exception e) {
+            expedition = new Expedition("Calvasus");
         }
+        if (expedition == null) {
+            expedition = new Expedition("Calvasus");
+        }
+        return this.expedition;
     }
 
-    public Expedition loadFromDB() {
+    private Expedition loadFromDB() {
         TinyDB tinyDB = new TinyDB(mC);
-        Expedition expedition = tinyDB.getObject("save_expedition", Expedition.class);
+        Expedition expedition = tinyDB.getExpedition("save_expedition");
         return expedition;
     }
 
     public void saveToDB() {
         TinyDB tinyDB = new TinyDB(mC);
-        tinyDB.putObject("save_expedition", MainActivity.expedition);
+        tinyDB.putExpedition("save_expedition", MainActivity.expedition);
     }
 }

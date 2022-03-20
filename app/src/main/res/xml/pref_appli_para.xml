@@ -2,7 +2,13 @@
     <SwitchPreference
         android:defaultValue="@bool/switch_fullscreen_mode_DEF"
         android:key="switch_fullscreen_mode"
-        android:title="Mode plein écran"
+        android:title="FullScreen"
         android:summary="Display application in full screen"/>
+
+    <SwitchPreference
+        android:defaultValue="@bool/test_mode_DEF"
+        android:key="test_mode"
+        android:title="Test mode"
+        android:summary="Allow button to pass days (for testing)"/>
 
 </PreferenceScreen>

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#bd3e1e</color>
     <color name="colorPrimaryDark">#822616</color>
     <color name="textColorPrimary">#FFFFFF</color>
+
     <color name="colorBackground">#f5f5dc</color>
     <color name="colorAccent">#FF4081</color>
     <color name="transparent">#00000000</color>
@@ -12,6 +13,8 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="gold">#FFD700</color>
+    <color name="gold_light">#fff7cc</color>
 
     <color name="validation">#0FBD40</color>
     <color name="cancel">#FF0000</color>
@@ -40,6 +43,8 @@
     <color name="information_light">#d4e9ff</color>
     <color name="back_gif_player">#d3d3d5</color>
 
+    <color name="frament_text_color">#1B1B1B</color>
+    <color name="work_symbol">#676767</color>
 
 
 </resources>

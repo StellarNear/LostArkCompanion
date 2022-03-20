@@ -2,6 +2,7 @@ package stellarnear.lost_ark_companion.Divers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.Gravity;
@@ -88,15 +89,14 @@ public class Tools {
     }
 
 
-    public void customToast(Context mC, String txt, String... modeInput) {
+    public void customToast(Context mC, String txt) {
         // Set the toast and duration
-        String mode = modeInput.length > 0 ? modeInput[0] : "";
+
         Toast mToastToShow = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
 
-        if (mode.contains("center")) {
-            TextView v = mToastToShow.getView().findViewById(android.R.id.message);
-            if (v != null) v.setGravity(Gravity.CENTER);
-        }
+        TextView v = mToastToShow.getView().findViewById(android.R.id.message);
+        if (v != null) v.setGravity(Gravity.CENTER);
+
         mToastToShow.setGravity(Gravity.CENTER, 0, 0);
         mToastToShow.show();
 
@@ -121,6 +121,18 @@ public class Tools {
         });
         video.start();
         customVideo.showAlert();
+    }
+
+    public Drawable getDrawable(Context mC,String id){
+        Drawable draw=null;
+        int imgId = mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
+        if (imgId != 0) {
+            try{
+                draw= mC.getDrawable(imgId);
+            } catch (Exception e){
+            }
+        }
+        return  draw;
     }
 
 

@@ -4,6 +4,7 @@
     <!-- Parametres -->
     <bool name="switch_fullscreen_mode_DEF">true</bool>
     <bool name="switch_autoclose_dialog_DEF">true</bool>
+    <bool name="test_mode_DEF">false</bool>
 
 
 </resources>

@@ -3,7 +3,7 @@ package stellarnear.lost_ark_companion.Models;
 public class Task {
 
     private boolean daily;
-    private boolean corssAccount;
+    private boolean crossAccount;
     private String name;
     private int occurance;
     private int currentDone;
@@ -22,16 +22,8 @@ public class Task {
         return id;
     }
 
-    public void setIconId(String iconId) {
-        this.id = iconId;
-    }
-
     public int getOccurance() {
         return occurance;
-    }
-
-    public void setOccurance(int occurance) {
-        this.occurance = occurance;
     }
 
     public String getName() {
@@ -50,10 +42,6 @@ public class Task {
         return daily;
     }
 
-    public void setDaily(boolean daily) {
-        this.daily = daily;
-        ExpeditionManager.saveToDB();
-    }
 
     public int getCurrentDone() {
         return this.currentDone;

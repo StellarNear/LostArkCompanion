@@ -31,6 +31,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,6 +39,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+
+import stellarnear.lost_ark_companion.Models.Expedition;
 
 
 public class TinyDB {
@@ -569,6 +572,21 @@ public class TinyDB {
         checkForNullKey(key);
         Gson gson = new Gson();
         putString(key, gson.toJson(obj));
+    }
+
+
+    public void putExpedition(String key, Expedition expedition) {
+        checkForNullKey(key);
+
+        Gson gson = new Gson();
+        putString(key, gson.toJson(expedition));
+    }
+
+    public Expedition getExpedition(String key) {
+        Gson gson = new Gson();
+        String objString = getString(key);
+        Expedition expe = gson.fromJson(objString, Expedition.class);
+        return expe;
     }
 
 }

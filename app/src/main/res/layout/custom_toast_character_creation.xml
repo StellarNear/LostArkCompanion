@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:minWidth="300dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_border_creation_item"
+    android:background="@drawable/background_border_creation"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/general_margin">
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Création d'objet"
+            android:text="Character creation"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/black" />
 
@@ -38,7 +38,7 @@
         <EditText
             android:id="@+id/name_character_creation"
             android:layout_width="wrap_content"
-            android:hint="Nom de l'objet"
+            android:hint="Character name"
             android:inputType="text"
             android:layout_height="wrap_content" />
 
@@ -49,96 +49,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <EditText
+        <Button
             android:id="@+id/work_character_creation"
-            android:hint="Character class"
-            android:inputType="textMultiLine"
+            android:text="Choose Character Class"
+            android:textIsSelectable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-
-        <EditText
-            android:id="@+id/armor_item_creation"
-            android:hint="Valeur d'armure"
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_marginEnd="@dimen/general_margin">
-
-                <LinearLayout
-                    android:id="@+id/add_ability_create_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add_circle_outline_green_24dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Statistique"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/list_added_ability_create_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    />
-            </LinearLayout>
-            <LinearLayout
-
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/general_margin">
-                <LinearLayout
-                    android:id="@+id/add_skill_create_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_add_circle_outline_green_24dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="false"
-                    android:text="Compétence"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/list_added_skill_create_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    />
-            </LinearLayout>
-        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

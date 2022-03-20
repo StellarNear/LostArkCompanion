@@ -10,13 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RadioButton;
+
+import java.util.List;
+
+import stellarnear.lost_ark_companion.Divers.Tools;
+import stellarnear.lost_ark_companion.Models.ExpeditionManager;
+import stellarnear.lost_ark_companion.Models.Task;
+import stellarnear.lost_ark_companion.R;
 
 
 public class PrefTaskFragment {
 
-    private final Activity mA;
-    private final Context mC;
-    private final Tools tools = Tools.getTools();
+    private Activity mA;
+    private Context mC;
+    private Tools tools = Tools.getTools();
+    private OnRefreshEventListener mListener;
 
     public PrefTaskFragment(Activity mA, Context mC) {
         this.mA = mA;
@@ -29,7 +38,7 @@ public class PrefTaskFragment {
             pref.setKey("task_" + task.getName());
             pref.setTitle(task.getName());
 
-            String txt = task.getOccurance() + " time per " + task.isDaily() ? "day" : "week" + " for " + task.isCrossAccount() ? "the expedition" : "each character";
+            String txt = task.getOccurance() + " time per " + (task.isDaily() ? "day" : "week") + " for " + (task.isCrossAccount() ? "the expedition" : "each character");
             pref.setSummary(txt);
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -41,8 +50,15 @@ public class PrefTaskFragment {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    MainActivity.expedition.deleteTask(task);
-                                    ExpeditionManager.saveToDB();
+                                    if(task.getId().equalsIgnoreCase("chaos_dungeon")|| task.getId().equalsIgnoreCase("guardian_raid")){
+                                        tools.customToast(mC, task.getName() + " can't be deleted (Chaos and Guardians are baseline) !");
+                                    } else {
+                                        MainActivity.expedition.deleteTask(task);
+                                        ExpeditionManager.getInstance(mC).saveToDB();
+                                        mListener.onEvent();
+                                        tools.customToast(mC, task.getName() + " deleted !");
+                                    }
+
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -58,13 +74,11 @@ public class PrefTaskFragment {
         }
     }
 
-    private void createTask() {
+    public void createTask() {
         LayoutInflater inflater = mA.getLayoutInflater();
         final View creationView = inflater.inflate(R.layout.custom_toast_task_creation, null);
         CustomAlertDialog creationTaskAlert = new CustomAlertDialog(mA, mC, creationView);
 
-
-        creationView.findViewById(R.id.add_skill_create_item);
         creationTaskAlert.setPermanent(true);
         creationTaskAlert.addConfirmButton("Create");
         creationTaskAlert.addCancelButton("Cancel");
@@ -72,16 +86,17 @@ public class PrefTaskFragment {
             @Override
             public void onEvent() {
                 String name = ((EditText) creationView.findViewById(R.id.name_task_creation)).getText().toString();
+                creationView.findViewById(R.id.daily_creation).isSelected();
 
-                bool daily = creationView.findViewById(R.id.daily_creation).isSelected();
-                bool crossAccount = creationView.findViewById(R.id.cross_account_creation).isSelected();
+                boolean daily = ((RadioButton) creationView.findViewById(R.id.daily_creation)).isChecked();
+                boolean crossAccount = ((RadioButton)creationView.findViewById(R.id.cross_account_creation)).isChecked();
                 String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
                 int occurance = Integer.parseInt(occuranceTxt);
-                Task task = new Taks(daily, crossAccount, name, occurance);
+                Task task = new Task(daily, crossAccount, name, occurance);
 
                 if (!taskAlreadyExist(task)) {
                     MainActivity.expedition.createTask(task);
-                    ExpeditionManager.saveToDB();
+                    ExpeditionManager.getInstance(mC).saveToDB();
 
                     mListener.onEvent();
                     tools.customToast(mC, task.getName() + " created !");
@@ -94,7 +109,7 @@ public class PrefTaskFragment {
         creationTaskAlert.showAlert();
 
 
-        final EditText editName = creationView.findViewById(R.id.name_task_creation);
+        final EditText editName = ((EditText) creationView.findViewById(R.id.name_task_creation));
         editName.post(new Runnable() {
             public void run() {
                 editName.setFocusableInTouchMode(true);
@@ -105,7 +120,7 @@ public class PrefTaskFragment {
         });
     }
 
-    private bool taskAlreadyExist(Task task) {
+    private boolean taskAlreadyExist(Task task) {
         for (Task common : MainActivity.expedition.getCommonCharacterTasks()) {
             if (common.getId().equalsIgnoreCase(task.getId())) {
                 return true;
@@ -119,11 +134,11 @@ public class PrefTaskFragment {
         return false;
     }
 
-    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
-        mListener = eventListener;
-    }
-
     public interface OnRefreshEventListener {
         void onEvent();
+    }
+
+    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
+        mListener = eventListener;
     }
 }

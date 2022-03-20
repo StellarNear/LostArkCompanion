@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <stellarnear.lost_ark_companion.Divers.SettingsFragments.PrefResetScreenFragment android:key="null" />
+    <stellarnear.lost_ark_companion.Activities.PrefResetScreenFragment android:key="null" />
 
 </PreferenceScreen>

@@ -7,12 +7,15 @@ public class Expedition {
 
     public List<Character> characters = new ArrayList<>(); //todo inti from settings
     private String name;
-    private final List<Task> expeditionTasks = new ArrayList<>();
-    private final List<Task> commonCharacterTasks = new ArrayList<>();
+    private List<Task> expeditionTasks = new ArrayList<>();
+    private List<Task> commonCharacterTasks = new ArrayList<>();
+    private String storedDate="";
 
 
     public Expedition(String name) {
         this.setName(name);
+        this.commonCharacterTasks.add(new Task(true,false,"Chaos Dungeon",2));
+        this.commonCharacterTasks.add(new Task(true,false,"Guardian Raid",2));
     }
 
     public String getName() {
@@ -42,20 +45,19 @@ public class Expedition {
                 task.reset();
             }
         }
-        for (Character character : Expedition.getCharacters()) {
+        for (Character character : this.characters) {
             character.computeResetDaily();
         }
-        ExpeditionManager.saveToDB();
-    }
 
-    private void saveExpedition() {
     }
 
     public void resetWeekly() {
         for (Task task : this.expeditionTasks) {
             task.reset();
         }
-        resetDaily();
+        for (Character c : this.characters) {
+            c.resetWeekly();
+        }
     }
 
 
@@ -78,6 +80,7 @@ public class Expedition {
 
     public void deleteTask(Task task) {
         this.expeditionTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
+        this.commonCharacterTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
 
         for (Character c : this.characters) {
             c.getTasks().removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
@@ -86,4 +89,11 @@ public class Expedition {
     }
 
 
+    public String getStoredDate() {
+        return storedDate;
+    }
+
+    public void setStoredDate(String storedDate) {
+        this.storedDate = storedDate;
+    }
 }
