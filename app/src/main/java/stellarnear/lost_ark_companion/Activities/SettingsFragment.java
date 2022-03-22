@@ -13,21 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
-import stellarnear.lost_ark_companion.Models.Expedition;
-import stellarnear.lost_ark_companion.Models.ExpeditionManager;
 import stellarnear.lost_ark_companion.R;
 
 public class SettingsFragment extends CustomPreferenceFragment {
-    private Activity mA;
-    private Context mC;
     private final List<String> histoPrefKeys = new ArrayList<>();
     private final List<String> histoTitle = new ArrayList<>();
-
+    private final Tools tools = Tools.getTools();
+    private Activity mA;
+    private Context mC;
     private String currentPageKey;
     private String currentPageTitle;
-
-    private final Tools tools = Tools.getTools();
-
     private PrefInfoScreenFragment prefInfoScreenFragment;
     private PrefCharacterFragment prefCharactersFragment;
     private PrefTaskFragment prefTaskFragment;
@@ -115,7 +110,7 @@ public class SettingsFragment extends CustomPreferenceFragment {
                     break;
                 case "pref_tasks":
                     PreferenceCategory listExpeTask = (PreferenceCategory) findPreference("expedition_tasks");
-                    prefTaskFragment.chargeList(listExpeTask,MainActivity.expedition.getExpeditionTasks());
+                    prefTaskFragment.chargeList(listExpeTask, MainActivity.expedition.getExpeditionTasks());
                     PreferenceCategory listCharTask = (PreferenceCategory) findPreference("character_tasks");
                     prefTaskFragment.chargeList(listCharTask, MainActivity.expedition.getCommonCharacterTasks());
                     break;

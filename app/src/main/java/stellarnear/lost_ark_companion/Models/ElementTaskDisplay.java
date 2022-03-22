@@ -10,12 +10,15 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import stellarnear.lost_ark_companion.Activities.PrefCharacterFragment;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.R;
 
 public class ElementTaskDisplay {
     private final Context mC;
     private Tools tools = Tools.getTools();
+    private static OnRefreshEventListener mListener;
+
     public ElementTaskDisplay(Context mC) {
         this.mC = mC;
     }
@@ -23,18 +26,11 @@ public class ElementTaskDisplay {
     public View getTaskElement(final Task task) {
         LayoutInflater inflater = LayoutInflater.from(mC);
         View templateTaskElement = inflater.inflate(R.layout.task_element, null);
-
-
-            templateTaskElement.findViewById(R.id.task_background).setBackground(tools.getDrawable(mC,task.getId()+"_ico"));
-
-
+        templateTaskElement.findViewById(R.id.task_background).setBackground(tools.getDrawable(mC, task.getId() + "_ico"));
         TextView text = templateTaskElement.findViewById(R.id.task_name);
         text.setText(task.getName());
-
         LinearLayout checkboxes = templateTaskElement.findViewById(R.id.checkboxes_tasks); //horizontal
-
         buildCheckBoxList(checkboxes, task);
-
 
         return templateTaskElement;
     }
@@ -44,17 +40,16 @@ public class ElementTaskDisplay {
         checkboxes.removeAllViews();
         for (int i = 1; i <= task.getOccurance(); i++) {
             final CheckBox box = new CheckBox(mC);
-            if (nDone < task.getCurrentDone()){
+            if (nDone < task.getCurrentDone()) {
                 box.setChecked(true);
                 nDone++;
             }
-            checkboxes.addView(box,0);
+            checkboxes.addView(box, 0);
 
             box.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    if(!box.isChecked()){
+                    if (!box.isChecked()) {
                         new AlertDialog.Builder(mC)
                                 .setIcon(R.drawable.ic_warning_black_24dp)
                                 .setTitle("Undo this ?")
@@ -64,7 +59,7 @@ public class ElementTaskDisplay {
                                     public void onClick(DialogInterface dialog, int which) {
                                         task.cancelOne();
                                         ExpeditionManager.getInstance(mC).saveToDB();
-                                        buildCheckBoxList(checkboxes,task);
+                                        buildCheckBoxList(checkboxes, task);
                                     }
                                 })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -77,9 +72,10 @@ public class ElementTaskDisplay {
                     } else {
                         task.addDone();
                         ExpeditionManager.getInstance(mC).saveToDB();
+                        if(mListener!=null){
+                            mListener.onEvent();
+                        }
                     }
-
-
 
 
                 }
@@ -87,8 +83,11 @@ public class ElementTaskDisplay {
         }
     }
 
-    private Drawable getDrawable(String id) {
-        return null;
+    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
+        mListener = eventListener;
     }
 
+    public interface OnRefreshEventListener {
+        void onEvent();
+    }
 }

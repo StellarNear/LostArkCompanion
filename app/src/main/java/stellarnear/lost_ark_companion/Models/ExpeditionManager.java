@@ -2,6 +2,8 @@ package stellarnear.lost_ark_companion.Models;
 
 import android.content.Context;
 
+import java.time.LocalDateTime;
+
 import stellarnear.lost_ark_companion.Activities.MainActivity;
 import stellarnear.lost_ark_companion.Divers.TinyDB;
 
@@ -28,9 +30,13 @@ public class ExpeditionManager {
             expedition = loadFromDB();
         } catch (Exception e) {
             expedition = new Expedition("Calvasus");
+            expedition.setStoredDate(LocalDateTime.now());
+            saveToDB();
         }
         if (expedition == null) {
             expedition = new Expedition("Calvasus");
+            expedition.setStoredDate(LocalDateTime.now());
+            saveToDB();
         }
         return this.expedition;
     }

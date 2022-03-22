@@ -8,6 +8,7 @@ public class Task {
     private int occurance;
     private int currentDone;
     private String id;
+    private int rest=0;
 
     public Task(boolean daily, boolean crossAccount, String name, int occurance) {
         this.daily = daily;
@@ -16,6 +17,15 @@ public class Task {
         this.occurance = occurance;
         this.currentDone = 0;
         this.id = name.replace(" ", "_").toLowerCase();
+    }
+
+    public Task(Task another) {
+        this.daily = another.daily;
+        this.crossAccount = another.crossAccount;
+        this.name = another.name;
+        this.occurance = another.occurance;
+        this.currentDone = 0;
+        this.id = another.name.replace(" ", "_").toLowerCase();
     }
 
     public String getId() {
@@ -49,12 +59,22 @@ public class Task {
 
     public void addDone() {
         this.currentDone++;
+        if(this.rest>=20){
+            this.rest-=20;
+            if(this.rest<0){
+                this.rest=0;
+            }
+        }
         if (this.currentDone > this.occurance) {
             this.currentDone = this.occurance;
         }
     }
 
     public void reset() {
+        this.rest += (this.occurance - this.currentDone) * 10;
+        if(this.rest>100){
+            this.rest=100;
+        }
         this.currentDone = 0;
     }
 
@@ -65,5 +85,11 @@ public class Task {
         }
     }
 
+    public int getRest() {
+        return rest;
+    }
 
+    public void setRest(int rest) {
+        this.rest = rest;
+    }
 }

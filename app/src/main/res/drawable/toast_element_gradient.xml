@@ -2,16 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <gradient
-                android:type="linear"
-                android:angle="270"
-                android:startColor="@color/white"
-                android:endColor="@color/information_light" />
+            <gradient android:angle="270" android:endColor="@color/information_light" android:startColor="@color/white" android:type="linear" />
 
-            <corners android:radius="20dp"/>
-            <stroke
-                android:width="3dp"
-                android:color="@android:color/transparent" />
+            <corners android:radius="20dp" />
+            <stroke android:width="3dp" android:color="@android:color/transparent" />
         </shape>
     </item>
 

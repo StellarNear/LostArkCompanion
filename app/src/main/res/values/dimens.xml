@@ -6,6 +6,9 @@
     <dimen name="icon_task">25dp</dimen>
     <dimen name="inner_task_padding">1dp</dimen>
     <dimen name="character_line_padding">1dp</dimen>
+    <dimen name="logo_section">30dp</dimen>
+    <dimen name="height_titles_section">40dp</dimen>
+    <dimen name="splash_logo">200dp</dimen>
 
 
 </resources>

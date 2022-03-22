@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Character;
@@ -26,8 +24,9 @@ import stellarnear.lost_ark_companion.R;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-    View returnFragView;
-    private Tools tools=Tools.getTools();
+    private View returnFragView;
+    private SharedPreferences settings;
+    private Tools tools = Tools.getTools();
 
     public MainActivityFragment() {
     }
@@ -39,19 +38,19 @@ public class MainActivityFragment extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
-
         returnFragView = inflater.inflate(R.layout.fragment_main, container, false);
+        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-	    buildFrag();
+        buildFrag();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if(settings.getBoolean("test_mode", getContext().getResources().getBoolean(R.bool.test_mode_DEF))){
+        if (settings.getBoolean("test_mode", getContext().getResources().getBoolean(R.bool.test_mode_DEF))) {
             returnFragView.findViewById(R.id.fake_test).setVisibility(View.VISIBLE);
             ((Button) returnFragView.findViewById(R.id.test_pass_day)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     TimeChecker.getInstance(getContext()).cheatPassDay(1);
-                    tools.customToast(getContext(),"Passing one day...");
+                    tools.customToast(getContext(), "Passing one day...");
                     buildFrag();
                 }
             });
@@ -59,8 +58,17 @@ public class MainActivityFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     TimeChecker.getInstance(getContext()).cheatPassDay(2);
-                    tools.customToast(getContext(),"Passing two day...");
+                    tools.customToast(getContext(), "Passing two day...");
                     buildFrag();
+                }
+            });
+            ((Button) returnFragView.findViewById(R.id.test_check_time)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tools.customToast(getContext(), "checking time...");
+                    if (TimeChecker.getInstance(getContext()).checkCurrentTime()) {
+                        buildFrag();
+                    }
                 }
             });
         } else {
@@ -70,27 +78,49 @@ public class MainActivityFragment extends Fragment {
         return returnFragView;
     }
 
-    private void buildFrag() {
+    public void buildFrag() {
         LinearLayout expeLine = returnFragView.findViewById(R.id.expe_tasks);
         ElementTaskDisplay elementLiner = new ElementTaskDisplay(getContext());
+        elementLiner.setRefreshEventListener(new ElementTaskDisplay.OnRefreshEventListener() {
+            @Override
+            public void onEvent() {
+                buildFrag();
+            }
+        });
 
         expeLine.removeAllViews();
-        for(Task task : MainActivity.expedition.getExpeditionTasks()){
-            expeLine.addView(elementLiner.getTaskElement(task));
+        for (Task task : MainActivity.expedition.getExpeditionTasks()) {
+            View elementTask = elementLiner.getTaskElement(task);
+            elementTask.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+            expeLine.addView(elementTask);
         }
 
         LinearLayout grid = returnFragView.findViewById(R.id.characters_grid);
-        int delay = 500;
-        OneLineDisplayCharacter oneLiner = new OneLineDisplayCharacter(getContext());
-        grid.removeAllViews();
-        for (Character c : MainActivity.expedition.getCharacters()) {
-            View line = oneLiner.getOneLine(c);
-            grid.addView(line);
-            Animation right = AnimationUtils.loadAnimation(getContext(), R.anim.infromright);
-            right.setStartOffset(delay);
-            line.startAnimation(right);
-            delay += 500;
-        }
+        grid.post(new Runnable() {
+            @Override
+            public void run() {
+                int delay = 50;
+                OneLineDisplayCharacter oneLiner = new OneLineDisplayCharacter(getContext());
+                oneLiner.setRefreshEventListener(new ElementTaskDisplay.OnRefreshEventListener() {
+                    @Override
+                    public void onEvent() {
+                        buildFrag();
+                    }
+                });
+                grid.removeAllViews();
+                for (Character c : MainActivity.expedition.getCharacters()) {
+                    View line = oneLiner.getOneLine(c);
+                    grid.addView(line);
+
+                    Animation right = AnimationUtils.loadAnimation(getContext(), R.anim.infromright);
+                    right.setStartOffset(delay);
+                    line.startAnimation(right);
+                    delay += 500;
+
+                }
+            }
+        });
+
     }
 
 }

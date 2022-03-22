@@ -3,20 +3,28 @@
 
 
     <PreferenceScreen
-        android:key="create_task"
         android:icon="@drawable/ic_add_circle_outline_green_24dp"
+        android:key="create_task"
         android:title="Create a task" />
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
     <PreferenceCategory
         android:key="expedition_tasks"
         android:title="Expedition tasks">
-        <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
     </PreferenceCategory>
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
     <PreferenceCategory
         android:key="character_tasks"
         android:title="Characters tasks">
-        <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
     </PreferenceCategory>
 
 

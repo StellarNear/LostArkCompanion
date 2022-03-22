@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"3h"</string>
+    <string name="time_spend">"17h"</string>
     <string name="basic_infos">"Custom application to monitor advancement of task on Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 V0:

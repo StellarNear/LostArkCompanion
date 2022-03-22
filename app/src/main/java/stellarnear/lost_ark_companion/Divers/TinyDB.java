@@ -31,7 +31,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;

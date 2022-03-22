@@ -28,71 +28,105 @@
             android:visibility="visible" />
         <!--  android:src="null"-->
 
-
-        <TextView
-            android:id="@+id/char_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:textColor="@color/frament_text_color"
-            android:text="NAME" />
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/char_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME"
+                android:textColor="@color/frament_text_color"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/ilvl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/general_margin"
+                android:gravity="center"
+                android:text="(ILVL)"
+                android:textColor="@color/frament_text_color"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="@dimen/icon_task"
+            android:layout_height="@dimen/icon_task"
+            android:layout_margin="@dimen/general_margin"
+            android:src="@drawable/chaos_dungeon_ico" />
+
+        <FrameLayout
+            android:id="@+id/chaos_bar_frame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/chaos_back_bar"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:src="@color/transparent" />
+
+            <ImageView
+                android:id="@+id/chaos_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/bar_overlay" />
+
+        </FrameLayout>
     </LinearLayout>
 
 
-    <FrameLayout
-        android:id="@+id/chaos_bar_frame"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/chaos_back_bar"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_gravity="bottom"
+            android:layout_width="@dimen/icon_task"
+            android:layout_height="@dimen/icon_task"
             android:layout_margin="@dimen/general_margin"
-            android:src="@color/colorPrimaryDark" />
+            android:src="@drawable/guardian_raid_ico" />
 
-        <ImageView
-            android:id="@+id/chaos_bar"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:id="@+id/guardian_bar_frame"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/general_margin"
-            android:adjustViewBounds="true"
-            android:src="@drawable/bar_overlay" />
+            android:layout_weight="1">
 
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/guardian_back_bar"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:adjustViewBounds="true"
+                android:src="@color/transparent" />
 
-    <FrameLayout
-        android:id="@+id/guardian_bar_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/guardian_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/bar_overlay" />
 
-        <ImageView
-            android:id="@+id/guardian_back_bar"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_gravity="bottom"
-            android:adjustViewBounds="true"
-            android:layout_margin="@dimen/general_margin"
-            android:src="@color/colorPrimaryDark" />
+        </FrameLayout>
 
-        <ImageView
-            android:id="@+id/guardian_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/general_margin"
-            android:adjustViewBounds="true"
-            android:src="@drawable/bar_overlay" />
-
-    </FrameLayout>
-
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/tasks_list_one_line_char"
@@ -101,6 +135,6 @@
         android:clipChildren="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="@dimen/general_margin"/>
+        android:padding="@dimen/general_margin" />
 
 </LinearLayout>

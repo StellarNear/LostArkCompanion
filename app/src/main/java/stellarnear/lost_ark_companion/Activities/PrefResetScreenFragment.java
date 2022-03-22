@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import stellarnear.lost_ark_companion.Activities.MainActivity;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.R;
 
@@ -74,7 +73,7 @@ public class PrefResetScreenFragment extends Preference {
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
-                MainActivity.expedition=null;
+                MainActivity.expedition = null;
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mC);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();

@@ -19,15 +19,15 @@ import stellarnear.lost_ark_companion.R;
 
 public class CustomAlertDialog {
     private final AlertDialog.Builder dialogBuilder;
-    private AlertDialog alert;
     private final Activity mA;
     private final Context mC;
+    private final Tools tools = Tools.getTools();
+    private AlertDialog alert;
     private boolean permanent = false;
     private boolean positiveButton = false;
     private boolean cancelButton = false;
     private String mode = "";
     private OnAcceptEventListener mListener;
-    private final Tools tools = Tools.getTools();
 
     public CustomAlertDialog(Activity mA, Context mC, View view) {
         // Set the toast and duration

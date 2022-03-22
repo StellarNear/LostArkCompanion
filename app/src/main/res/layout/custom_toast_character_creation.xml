@@ -3,10 +3,10 @@
 
     android:id="@+id/toast_relativeLayout_character_creation"
     android:layout_width="wrap_content"
-    android:minWidth="300dp"
     android:layout_height="wrap_content"
     android:background="@drawable/background_border_creation"
     android:gravity="center"
+    android:minWidth="300dp"
     android:orientation="vertical"
     android:padding="@dimen/general_margin">
 
@@ -38,23 +38,23 @@
         <EditText
             android:id="@+id/name_character_creation"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="Character name"
-            android:inputType="text"
-            android:layout_height="wrap_content" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/ilvl_character_creation"
-            android:hint="Item level"
-            android:inputType="number"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Item level"
+            android:inputType="number" />
 
         <Button
             android:id="@+id/work_character_creation"
-            android:text="Choose Character Class"
-            android:textIsSelectable="false"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Choose Character Class"
+            android:textIsSelectable="false" />
 
 
     </LinearLayout>

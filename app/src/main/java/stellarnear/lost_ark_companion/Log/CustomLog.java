@@ -2,16 +2,13 @@ package stellarnear.lost_ark_companion.Log;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.EditText;
 
 import androidx.core.content.FileProvider;
 
@@ -28,7 +25,6 @@ import java.util.Set;
 
 import stellarnear.lost_ark_companion.BuildConfig;
 import stellarnear.lost_ark_companion.Divers.Tools;
-import stellarnear.lost_ark_companion.R;
 
 public class CustomLog {
     private static final Set<LogMsg> allLogs = new LinkedHashSet<>();
@@ -71,7 +67,7 @@ public class CustomLog {
     public void fatal(final Activity mA, String msg, Exception e) {
         allLogs.add(new LogMsg(Level.FATAL_ERROR, msg, e));
         Log.e("FATAL_ERROR", msg, e);
-        tools.customToast(mA,"A fatal error occured");
+        tools.customToast(mA, "A fatal error occured");
     }
 
 

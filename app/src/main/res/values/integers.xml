@@ -3,4 +3,6 @@
 
 
     <integer name="custom_alert_long_duration_DEF">10000</integer>
+
+    <integer name="checktimer_delay_DEF">3</integer>
 </resources>

@@ -9,8 +9,6 @@ public class Character {
     private String name;
     private String work;
     private Integer ilvl;
-    private int restGuardian;
-    private int restChaos;
     private String id;
     private String workId;
 
@@ -18,12 +16,10 @@ public class Character {
 
     private List<Task> characterTasks = new ArrayList<>();
 
-    public Character(String name, String work, String ilvl) {
+    public Character(String name, String work, int ilvl) {
         this.setName(name);
         this.setWork(work);
-        this.setIlvl(Integer.parseInt(ilvl));
-        this.setRestGuardian(0);
-        this.setRestChaos(0);
+        this.setIlvl(ilvl);
         this.setId(name.replace(" ", "_").toLowerCase());
         this.setWorkId(work.replace(" ", "_").toLowerCase());
     }
@@ -53,22 +49,6 @@ public class Character {
         this.work = work;
     }
 
-    public int getRestChaos() {
-        return restChaos;
-    }
-
-    public void setRestChaos(int restChaos) {
-        this.restChaos = restChaos;
-    }
-
-    public int getRestGuardian() {
-        return restGuardian;
-    }
-
-    public void setRestGuardian(int restGuardian) {
-        this.restGuardian = restGuardian;
-    }
-
     public int getIlvl() {
         return ilvl;
     }
@@ -87,14 +67,6 @@ public class Character {
 
     public void computeResetDaily() {
 
-        try{
-            this.restChaos += (2 - getTaskByID("chaos_dungeon").getCurrentDone()) * 10;
-            this.restGuardian += (2 - getTaskByID("guardian_raid").getCurrentDone()) * 10;
-
-        } catch (Exception e){
-
-        }
-
         for (Task task : this.characterTasks) {
             if (task.isDaily()) {
                 task.reset();
@@ -102,7 +74,7 @@ public class Character {
         }
     }
 
-    private Task getTaskByID(String searchID) {
+    public Task getTaskByID(String searchID) {
         for (Task task : this.characterTasks) {
             if (task.getId().equalsIgnoreCase(searchID)) {
                 return task;
@@ -126,6 +98,11 @@ public class Character {
     }
 
     public void setTasks(List<Task> tasks) {
-        this.characterTasks = tasks;
+        this.characterTasks=new ArrayList<>();
+        for(Task task : tasks){
+            this.characterTasks.add(new Task(task));
+        }
+
     }
+
 }

@@ -3,10 +3,10 @@
     <item>
         <shape>
             <gradient
-                android:type="linear"
                 android:angle="135"
+                android:endColor="@color/end_gradient_health_bar_underhalf"
                 android:startColor="@color/start_gradient_health_bar_underhalf"
-                android:endColor="@color/end_gradient_health_bar_underhalf" />
+                android:type="linear" />
         </shape>
     </item>
 </layer-list>

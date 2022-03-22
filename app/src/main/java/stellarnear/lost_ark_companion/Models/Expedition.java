@@ -1,21 +1,29 @@
 package stellarnear.lost_ark_companion.Models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Expedition {
 
-    public List<Character> characters = new ArrayList<>(); //todo inti from settings
+    public List<Character> characters = new ArrayList<>();
     private String name;
     private List<Task> expeditionTasks = new ArrayList<>();
     private List<Task> commonCharacterTasks = new ArrayList<>();
-    private String storedDate="";
-
+    private String storedDate = null;
+    private String encodedPatternDate="yyyy-MM-dd HH:mm";
 
     public Expedition(String name) {
         this.setName(name);
-        this.commonCharacterTasks.add(new Task(true,false,"Chaos Dungeon",2));
-        this.commonCharacterTasks.add(new Task(true,false,"Guardian Raid",2));
+        this.commonCharacterTasks.add(new Task(true, false, "Chaos Dungeon", 2));
+        this.commonCharacterTasks.add(new Task(true, false, "Guardian Raid", 2));
+        this.commonCharacterTasks.add(new Task(false, false, "Silmael", 1));
+        this.expeditionTasks.add(new Task(false,true,"World Boss",1));
+        this.expeditionTasks.add(new Task(false,true,"Ghost Ship",1));
+        this.expeditionTasks.add(new Task(false,true,"Chaos Portal",1));
     }
 
     public String getName() {
@@ -35,7 +43,11 @@ public class Expedition {
     }
 
     public List<Character> getCharacters() {
-        //TODO order by ilvl
+        Collections.sort(characters, new Comparator<Character>() {
+            public int compare(Character c1, Character c2) {
+                return Integer.compare(c2.getIlvl(), c1.getIlvl());
+            }
+        });
         return characters;
     }
 
@@ -62,7 +74,9 @@ public class Expedition {
 
 
     public void createCharacter(Character c) {
-        c.setTasks(new ArrayList(commonCharacterTasks));
+
+
+        c.setTasks(commonCharacterTasks);
         this.characters.add(c);
     }
 
@@ -73,7 +87,7 @@ public class Expedition {
         } else {
             commonCharacterTasks.add(task);
             for (Character c : this.characters) {
-                c.getTasks().add(task);
+                c.getTasks().add(new Task(task));
             }
         }
     }
@@ -89,11 +103,13 @@ public class Expedition {
     }
 
 
-    public String getStoredDate() {
-        return storedDate;
+    public LocalDateTime getStoredDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(encodedPatternDate);
+        return LocalDateTime.parse(storedDate, formatter);
     }
 
-    public void setStoredDate(String storedDate) {
-        this.storedDate = storedDate;
+    public void setStoredDate(LocalDateTime storedDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(encodedPatternDate);
+        this.storedDate = storedDate.format(formatter);
     }
 }

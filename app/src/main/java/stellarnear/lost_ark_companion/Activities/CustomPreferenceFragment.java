@@ -11,17 +11,17 @@ import stellarnear.lost_ark_companion.Log.CustomLog;
 
 
 public abstract class CustomPreferenceFragment extends PreferenceFragment {
-    protected SharedPreferences settings;
     public CustomLog log = new CustomLog(this.getClass());
+    protected SharedPreferences settings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-        this.settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+            this.settings = PreferenceManager.getDefaultSharedPreferences(getContext());
             onCreateFragment();
         } catch (Exception e) {
-            log.fatal(getActivity(),e.getMessage(),e);
+            log.fatal(getActivity(), e.getMessage(), e);
         }
     }
 
@@ -32,7 +32,7 @@ public abstract class CustomPreferenceFragment extends PreferenceFragment {
         try {
             onPreferenceTreeClickFragment(preferenceScreen, preference);
         } catch (Exception e) {
-            log.fatal(getActivity(),e.getMessage(),e);
+            log.fatal(getActivity(), e.getMessage(), e);
         }
         return true;
     }
@@ -44,7 +44,7 @@ public abstract class CustomPreferenceFragment extends PreferenceFragment {
         try {
             onDestroyFragment();
         } catch (Exception e) {
-            log.fatal(getActivity(),e.getMessage(),e);
+            log.fatal(getActivity(), e.getMessage(), e);
         }
         super.onDestroy();
     }

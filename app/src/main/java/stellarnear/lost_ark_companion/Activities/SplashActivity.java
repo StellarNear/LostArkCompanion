@@ -1,13 +1,15 @@
 package stellarnear.lost_ark_companion.Activities;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
+import stellarnear.lost_ark_companion.Models.TimeChecker;
+import stellarnear.lost_ark_companion.R;
 
 
 /**
@@ -22,7 +24,54 @@ public class SplashActivity extends CustomActivity {
 
     @Override
     protected void doActivity() {
-        startMainActivity();
+
+        Animation in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.infade);
+        Animation out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.outfade);
+        in.setStartOffset(500);
+        out.setStartOffset(500);
+
+        Animation inDel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.infade);
+        Animation outDel = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.outfade);
+
+        setContentView(R.layout.splash);
+
+
+        in.setAnimationListener(new Animation.AnimationListener(){
+            @Override
+            public void onAnimationStart(Animation arg0) {
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                findViewById(R.id.splash_under1).startAnimation(outDel);
+                findViewById(R.id.splash_above1).startAnimation(outDel);
+                findViewById(R.id.splash_above2).startAnimation(inDel);
+            }
+        });
+
+        inDel.setAnimationListener(new Animation.AnimationListener(){
+            @Override
+            public void onAnimationStart(Animation arg0) {
+            }
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                startMainActivity();
+            }
+        });
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                findViewById(R.id.splash_above1).startAnimation(in);
+            }
+        }, 500);
+
     }
 
     @Override

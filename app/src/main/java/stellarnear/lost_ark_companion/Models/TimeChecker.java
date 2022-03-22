@@ -1,22 +1,25 @@
 package stellarnear.lost_ark_companion.Models;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Locale;
 
 import stellarnear.lost_ark_companion.Activities.MainActivity;
 import stellarnear.lost_ark_companion.Divers.Tools;
+import stellarnear.lost_ark_companion.R;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class TimeChecker {
     private static TimeChecker instance = null;
-    Expedition expedition = MainActivity.expedition;
     private final Context mC;
     private final Tools tools = Tools.getTools();
+    Expedition expedition = MainActivity.expedition;
+    private SharedPreferences settings;
 
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat formatterHour = new SimpleDateFormat("HH");
@@ -24,6 +27,7 @@ public class TimeChecker {
 
     private TimeChecker(Context mC) {
         this.mC = mC;
+        this.settings = PreferenceManager.getDefaultSharedPreferences(mC);
     }
 
     public static TimeChecker getInstance(Context mC) {
@@ -33,45 +37,72 @@ public class TimeChecker {
         return instance;
     }
 
-    public void checkCurrentTime() {
-        tools.customToast(mC, "Checking time");
+    public boolean checkCurrentTime() {
 
-        Date date = new Date();
+        boolean needRefreshUi=false;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime storedDate = MainActivity.expedition.getStoredDate();
 
-        String storedDate = MainActivity.expedition.getStoredDate();
-        if (!storedDate.equalsIgnoreCase(formatter.format(date)) && (Integer.parseInt(formatterHour.format(date)) >= 11)) {
+        long nReset = resetDiff(now, storedDate);
 
-            if (formatterDayOfTheWeek.format(date).equalsIgnoreCase("Thursday")) {
-                expedition.resetWeekly();
-                tools.customToast(mC,"We are Thursday !\nWeekly Reset");
+        if (nReset > 0) {
+            if (nReset > 1) {
+                int nWeekly = 0;
+                int nDaily = 0;
+                LocalDateTime previousDate = storedDate;
+                for (LocalDateTime date = storedDate; date.isBefore(now); date = date.plusHours(1)) {
+                    if (previousDate.getHour() < 11 && date.getHour() >= 11) {
+                        if (date.getDayOfWeek().toString().equalsIgnoreCase("Thursday")) {
+                            nWeekly++;
+                            expedition.resetWeekly();
+                        } else {
+                            nDaily++;
+                            expedition.resetDaily();
+                        }
+                        needRefreshUi=true;
+                    }
+                    previousDate=date;
+                }
+                tools.customToast(mC, "Since the last update we had " + nDaily + " daily reset and " + nWeekly + " weekly reset...");
             } else {
-                expedition.resetDaily();
-                tools.customToast(mC,"Daily Reset");
+                if (now.getDayOfWeek().toString().equalsIgnoreCase("Thursday")) {
+                    expedition.resetWeekly();
+                    tools.customToast(mC, "We are Thursday !\nWeekly Reset");
+                    needRefreshUi=true;
+                } else {
+                    expedition.resetDaily();
+                    tools.customToast(mC, "Daily Reset");
+                    needRefreshUi=true;
+                }
             }
-            MainActivity.expedition.setStoredDate(formatter.format(date));
-            ExpeditionManager.getInstance(mC).saveToDB();
-        } else {
-            tools.customToast(mC,"Nothing, changed still the same day");
+        } else if (settings.getBoolean("display_all_checks", mC.getResources().getBoolean(R.bool.display_all_checks_DEF))) {
+            tools.customToast(mC, "No reset");
+
         }
+        MainActivity.expedition.setStoredDate(now);
+        ExpeditionManager.getInstance(mC).saveToDB();
+        return needRefreshUi;
     }
 
-    public void cheatPassDay(int nDays){
-        String storedDate = MainActivity.expedition.getStoredDate();
+    private long resetDiff(LocalDateTime now, LocalDateTime storedDate) {
+        if (storedDate == null) {
+            return 0;
+        }
+
+        long nReset = DAYS.between(storedDate, now) + (now.getHour() >= 11 ? 1 : 0) - (storedDate.getHour() >= 11 ? 1 : 0);
+        return nReset;
+    }
+
+
+    public void cheatPassDay(int nDays) {
+        LocalDateTime storedDate = MainActivity.expedition.getStoredDate();
         try {
-           Date stored =  formatter.parse(storedDate);
-
-            LocalDateTime ldt = LocalDateTime.ofInstant(stored.toInstant(), ZoneId.systemDefault()).minusDays(nDays);
-            Date fakeDate = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-
-            MainActivity.expedition.setStoredDate(formatter.format(fakeDate));
+            MainActivity.expedition.setStoredDate(storedDate.minusDays(nDays));
             ExpeditionManager.getInstance(mC).saveToDB();
-            checkCurrentTime();
-
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

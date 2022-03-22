@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import stellarnear.lost_ark_companion.BuildConfig;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Character;
 import stellarnear.lost_ark_companion.Models.ExpeditionManager;
@@ -94,9 +93,10 @@ public class PrefCharacterFragment {
                 String name = ((EditText) creationView.findViewById(R.id.name_character_creation)).getText().toString();
                 String ilvl = ((EditText) creationView.findViewById(R.id.ilvl_character_creation)).getText().toString();
                 String selectedWork = ((Button) creationView.findViewById(R.id.work_character_creation)).getText().toString();
-                Character c = new Character(name, selectedWork,ilvl);
-
-                if (!charAlreadyExist(c)) {
+                Character c = new Character(name, selectedWork, tools.toInt(ilvl));
+                if (name.equalsIgnoreCase("") || selectedWork.contains("Choose")) {
+                    tools.customToast(mC, "You should at least put a name select a class !");
+                } else if (!charAlreadyExist(c)) {
                     MainActivity.expedition.createCharacter(c);
                     ExpeditionManager.getInstance(mC).saveToDB();
 
@@ -128,9 +128,9 @@ public class PrefCharacterFragment {
         // add a radio button list
 
         int checkedItem = -1;
-        final List<String> works = Arrays.asList("SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade","Sorceress");
+        final List<String> works = Arrays.asList("SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade", "Sorceress");
         Collections.sort(works);
-        builder.setSingleChoiceItems((String[])works.toArray(), checkedItem, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems((String[]) works.toArray(), checkedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 work.setText(works.get(which));

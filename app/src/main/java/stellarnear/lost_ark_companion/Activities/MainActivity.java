@@ -1,11 +1,11 @@
 package stellarnear.lost_ark_companion.Activities;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Expedition;
 import stellarnear.lost_ark_companion.Models.ExpeditionManager;
 import stellarnear.lost_ark_companion.Models.TimeChecker;
@@ -24,12 +25,11 @@ import stellarnear.lost_ark_companion.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final boolean campaignShow = true;
     public static Expedition expedition = null;
-    private final boolean loading = false;
-    private final boolean touched = false;
     private FrameLayout mainFrameFrag;
     private SharedPreferences settings;
+    private MainActivityFragment mainFrag = null;
+    private TimeChecker timeChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +70,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        TimeChecker.getInstance(getApplicationContext()).checkCurrentTime();
-        buildMainPage();
+        if (mainFrag != null) {
+            mainFrag.buildFrag();
+        } else {
+            buildMainPage();
+        }
     }
 
     private void startFragment() {
-        Fragment fragment = new MainActivityFragment();
+        if (mainFrag == null) {
+            mainFrag = new MainActivityFragment();
+            timeChecker = TimeChecker.getInstance(getApplicationContext());
+            int delay = Tools.getTools().toInt(settings.getString("checktimer_delay", String.valueOf(getApplicationContext().getResources().getInteger(R.integer.checktimer_delay_DEF))));
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    if (mainFrag.isAdded() && mainFrag.isVisible() && timeChecker.checkCurrentTime()) {
+                        mainFrag.buildFrag();
+                    }
+                    handler.postDelayed(this, 60 * delay * 1000);
+                }
+            }, 60 * delay * 1000);
+        }
+
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(mainFrameFrag.getId(), fragment);
+        fragmentTransaction.replace(mainFrameFrag.getId(), mainFrag);
         fragmentTransaction.commit();
     }
 

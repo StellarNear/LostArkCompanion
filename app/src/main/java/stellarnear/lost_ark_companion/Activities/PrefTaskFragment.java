@@ -50,7 +50,7 @@ public class PrefTaskFragment {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if(task.getId().equalsIgnoreCase("chaos_dungeon")|| task.getId().equalsIgnoreCase("guardian_raid")){
+                                    if (task.getId().equalsIgnoreCase("chaos_dungeon") || task.getId().equalsIgnoreCase("guardian_raid")) {
                                         tools.customToast(mC, task.getName() + " can't be deleted (Chaos and Guardians are baseline) !");
                                     } else {
                                         MainActivity.expedition.deleteTask(task);
@@ -89,19 +89,23 @@ public class PrefTaskFragment {
                 creationView.findViewById(R.id.daily_creation).isSelected();
 
                 boolean daily = ((RadioButton) creationView.findViewById(R.id.daily_creation)).isChecked();
-                boolean crossAccount = ((RadioButton)creationView.findViewById(R.id.cross_account_creation)).isChecked();
+                boolean crossAccount = ((RadioButton) creationView.findViewById(R.id.cross_account_creation)).isChecked();
                 String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
-                int occurance = Integer.parseInt(occuranceTxt);
-                Task task = new Task(daily, crossAccount, name, occurance);
 
-                if (!taskAlreadyExist(task)) {
-                    MainActivity.expedition.createTask(task);
-                    ExpeditionManager.getInstance(mC).saveToDB();
-
-                    mListener.onEvent();
-                    tools.customToast(mC, task.getName() + " created !");
+                if (name.equalsIgnoreCase("") || occuranceTxt.equalsIgnoreCase("")  ) {
+                    tools.customToast(mC, "You should fill all the fields !");
                 } else {
-                    tools.customToast(mC, task.getName() + " already present !");
+                    int occurance = Integer.parseInt(occuranceTxt);
+                    Task task = new Task(daily, crossAccount, name, occurance);
+                    if (!taskAlreadyExist(task)) {
+                        MainActivity.expedition.createTask(task);
+                        ExpeditionManager.getInstance(mC).saveToDB();
+
+                        mListener.onEvent();
+                        tools.customToast(mC, task.getName() + " created !");
+                    } else {
+                        tools.customToast(mC, task.getName() + " already present !");
+                    }
                 }
 
             }
@@ -134,11 +138,11 @@ public class PrefTaskFragment {
         return false;
     }
 
-    public interface OnRefreshEventListener {
-        void onEvent();
-    }
-
     public void setRefreshEventListener(OnRefreshEventListener eventListener) {
         mListener = eventListener;
+    }
+
+    public interface OnRefreshEventListener {
+        void onEvent();
     }
 }

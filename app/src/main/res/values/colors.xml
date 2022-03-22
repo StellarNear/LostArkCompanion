@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#bd3e1e</color>
-    <color name="colorPrimaryDark">#822616</color>
+    <color name="colorPrimary">#3A85AE</color>
+    <color name="colorPrimaryDark">#134570</color>
     <color name="textColorPrimary">#FFFFFF</color>
 
     <color name="colorBackground">#f5f5dc</color>
@@ -20,11 +20,10 @@
     <color name="cancel">#FF0000</color>
 
 
-
     <color name="end_gradient_button_ok">#004d00</color>
     <color name="start_gradient_button_ok">#0FBD40</color>
-    <color name="start_gradient_button_cancel">@color/colorPrimaryDark</color>
-    <color name="end_gradient_button_cancel">@color/colorPrimary</color>
+    <color name="start_gradient_button_cancel">#6E0C0C</color>
+    <color name="end_gradient_button_cancel">#DA4545</color>
 
     <color name="start_gradient_button_basic">@android:color/darker_gray</color>
     <color name="end_gradient_button_basic">@color/white</color>
@@ -44,7 +43,8 @@
     <color name="back_gif_player">#d3d3d5</color>
 
     <color name="frament_text_color">#1B1B1B</color>
-    <color name="work_symbol">#676767</color>
+    <color name="work_symbol">#1B1B1B</color>
+    <color name="light_gray">#9A9A9A</color>
 
 
 </resources>

@@ -2,13 +2,38 @@
     <SwitchPreference
         android:defaultValue="@bool/switch_fullscreen_mode_DEF"
         android:key="switch_fullscreen_mode"
-        android:title="FullScreen"
-        android:summary="Display application in full screen"/>
+        android:summary="Display application in full screen"
+        android:title="FullScreen" />
+
+    <stellarnear.lost_ark_companion.Divers.EditTextPreference
+        android:defaultValue="@integer/custom_alert_long_duration_DEF"
+        android:inputType="number"
+        android:key="custom_alert_long_duration"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Value : %s ms"
+        android:title="Duration of instant popups" />
 
     <SwitchPreference
         android:defaultValue="@bool/test_mode_DEF"
         android:key="test_mode"
-        android:title="Test mode"
-        android:summary="Allow button to pass days (for testing)"/>
+        android:summary="Allow button to pass days (for testing)"
+        android:title="Test mode" />
+
+    <SwitchPreference
+        android:defaultValue="@bool/display_all_checks_DEF"
+        android:key="display_all_checks"
+        android:summary="Display all results for time checking"
+        android:title="Display checks" />
+
+    <stellarnear.lost_ark_companion.Divers.EditTextPreference
+        android:defaultValue="@integer/checktimer_delay_DEF"
+        android:inputType="number"
+        android:key="checktimer_delay"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Value : %s minutes"
+        android:title="Delay beetween two checks of the time" />
+
 
 </PreferenceScreen>

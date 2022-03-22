@@ -123,16 +123,16 @@ public class Tools {
         customVideo.showAlert();
     }
 
-    public Drawable getDrawable(Context mC,String id){
-        Drawable draw=null;
+    public Drawable getDrawable(Context mC, String id) {
+        Drawable draw = null;
         int imgId = mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
         if (imgId != 0) {
-            try{
-                draw= mC.getDrawable(imgId);
-            } catch (Exception e){
+            try {
+                draw = mC.getDrawable(imgId);
+            } catch (Exception e) {
             }
         }
-        return  draw;
+        return draw;
     }
 
 
