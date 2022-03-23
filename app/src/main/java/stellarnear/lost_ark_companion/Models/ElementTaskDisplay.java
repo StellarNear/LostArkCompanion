@@ -17,7 +17,6 @@ import stellarnear.lost_ark_companion.R;
 public class ElementTaskDisplay {
     private final Context mC;
     private Tools tools = Tools.getTools();
-    private static OnRefreshEventListener mListener;
 
     public ElementTaskDisplay(Context mC) {
         this.mC = mC;
@@ -72,8 +71,8 @@ public class ElementTaskDisplay {
                     } else {
                         task.addDone();
                         ExpeditionManager.getInstance(mC).saveToDB();
-                        if(mListener!=null){
-                            mListener.onEvent();
+                        if((task.getId().equalsIgnoreCase("chaos_dungeon")||task.getId().equalsIgnoreCase("guardian_raid")&&task.getRest()>=20)){ //sinon la barre bougera pas aucun interet à refresh
+                            RefreshManager.getRefreshManager().triggerRefresh();
                         }
                     }
 
@@ -81,13 +80,5 @@ public class ElementTaskDisplay {
                 }
             });
         }
-    }
-
-    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
-        mListener = eventListener;
-    }
-
-    public interface OnRefreshEventListener {
-        void onEvent();
     }
 }

@@ -13,6 +13,11 @@
         android:singleLine="true"
         android:summary="Value : %s ms"
         android:title="Duration of instant popups" />
+    <SwitchPreference
+        android:defaultValue="@bool/compact_mode_DEF"
+        android:key="compact_mode"
+        android:summary="Make every character line smaller with less text and no checkbox"
+        android:title="Compact mode" />
 
     <SwitchPreference
         android:defaultValue="@bool/test_mode_DEF"

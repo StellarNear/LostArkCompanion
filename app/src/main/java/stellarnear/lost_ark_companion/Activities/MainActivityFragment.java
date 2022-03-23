@@ -15,7 +15,10 @@ import android.widget.LinearLayout;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Character;
 import stellarnear.lost_ark_companion.Models.ElementTaskDisplay;
+import stellarnear.lost_ark_companion.Models.OneLineDisplay;
 import stellarnear.lost_ark_companion.Models.OneLineDisplayCharacter;
+import stellarnear.lost_ark_companion.Models.OneLineDisplayCharacterCompact;
+import stellarnear.lost_ark_companion.Models.RefreshManager;
 import stellarnear.lost_ark_companion.Models.Task;
 import stellarnear.lost_ark_companion.Models.TimeChecker;
 import stellarnear.lost_ark_companion.R;
@@ -81,13 +84,6 @@ public class MainActivityFragment extends Fragment {
     public void buildFrag() {
         LinearLayout expeLine = returnFragView.findViewById(R.id.expe_tasks);
         ElementTaskDisplay elementLiner = new ElementTaskDisplay(getContext());
-        elementLiner.setRefreshEventListener(new ElementTaskDisplay.OnRefreshEventListener() {
-            @Override
-            public void onEvent() {
-                buildFrag();
-            }
-        });
-
         expeLine.removeAllViews();
         for (Task task : MainActivity.expedition.getExpeditionTasks()) {
             View elementTask = elementLiner.getTaskElement(task);
@@ -100,27 +96,39 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void run() {
                 int delay = 50;
-                OneLineDisplayCharacter oneLiner = new OneLineDisplayCharacter(getContext());
-                oneLiner.setRefreshEventListener(new ElementTaskDisplay.OnRefreshEventListener() {
-                    @Override
-                    public void onEvent() {
-                        buildFrag();
-                    }
-                });
+
+                OneLineDisplay oneLiner;
+
+                if (settings.getBoolean("compact_mode", getContext().getResources().getBoolean(R.bool.compact_mode_DEF))) {
+                    oneLiner = new OneLineDisplayCharacterCompact(getContext());
+                } else {
+                    oneLiner = new OneLineDisplayCharacter(getContext());
+                }
+
                 grid.removeAllViews();
+
+                boolean needAnimation = !RefreshManager.getRefreshManager().wasAnimated();
                 for (Character c : MainActivity.expedition.getCharacters()) {
                     View line = oneLiner.getOneLine(c);
                     grid.addView(line);
 
-                    Animation right = AnimationUtils.loadAnimation(getContext(), R.anim.infromright);
-                    right.setStartOffset(delay);
-                    line.startAnimation(right);
-                    delay += 500;
-
+                    if (needAnimation) {
+                        Animation right = AnimationUtils.loadAnimation(getContext(), R.anim.infromright);
+                        right.setStartOffset(delay);
+                        line.startAnimation(right);
+                        delay += 500;
+                    }
                 }
+                RefreshManager.getRefreshManager().isAnimated();
             }
         });
 
+        RefreshManager.getRefreshManager().setRefreshEventListener(new RefreshManager.OnRefreshEventListener() {
+            @Override
+            public void onEvent() {
+                buildFrag();
+            }
+        });
     }
 
 }

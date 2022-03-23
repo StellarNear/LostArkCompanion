@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Expedition;
 import stellarnear.lost_ark_companion.Models.ExpeditionManager;
+import stellarnear.lost_ark_companion.Models.RefreshManager;
 import stellarnear.lost_ark_companion.Models.TimeChecker;
 import stellarnear.lost_ark_companion.R;
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     if (mainFrag.isAdded() && mainFrag.isVisible() && timeChecker.checkCurrentTime()) {
-                        mainFrag.buildFrag();
+                        RefreshManager.getRefreshManager().triggerRefresh();
                     }
                     handler.postDelayed(this, 60 * delay * 1000);
                 }

@@ -29,14 +29,20 @@
     <color name="end_gradient_button_basic">@color/white</color>
 
     <!-- healthbar -->
-    <color name="start_gradient_health_bar_underhalf">#ffa366</color>
-    <color name="end_gradient_health_bar_underhalf">#e65c00</color>
-    <color name="end_gradient_health_bar_ok">@color/end_gradient_button_ok</color>
-    <color name="start_gradient_health_bar_ok">@color/start_gradient_button_ok</color>
-    <color name="start_gradient_health_bar_notok">@color/end_gradient_button_cancel</color>
-    <color name="end_gradient_health_bar_notok">@color/start_gradient_button_cancel</color>
-    <color name="start_gradient_health_bar_abovehalf">#ffff00</color>
-    <color name="end_gradient_health_bar_abovehalf">#b3b300</color>
+    <color name="start_gradient_bar_underhalf">#ffa366</color>
+    <color name="end_gradient_bar_underhalf">#e65c00</color>
+    <color name="end_gradient_bar_ok">@color/end_gradient_button_ok</color>
+    <color name="start_gradient_bar_ok">@color/start_gradient_button_ok</color>
+    <color name="start_gradient_bar_notok">@color/end_gradient_button_cancel</color>
+    <color name="end_gradient_bar_notok">@color/start_gradient_button_cancel</color>
+    <color name="start_gradient_bar_abovehalf">#ffff00</color>
+    <color name="end_gradient_bar_abovehalf">#b3b300</color>
+
+
+    <color name="task_done">#008325</color>
+    <color name="task_abovehaldf">#D9FF00</color>
+    <color name="task_underhalf">#FF6117</color>
+    <color name="task_notstarted">#FF0000</color>
 
     <color name="information">#81BEF7</color>
     <color name="information_light">#d4e9ff</color>

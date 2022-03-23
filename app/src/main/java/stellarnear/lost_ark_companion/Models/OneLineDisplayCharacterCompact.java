@@ -4,6 +4,8 @@ package stellarnear.lost_ark_companion.Models;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.graphics.ColorUtils;
+
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.R;
 
-public class OneLineDisplayCharacter implements OneLineDisplay {
+public class OneLineDisplayCharacterCompact implements OneLineDisplay {
 
     private final Context mC;
     private Tools tools = Tools.getTools();
 
-    public OneLineDisplayCharacter(Context context) {
+    public OneLineDisplayCharacterCompact(Context context) {
         this.mC = context;
     }
 
@@ -29,10 +33,11 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
     public View getOneLine(Character c) {
 
         LayoutInflater inflater = LayoutInflater.from(mC);
-        View mainView = inflater.inflate(R.layout.character_line, null);
+        View mainView = inflater.inflate(R.layout.character_line_compact, null);
 
         TextView name = mainView.findViewById(R.id.char_name);
         name.setText(c.getName().substring(0, 1).toUpperCase() + c.getName().substring(1));
+        name.setTextColor(R.color.colorPrimary);
 
         TextView ilvl = mainView.findViewById(R.id.ilvl);
         if (c.getIlvl() > 0) {
@@ -63,10 +68,13 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
             ilvl.setVisibility(View.GONE);
         }
 
-
         ImageView work = mainView.findViewById(R.id.work_background);
+        //si le fill color marche pas add   vectorDrawables.useSupportLibrary = true dans le defaultCOnfig gradle et
+
+        //DrawableCompat.setTint(imageView.getDrawable(),ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
         work.setImageDrawable(tools.getDrawable(mC, c.getWorkId() + "_ico"));
+        work.setColorFilter(ColorUtils.setAlphaComponent(mC.getColor(R.color.colorPrimary), 50), PorterDuff.Mode.MULTIPLY );
 
         // create layout avec
 
@@ -89,13 +97,12 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
             }
         });
 
-        // linear horizontal avec chaque task element
-        LinearLayout tasks = mainView.findViewById(R.id.tasks_list_one_line_char);
-        ElementTaskDisplay elementLiner = new ElementTaskDisplay(mC);
+        // Tasks
+        LinearLayout tasks = mainView.findViewById(R.id.tasks_list_one_line_char_circular);
+        ElementTaskDisplayCompact elementLiner = new ElementTaskDisplayCompact(mC);
         for (final Task task : c.getTasks()) {
             final View taskElement = elementLiner.getTaskElement(task);
 
-            taskElement.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             taskElement.setOnLongClickListener(new View.OnLongClickListener() {
 
                 @Override
@@ -123,17 +130,26 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
                                 }
                             })
                             .show();
-
-
                     return true;
                 }
             });
-            tasks.addView(taskElement);
+
+            if (!task.getId().equalsIgnoreCase("guardian_raid") && !task.getId().equalsIgnoreCase("chaos_dungeon")) {
+                taskElement.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+                tasks.addView(taskElement);
+            } else {
+                if (task.getId().equalsIgnoreCase("guardian_raid")) {
+                    ((LinearLayout) mainView.findViewById(R.id.main_guardian_lin)).addView(taskElement, 0);
+                } else {
+                    ((LinearLayout) mainView.findViewById(R.id.main_chaos_lin)).addView(taskElement, 0);
+                }
+            }
         }
 
         return mainView;
 
     }
+
 
     private void askForOvewriteRest(Task task) {
         final EditText input = new EditText(mC);
@@ -186,5 +202,6 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
             }
         });
     }
+
 
 }
