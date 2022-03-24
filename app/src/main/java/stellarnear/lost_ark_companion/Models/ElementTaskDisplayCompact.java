@@ -5,15 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import stellarnear.lost_ark_companion.Divers.CircularProgressBar;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.R;
 
-public class ElementTaskDisplayCompact {
+public class ElementTaskDisplayCompact implements ElementTask {
     private final Context mC;
-    private Tools tools = Tools.getTools();
+    private final Tools tools = Tools.getTools();
 
     public ElementTaskDisplayCompact(Context mC) {
         this.mC = mC;
@@ -41,7 +40,11 @@ public class ElementTaskDisplayCompact {
             public void onClick(View view) {
                 task.addDone();
                 ExpeditionManager.getInstance(mC).saveToDB();
-                RefreshManager.getRefreshManager().triggerRefresh();
+                setColor(circular, task);
+                circular.setProgressWithAnimation(task.getCurrentDone());
+                if ((task.getId().equalsIgnoreCase("chaos_dungeon") || task.getId().equalsIgnoreCase("guardian_raid") && task.getRest() >= 20)) { //sinon la barre bougera pas aucun interet à refresh
+                    task.refreshRestBar(mC);
+                }
             }
         });
 
@@ -57,7 +60,8 @@ public class ElementTaskDisplayCompact {
                             public void onClick(DialogInterface dialog, int which) {
                                 task.cancelOne();
                                 ExpeditionManager.getInstance(mC).saveToDB();
-                                setCircular(circular, task);
+                                setColor(circular, task);
+                                circular.setProgressWithAnimation(task.getCurrentDone());
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

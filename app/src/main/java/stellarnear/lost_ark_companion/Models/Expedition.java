@@ -11,19 +11,19 @@ public class Expedition {
 
     public List<Character> characters = new ArrayList<>();
     private String name;
-    private List<Task> expeditionTasks = new ArrayList<>();
-    private List<Task> commonCharacterTasks = new ArrayList<>();
+    private final List<Task> expeditionTasks = new ArrayList<>();
+    private final List<Task> commonCharacterTasks = new ArrayList<>();
     private String storedDate = null;
-    private String encodedPatternDate="yyyy-MM-dd HH:mm";
+    private final String encodedPatternDate = "yyyy-MM-dd HH:mm";
 
     public Expedition(String name) {
         this.setName(name);
         this.commonCharacterTasks.add(new Task(true, false, "Chaos Dungeon", 2));
         this.commonCharacterTasks.add(new Task(true, false, "Guardian Raid", 2));
         this.commonCharacterTasks.add(new Task(false, false, "Silmael", 1));
-        this.expeditionTasks.add(new Task(false,true,"World Boss",1));
-        this.expeditionTasks.add(new Task(false,true,"Ghost Ship",1));
-        this.expeditionTasks.add(new Task(false,true,"Chaos Portal",1));
+        this.expeditionTasks.add(new Task(false, true, "World Boss", 1));
+        this.expeditionTasks.add(new Task(false, true, "Ghost Ship", 1));
+        this.expeditionTasks.add(new Task(false, true, "Chaos Portal", 1));
     }
 
     public String getName() {

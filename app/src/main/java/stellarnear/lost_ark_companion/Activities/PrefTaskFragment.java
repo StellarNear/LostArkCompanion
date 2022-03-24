@@ -22,9 +22,9 @@ import stellarnear.lost_ark_companion.R;
 
 public class PrefTaskFragment {
 
-    private Activity mA;
-    private Context mC;
-    private Tools tools = Tools.getTools();
+    private final Activity mA;
+    private final Context mC;
+    private final Tools tools = Tools.getTools();
     private OnRefreshEventListener mListener;
 
     public PrefTaskFragment(Activity mA, Context mC) {
@@ -92,7 +92,7 @@ public class PrefTaskFragment {
                 boolean crossAccount = ((RadioButton) creationView.findViewById(R.id.cross_account_creation)).isChecked();
                 String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
 
-                if (name.equalsIgnoreCase("") || occuranceTxt.equalsIgnoreCase("")  ) {
+                if (name.equalsIgnoreCase("") || occuranceTxt.equalsIgnoreCase("")) {
                     tools.customToast(mC, "You should fill all the fields !");
                 } else {
                     int occurance = Integer.parseInt(occuranceTxt);
@@ -113,7 +113,7 @@ public class PrefTaskFragment {
         creationTaskAlert.showAlert();
 
 
-        final EditText editName = ((EditText) creationView.findViewById(R.id.name_task_creation));
+        final EditText editName = creationView.findViewById(R.id.name_task_creation);
         editName.post(new Runnable() {
             public void run() {
                 editName.setFocusableInTouchMode(true);

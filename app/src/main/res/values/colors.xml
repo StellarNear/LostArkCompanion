@@ -40,7 +40,7 @@
 
 
     <color name="task_done">#008325</color>
-    <color name="task_abovehaldf">#D9FF00</color>
+    <color name="task_abovehaldf">#D3C801</color>
     <color name="task_underhalf">#FF6117</color>
     <color name="task_notstarted">#FF0000</color>
 

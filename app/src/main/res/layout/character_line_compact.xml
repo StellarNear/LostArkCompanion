@@ -61,8 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingLeft="@dimen/general_margin"
-           >
+            android:paddingLeft="@dimen/general_margin">
 
             <ImageView
                 android:id="@+id/chaos_back_bar"
@@ -86,10 +85,10 @@
 
 
     <LinearLayout
-        android:layout_marginTop="@dimen/general_margin"
         android:id="@+id/main_guardian_lin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/general_margin">
 
 
         <FrameLayout

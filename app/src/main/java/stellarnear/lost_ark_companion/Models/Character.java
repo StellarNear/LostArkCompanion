@@ -12,7 +12,7 @@ public class Character {
     private String id;
     private String workId;
 
-    private transient CustomLog log = new CustomLog(this.getClass());
+    private final transient CustomLog log = new CustomLog(this.getClass());
 
     private List<Task> characterTasks = new ArrayList<>();
 
@@ -98,8 +98,8 @@ public class Character {
     }
 
     public void setTasks(List<Task> tasks) {
-        this.characterTasks=new ArrayList<>();
-        for(Task task : tasks){
+        this.characterTasks = new ArrayList<>();
+        for (Task task : tasks) {
             this.characterTasks.add(new Task(task));
         }
 

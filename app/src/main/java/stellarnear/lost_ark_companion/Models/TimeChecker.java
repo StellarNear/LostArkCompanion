@@ -19,11 +19,11 @@ public class TimeChecker {
     private final Context mC;
     private final Tools tools = Tools.getTools();
     Expedition expedition = MainActivity.expedition;
-    private SharedPreferences settings;
+    private final SharedPreferences settings;
 
-    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat formatterHour = new SimpleDateFormat("HH");
-    private SimpleDateFormat formatterDayOfTheWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+    private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private final SimpleDateFormat formatterHour = new SimpleDateFormat("HH");
+    private final SimpleDateFormat formatterDayOfTheWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH);
 
     private TimeChecker(Context mC) {
         this.mC = mC;
@@ -39,7 +39,7 @@ public class TimeChecker {
 
     public boolean checkCurrentTime() {
 
-        boolean needRefreshUi=false;
+        boolean needRefreshUi = false;
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime storedDate = MainActivity.expedition.getStoredDate();
 
@@ -59,20 +59,20 @@ public class TimeChecker {
                             nDaily++;
                             expedition.resetDaily();
                         }
-                        needRefreshUi=true;
+                        needRefreshUi = true;
                     }
-                    previousDate=date;
+                    previousDate = date;
                 }
                 tools.customToast(mC, "Since the last update we had " + nDaily + " daily reset and " + nWeekly + " weekly reset...");
             } else {
                 if (now.getDayOfWeek().toString().equalsIgnoreCase("Thursday")) {
                     expedition.resetWeekly();
                     tools.customToast(mC, "We are Thursday !\nWeekly Reset");
-                    needRefreshUi=true;
+                    needRefreshUi = true;
                 } else {
                     expedition.resetDaily();
                     tools.customToast(mC, "Daily Reset");
-                    needRefreshUi=true;
+                    needRefreshUi = true;
                 }
             }
         } else if (settings.getBoolean("display_all_checks", mC.getResources().getBoolean(R.bool.display_all_checks_DEF))) {

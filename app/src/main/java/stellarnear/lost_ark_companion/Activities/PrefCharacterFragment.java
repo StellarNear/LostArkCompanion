@@ -128,7 +128,7 @@ public class PrefCharacterFragment {
         // add a radio button list
 
         int checkedItem = -1;
-        final List<String> works = Arrays.asList("Gunlancer","Paladin","SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade", "Sorceress");
+        final List<String> works = Arrays.asList("Gunlancer", "Paladin", "SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade", "Sorceress");
         Collections.sort(works);
         builder.setSingleChoiceItems((String[]) works.toArray(), checkedItem, new DialogInterface.OnClickListener() {
             @Override

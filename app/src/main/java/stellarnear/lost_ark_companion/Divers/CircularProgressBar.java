@@ -40,18 +40,23 @@ public class CircularProgressBar extends View {
     /**
      * ProgressBar's line thickness
      */
-    private float strokeWidth = 4;
+    private float strokeWidth = 50;
     private float progress = 0;
     private int min = 0;
     private int max = 100;
     /**
      * Start the progress at 12 o'clock
      */
-    private int startAngle = -90;
+    private final int startAngle = -90;
     private int color = Color.DKGRAY;
     private RectF rectF;
     private Paint backgroundPaint;
     private Paint foregroundPaint;
+
+    public CircularProgressBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs);
+    }
 
     public float getStrokeWidth() {
         return strokeWidth;
@@ -98,15 +103,10 @@ public class CircularProgressBar extends View {
 
     public void setColor(int color) {
         this.color = color;
-        backgroundPaint.setColor(adjustAlpha(color, 0.5f));
+        backgroundPaint.setColor(adjustAlpha(color, 0.2f));
         foregroundPaint.setColor(color);
         invalidate();
         requestLayout();
-    }
-
-    public CircularProgressBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {

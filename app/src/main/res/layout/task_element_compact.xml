@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/relative_task_element_circular"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative_task_element_circular"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-	<RelativeLayout
-	android:id="@+id/task_circular_frame"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_gravity="center"
->
-	<stellarnear.lost_ark_companion.Divers.CircularProgressBar
-	android:id="@+id/circular_progress_task"
-	android:layout_width="@dimen/cicular_progress"
-	android:layout_height="@dimen/cicular_progress"
-	android:layout_centerInParent="true"
-	app:progressBarThickness="8dp" />
+    <RelativeLayout
+        android:id="@+id/task_circular_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
-	<ImageView
-		android:id="@+id/circular_task_icon"
-	android:layout_width="@dimen/icon_task"
-	android:layout_height="@dimen/icon_task"
-	android:layout_centerInParent="true"
-	android:background="@drawable/mire_test" />
+        <stellarnear.lost_ark_companion.Divers.CircularProgressBar
+            android:id="@+id/circular_progress_task"
+            android:layout_width="@dimen/cicular_progress"
+            android:layout_height="@dimen/cicular_progress"
+            android:layout_centerInParent="true"
+            app:progressBarThickness="8dp" />
 
-	</RelativeLayout>
+        <ImageView
+            android:id="@+id/circular_task_icon"
+            android:layout_width="@dimen/icon_task"
+            android:layout_height="@dimen/icon_task"
+            android:layout_centerInParent="true"
+            android:background="@drawable/mire_test" />
 
+    </RelativeLayout>
 
 
 </LinearLayout>

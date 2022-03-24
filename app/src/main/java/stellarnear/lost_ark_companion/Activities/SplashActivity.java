@@ -8,7 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
-import stellarnear.lost_ark_companion.Models.TimeChecker;
 import stellarnear.lost_ark_companion.R;
 
 
@@ -36,14 +35,16 @@ public class SplashActivity extends CustomActivity {
         setContentView(R.layout.splash);
 
 
-        in.setAnimationListener(new Animation.AnimationListener(){
+        in.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation arg0) {
 
             }
+
             @Override
             public void onAnimationRepeat(Animation arg0) {
             }
+
             @Override
             public void onAnimationEnd(Animation arg0) {
                 findViewById(R.id.splash_under1).startAnimation(outDel);
@@ -52,13 +53,15 @@ public class SplashActivity extends CustomActivity {
             }
         });
 
-        inDel.setAnimationListener(new Animation.AnimationListener(){
+        inDel.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation arg0) {
             }
+
             @Override
             public void onAnimationRepeat(Animation arg0) {
             }
+
             @Override
             public void onAnimationEnd(Animation arg0) {
                 startMainActivity();

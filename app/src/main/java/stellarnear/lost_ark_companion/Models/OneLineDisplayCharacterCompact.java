@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import stellarnear.lost_ark_companion.R;
 public class OneLineDisplayCharacterCompact implements OneLineDisplay {
 
     private final Context mC;
-    private Tools tools = Tools.getTools();
+    private final Tools tools = Tools.getTools();
 
     public OneLineDisplayCharacterCompact(Context context) {
         this.mC = context;
@@ -37,7 +36,7 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
 
         TextView name = mainView.findViewById(R.id.char_name);
         name.setText(c.getName().substring(0, 1).toUpperCase() + c.getName().substring(1));
-        name.setTextColor(R.color.colorPrimary);
+        name.setTextColor(mC.getColor(R.color.colorPrimaryDark));
 
         TextView ilvl = mainView.findViewById(R.id.ilvl);
         if (c.getIlvl() > 0) {
@@ -54,7 +53,8 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
                             .setPositiveButton("Change", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     c.setIlvl(tools.toInt(input.getText().toString()));
-                                    RefreshManager.getRefreshManager().triggerRefresh();
+                                    ExpeditionManager.getInstance(mC).saveToDB();
+                                    ilvl.setText("[" + c.getIlvl() + "]");
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -74,25 +74,25 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
         //DrawableCompat.setTint(imageView.getDrawable(),ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
         work.setImageDrawable(tools.getDrawable(mC, c.getWorkId() + "_ico"));
-        work.setColorFilter(ColorUtils.setAlphaComponent(mC.getColor(R.color.colorPrimary), 50), PorterDuff.Mode.MULTIPLY );
+        work.setColorFilter(ColorUtils.setAlphaComponent(mC.getColor(R.color.colorPrimary), 50), PorterDuff.Mode.MULTIPLY);
 
         // create layout avec
 
 
         // autre layout (progress bar)
-        setProgressBar(mainView, R.id.chaos_back_bar, R.id.chaos_bar, c.getTaskByID("chaos_dungeon").getRest());
+        initProgressBar(mainView, R.id.chaos_back_bar, R.id.chaos_bar, c.getTaskByID("chaos_dungeon"));
         mainView.findViewById(R.id.chaos_bar_frame).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                askForOvewriteRest(c.getTaskByID("chaos_dungeon"));
+                askForOvewriteRest(c.getTaskByID("chaos_dungeon"), mainView);
                 return true;
             }
         });
-        setProgressBar(mainView, R.id.guardian_back_bar, R.id.guardian_bar, c.getTaskByID("guardian_raid").getRest());
+        initProgressBar(mainView, R.id.guardian_back_bar, R.id.guardian_bar, c.getTaskByID("guardian_raid"));
         mainView.findViewById(R.id.guardian_bar_frame).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                askForOvewriteRest(c.getTaskByID("guardian_raid"));
+                askForOvewriteRest(c.getTaskByID("guardian_raid"), mainView);
                 return true;
             }
         });
@@ -151,7 +151,7 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
     }
 
 
-    private void askForOvewriteRest(Task task) {
+    private void askForOvewriteRest(Task task, View mainView) {
         final EditText input = new EditText(mC);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         new AlertDialog.Builder(mC)
@@ -161,7 +161,8 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
                 .setPositiveButton("Overwrite", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         task.setRest(tools.toInt(input.getText().toString()));
-                        RefreshManager.getRefreshManager().triggerRefresh();
+                        ExpeditionManager.getInstance(mC).saveToDB();
+                        task.refreshRestBar(mC);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -171,34 +172,14 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
     }
 
 
-    private void setProgressBar(View mainView, int idBackBar, int frontBar, int currentBarLevel) {
+    private void initProgressBar(View mainView, int idBackBar, int frontBar, Task task) {
         final ImageView image = mainView.findViewById(frontBar);
         image.post(new Runnable() {
             @Override
             public void run() {
+                ImageView image = mainView.findViewById(frontBar);
                 ImageView progress = mainView.findViewById(idBackBar);
-                ViewGroup.LayoutParams para = (ViewGroup.LayoutParams) progress.getLayoutParams();
-                int oriWidth = image.getMeasuredWidth();
-                int oriHeight = image.getMeasuredHeight();
-                Double coef = (double) currentBarLevel / 100.0;
-                if (coef < 0d) {
-                    coef = 0d;
-                } //pour les val
-                if (coef > 1d) {
-                    coef = 1d;
-                }
-                para.width = (int) (coef * oriWidth);
-                para.height = oriHeight;
-                progress.setLayoutParams(para);
-                if (coef >= 0.75) {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_notok));
-                } else if (coef < 0.75 && coef >= 0.5) {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_underhalf));
-                } else if (coef < 0.5 && coef >= 0.25) {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_abovehalf));
-                } else {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_ok));
-                }
+                task.initRestBarUI(image,progress,mC);
             }
         });
     }

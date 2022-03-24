@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (mainFrag != null) {
-            mainFrag.buildFrag();
+            RefreshManager.getRefreshManager().triggerRefresh();
         } else {
             buildMainPage();
         }

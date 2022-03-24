@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.Models.Character;
+import stellarnear.lost_ark_companion.Models.ElementTask;
 import stellarnear.lost_ark_companion.Models.ElementTaskDisplay;
+import stellarnear.lost_ark_companion.Models.ElementTaskDisplayCompact;
 import stellarnear.lost_ark_companion.Models.OneLineDisplay;
 import stellarnear.lost_ark_companion.Models.OneLineDisplayCharacter;
 import stellarnear.lost_ark_companion.Models.OneLineDisplayCharacterCompact;
@@ -29,7 +31,7 @@ import stellarnear.lost_ark_companion.R;
 public class MainActivityFragment extends Fragment {
     private View returnFragView;
     private SharedPreferences settings;
-    private Tools tools = Tools.getTools();
+    private final Tools tools = Tools.getTools();
 
     public MainActivityFragment() {
     }
@@ -49,28 +51,26 @@ public class MainActivityFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (settings.getBoolean("test_mode", getContext().getResources().getBoolean(R.bool.test_mode_DEF))) {
             returnFragView.findViewById(R.id.fake_test).setVisibility(View.VISIBLE);
-            ((Button) returnFragView.findViewById(R.id.test_pass_day)).setOnClickListener(new View.OnClickListener() {
+            returnFragView.findViewById(R.id.test_pass_day).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     TimeChecker.getInstance(getContext()).cheatPassDay(1);
                     tools.customToast(getContext(), "Passing one day...");
-                    buildFrag();
                 }
             });
-            ((Button) returnFragView.findViewById(R.id.test_pass_2_days)).setOnClickListener(new View.OnClickListener() {
+            returnFragView.findViewById(R.id.test_pass_2_days).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     TimeChecker.getInstance(getContext()).cheatPassDay(2);
                     tools.customToast(getContext(), "Passing two day...");
-                    buildFrag();
                 }
             });
-            ((Button) returnFragView.findViewById(R.id.test_check_time)).setOnClickListener(new View.OnClickListener() {
+            returnFragView.findViewById(R.id.test_check_time).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     tools.customToast(getContext(), "checking time...");
                     if (TimeChecker.getInstance(getContext()).checkCurrentTime()) {
-                        buildFrag();
+                        RefreshManager.getRefreshManager().triggerRefresh();
                     }
                 }
             });
@@ -83,7 +83,13 @@ public class MainActivityFragment extends Fragment {
 
     public void buildFrag() {
         LinearLayout expeLine = returnFragView.findViewById(R.id.expe_tasks);
-        ElementTaskDisplay elementLiner = new ElementTaskDisplay(getContext());
+        ElementTask elementLiner;
+        if (settings.getBoolean("compact_mode", getContext().getResources().getBoolean(R.bool.compact_mode_DEF))) {
+            elementLiner = new ElementTaskDisplayCompact(getContext());
+        } else {
+            elementLiner = new ElementTaskDisplay(getContext());
+        }
+
         expeLine.removeAllViews();
         for (Task task : MainActivity.expedition.getExpeditionTasks()) {
             View elementTask = elementLiner.getTaskElement(task);

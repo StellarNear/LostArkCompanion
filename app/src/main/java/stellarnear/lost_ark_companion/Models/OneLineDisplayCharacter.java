@@ -19,7 +19,7 @@ import stellarnear.lost_ark_companion.R;
 public class OneLineDisplayCharacter implements OneLineDisplay {
 
     private final Context mC;
-    private Tools tools = Tools.getTools();
+    private final Tools tools = Tools.getTools();
 
     public OneLineDisplayCharacter(Context context) {
         this.mC = context;
@@ -49,7 +49,8 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
                             .setPositiveButton("Change", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     c.setIlvl(tools.toInt(input.getText().toString()));
-                                    RefreshManager.getRefreshManager().triggerRefresh();
+                                    ilvl.setText("[" + c.getIlvl() + "]");
+                                    ExpeditionManager.getInstance(mC).saveToDB();
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -68,23 +69,22 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
 
         work.setImageDrawable(tools.getDrawable(mC, c.getWorkId() + "_ico"));
 
-        // create layout avec
-
-
         // autre layout (progress bar)
-        setProgressBar(mainView, R.id.chaos_back_bar, R.id.chaos_bar, c.getTaskByID("chaos_dungeon").getRest());
+        initProgressBar(mainView, R.id.chaos_back_bar, R.id.chaos_bar, c.getTaskByID("chaos_dungeon"));
         mainView.findViewById(R.id.chaos_bar_frame).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                askForOvewriteRest(c.getTaskByID("chaos_dungeon"));
+                askForOvewriteRest(c.getTaskByID("chaos_dungeon"), mainView);
+                c.getTaskByID("chaos_dungeon").refreshRestBar(mC);
                 return true;
             }
         });
-        setProgressBar(mainView, R.id.guardian_back_bar, R.id.guardian_bar, c.getTaskByID("guardian_raid").getRest());
+        initProgressBar(mainView, R.id.guardian_back_bar, R.id.guardian_bar, c.getTaskByID("guardian_raid"));
         mainView.findViewById(R.id.guardian_bar_frame).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                askForOvewriteRest(c.getTaskByID("guardian_raid"));
+                askForOvewriteRest(c.getTaskByID("guardian_raid"), mainView);
+                c.getTaskByID("guardian_raid").refreshRestBar(mC);
                 return true;
             }
         });
@@ -135,7 +135,7 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
 
     }
 
-    private void askForOvewriteRest(Task task) {
+    private void askForOvewriteRest(Task task, View mainView) {
         final EditText input = new EditText(mC);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         new AlertDialog.Builder(mC)
@@ -145,7 +145,8 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
                 .setPositiveButton("Overwrite", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         task.setRest(tools.toInt(input.getText().toString()));
-                        RefreshManager.getRefreshManager().triggerRefresh();
+                        ExpeditionManager.getInstance(mC).saveToDB();
+                        task.refreshRestBar(mC);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -155,34 +156,14 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
     }
 
 
-    private void setProgressBar(View mainView, int idBackBar, int frontBar, int currentBarLevel) {
+    private void initProgressBar(View mainView, int idBackBar, int frontBar, Task task) {
         final ImageView image = mainView.findViewById(frontBar);
         image.post(new Runnable() {
             @Override
             public void run() {
+                ImageView image = mainView.findViewById(frontBar);
                 ImageView progress = mainView.findViewById(idBackBar);
-                ViewGroup.LayoutParams para = (ViewGroup.LayoutParams) progress.getLayoutParams();
-                int oriWidth = image.getMeasuredWidth();
-                int oriHeight = image.getMeasuredHeight();
-                Double coef = (double) currentBarLevel / 100.0;
-                if (coef < 0d) {
-                    coef = 0d;
-                } //pour les val
-                if (coef > 1d) {
-                    coef = 1d;
-                }
-                para.width = (int) (coef * oriWidth);
-                para.height = oriHeight;
-                progress.setLayoutParams(para);
-                if (coef >= 0.75) {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_notok));
-                } else if (coef < 0.75 && coef >= 0.5) {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_underhalf));
-                } else if (coef < 0.5 && coef >= 0.25) {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_abovehalf));
-                } else {
-                    progress.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_ok));
-                }
+                task.initRestBarUI(image,progress,mC);
             }
         });
     }

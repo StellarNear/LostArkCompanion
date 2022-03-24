@@ -3,20 +3,18 @@ package stellarnear.lost_ark_companion.Models;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import stellarnear.lost_ark_companion.Activities.PrefCharacterFragment;
 import stellarnear.lost_ark_companion.Divers.Tools;
 import stellarnear.lost_ark_companion.R;
 
-public class ElementTaskDisplay {
+public class ElementTaskDisplay implements ElementTask {
     private final Context mC;
-    private Tools tools = Tools.getTools();
+    private final Tools tools = Tools.getTools();
 
     public ElementTaskDisplay(Context mC) {
         this.mC = mC;
@@ -71,8 +69,8 @@ public class ElementTaskDisplay {
                     } else {
                         task.addDone();
                         ExpeditionManager.getInstance(mC).saveToDB();
-                        if((task.getId().equalsIgnoreCase("chaos_dungeon")||task.getId().equalsIgnoreCase("guardian_raid")&&task.getRest()>=20)){ //sinon la barre bougera pas aucun interet à refresh
-                            RefreshManager.getRefreshManager().triggerRefresh();
+                        if ((task.getId().equalsIgnoreCase("chaos_dungeon") || task.getId().equalsIgnoreCase("guardian_raid") && task.getRest() >= 20)) { //sinon la barre bougera pas aucun interet à refresh
+                            task.refreshRestBar(mC);
                         }
                     }
 
