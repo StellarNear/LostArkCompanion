@@ -9,21 +9,21 @@ import java.util.List;
 
 public class Expedition {
 
-    public List<Character> characters = new ArrayList<>();
-    private String name;
     private final List<Task> expeditionTasks = new ArrayList<>();
     private final List<Task> commonCharacterTasks = new ArrayList<>();
-    private String storedDate = null;
     private final String encodedPatternDate = "yyyy-MM-dd HH:mm";
+    public List<Character> characters = new ArrayList<>();
+    private String name;
+    private String storedDate = null;
 
     public Expedition(String name) {
         this.setName(name);
-        this.commonCharacterTasks.add(new Task(true, false, "Chaos Dungeon", 2));
-        this.commonCharacterTasks.add(new Task(true, false, "Guardian Raid", 2));
-        this.commonCharacterTasks.add(new Task(false, false, "Silmael", 1));
-        this.expeditionTasks.add(new Task(false, true, "World Boss", 1));
-        this.expeditionTasks.add(new Task(false, true, "Ghost Ship", 1));
-        this.expeditionTasks.add(new Task(false, true, "Chaos Portal", 1));
+        this.commonCharacterTasks.add(new Task(true, false, "Chaos Dungeon", 2, "chaos_dungeon_ico"));
+        this.commonCharacterTasks.add(new Task(true, false, "Guardian Raid", 2, "guardian_raid_ico"));
+        this.commonCharacterTasks.add(new Task(false, false, "Silmael", 1, "silmael"));
+        this.expeditionTasks.add(new Task(false, true, "World Boss", 1, "world_boss"));
+        this.expeditionTasks.add(new Task(false, true, "Ghost Ship", 1, "ghost_ship"));
+        this.expeditionTasks.add(new Task(false, true, "Chaos Portal", 1, "chaos_portal"));
     }
 
     public String getName() {

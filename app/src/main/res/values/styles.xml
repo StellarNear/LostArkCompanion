@@ -5,8 +5,22 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/colorBackground</item>
+
+        <item name="icdStyle">@style/CustomIconDialogStyle</item>
+    </style>
+
+    <!-- Your custom dialog style, don't forget to specify the parent style! -->
+    <style name="CustomIconDialogStyle" parent="IcdStyle">
+        <item name="icdIconColor">@color/colorPrimaryDark</item>
+        <item name="icdListHeaderStyle">@style/CustomHeaderStyle</item>
+    </style>
+
+    <!-- Custom style for the list headers, again don't forget the parent! -->
+    <style name="CustomHeaderStyle" parent="IcdListHeaderStyle">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -34,5 +48,6 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
 
 </resources>

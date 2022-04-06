@@ -11,25 +11,27 @@ public class Task {
 
     private final boolean daily;
     private final boolean crossAccount;
-    private String name;
     private final int occurance;
-    private int currentDone;
     private final String id;
+    private String name;
+    private int currentDone;
     private int rest = 0;
 
     //UI stuff
-    private transient ImageView progressBarUI=null;
+    private transient ImageView progressBarUI = null;
     private transient int oriWidthBarUI;
     private transient int oriHeightBarUI;
+    private final String drawableId;
 
 
-    public Task(boolean daily, boolean crossAccount, String name, int occurance) {
+    public Task(boolean daily, boolean crossAccount, String name, int occurance, String drawableId) {
         this.daily = daily;
         this.crossAccount = crossAccount;
         this.name = name;
         this.occurance = occurance;
         this.currentDone = 0;
         this.id = name.replace(" ", "_").toLowerCase();
+        this.drawableId = drawableId;
     }
 
     public Task(Task another) {
@@ -39,6 +41,7 @@ public class Task {
         this.occurance = another.occurance;
         this.currentDone = 0;
         this.id = another.name.replace(" ", "_").toLowerCase();
+        this.drawableId = another.drawableId;
     }
 
     public String getId() {
@@ -107,7 +110,7 @@ public class Task {
     }
 
     public void refreshRestBar(Context mC) {
-        if(this.progressBarUI!=null) {
+        if (this.progressBarUI != null) {
             ViewGroup.LayoutParams para = progressBarUI.getLayoutParams();
             Double coef = (double) this.rest / 100.0;
             if (coef < 0d) {
@@ -131,8 +134,8 @@ public class Task {
         }
     }
 
-    public void initRestBarUI(View image , ImageView progress, Context mC) {
-        this.progressBarUI=progress;
+    public void initRestBarUI(View image, ImageView progress, Context mC) {
+        this.progressBarUI = progress;
         ViewGroup.LayoutParams para = progressBarUI.getLayoutParams();
         this.oriWidthBarUI = image.getMeasuredWidth();
         this.oriHeightBarUI = image.getMeasuredHeight();
@@ -158,4 +161,11 @@ public class Task {
     }
 
 
+    public String getDrawableId() {
+        if (this.drawableId == null) {
+            return this.id + "_ico";
+        } else {
+            return this.drawableId;
+        }
+    }
 }

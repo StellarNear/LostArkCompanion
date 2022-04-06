@@ -4,14 +4,20 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
@@ -22,10 +28,12 @@ import stellarnear.lost_ark_companion.R;
 
 public class PrefTaskFragment {
 
+    private static ArrayList<String> allIcoRef;
     private final Activity mA;
     private final Context mC;
     private final Tools tools = Tools.getTools();
     private OnRefreshEventListener mListener;
+    private String selectedIconId = null;
 
     public PrefTaskFragment(Activity mA, Context mC) {
         this.mA = mA;
@@ -33,6 +41,7 @@ public class PrefTaskFragment {
     }
 
     public void chargeList(PreferenceCategory listCat, List<Task> list) {
+
         for (final Task task : list) {
             Preference pref = new Preference(mC);
             pref.setKey("task_" + task.getName());
@@ -79,6 +88,14 @@ public class PrefTaskFragment {
         final View creationView = inflater.inflate(R.layout.custom_toast_task_creation, null);
         CustomAlertDialog creationTaskAlert = new CustomAlertDialog(mA, mC, creationView);
 
+        final ImageButton icon = creationView.findViewById(R.id.icon_task_selector);
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupSelectIcon(icon);
+            }
+        });
+
         creationTaskAlert.setPermanent(true);
         creationTaskAlert.addConfirmButton("Create");
         creationTaskAlert.addCancelButton("Cancel");
@@ -92,11 +109,11 @@ public class PrefTaskFragment {
                 boolean crossAccount = ((RadioButton) creationView.findViewById(R.id.cross_account_creation)).isChecked();
                 String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
 
-                if (name.equalsIgnoreCase("") || occuranceTxt.equalsIgnoreCase("")) {
-                    tools.customToast(mC, "You should fill all the fields !");
+                if (name.equalsIgnoreCase("") || occuranceTxt.equalsIgnoreCase("") || selectedIconId == null) {
+                    tools.customToast(mC, "You should fill all the fields and select an icon !");
                 } else {
                     int occurance = Integer.parseInt(occuranceTxt);
-                    Task task = new Task(daily, crossAccount, name, occurance);
+                    Task task = new Task(daily, crossAccount, name, occurance, selectedIconId);
                     if (!taskAlreadyExist(task)) {
                         MainActivity.expedition.createTask(task);
                         ExpeditionManager.getInstance(mC).saveToDB();
@@ -123,6 +140,58 @@ public class PrefTaskFragment {
             }
         });
     }
+
+    private void popupSelectIcon(ImageButton iconSelectButton) {
+
+
+        LayoutInflater inflater = mA.getLayoutInflater();
+        final View selectionIconView = inflater.inflate(R.layout.custom_icon_selection, null);
+        CustomAlertDialog creationTaskAlert = new CustomAlertDialog(mA, mC, selectionIconView);
+
+        creationTaskAlert.setPermanent(true);
+        creationTaskAlert.addCancelButton("Cancel");
+        GridLayout list = selectionIconView.findViewById(R.id.icons_list);
+
+        if (allIcoRef == null || allIcoRef.size() < 1) {
+            Field[] fields = R.drawable.class.getFields();
+            allIcoRef = new ArrayList<>();
+            for (int count = 0; count < fields.length; count++) {
+                if (fields[count].getName().endsWith("_ico")) {
+                    allIcoRef.add(fields[count].getName());
+                }
+            }
+        }
+        list.removeAllViews();
+        for (String iconId : allIcoRef) {
+            ImageView ico = new ImageView(mC);
+            Drawable icoDraw = null;
+            try {
+                icoDraw = tools.getDrawable(mC, iconId);
+            } catch (Exception e) {
+                iconId = "mire_test";
+                icoDraw = mC.getDrawable(R.drawable.mire_test);
+            }
+            ico.setImageDrawable(icoDraw);
+            int margin = mC.getResources().getDimensionPixelSize(R.dimen.general_margin);
+            ico.setPadding(margin, margin, margin, margin);
+            tools.resize(ico, mC.getResources().getDimensionPixelSize(R.dimen.icon_task_selection));
+            list.addView(ico);
+
+
+            Drawable finalIcoDraw = icoDraw;
+            String finalIconId = iconId;
+            ico.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedIconId = finalIconId;
+                    iconSelectButton.setBackground(finalIcoDraw);
+                    creationTaskAlert.dismissAlert();
+                }
+            });
+        }
+        creationTaskAlert.showAlert();
+    }
+
 
     private boolean taskAlreadyExist(Task task) {
         for (Task common : MainActivity.expedition.getCommonCharacterTasks()) {

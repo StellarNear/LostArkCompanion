@@ -69,14 +69,21 @@
                 android:textSize="25sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/expe_tasks"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/general_margin" />
+            android:fillViewport="true"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/expe_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/general_margin" />
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

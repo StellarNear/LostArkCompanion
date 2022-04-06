@@ -38,16 +38,16 @@ public class CircularProgressBar extends View {
 
 
     /**
+     * Start the progress at 12 o'clock
+     */
+    private final int startAngle = -90;
+    /**
      * ProgressBar's line thickness
      */
     private float strokeWidth = 50;
     private float progress = 0;
     private int min = 0;
     private int max = 100;
-    /**
-     * Start the progress at 12 o'clock
-     */
-    private final int startAngle = -90;
     private int color = Color.DKGRAY;
     private RectF rectF;
     private Paint backgroundPaint;

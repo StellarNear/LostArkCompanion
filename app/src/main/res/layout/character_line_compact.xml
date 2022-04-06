@@ -4,6 +4,7 @@
     android:id="@+id/relative_char_line"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_border_character"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/character_line_padding">

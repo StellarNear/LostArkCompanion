@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import stellarnear.lost_ark_companion.Divers.Tools;
@@ -29,9 +28,9 @@ import stellarnear.lost_ark_companion.R;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
+    private final Tools tools = Tools.getTools();
     private View returnFragView;
     private SharedPreferences settings;
-    private final Tools tools = Tools.getTools();
 
     public MainActivityFragment() {
     }

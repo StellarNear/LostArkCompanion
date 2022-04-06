@@ -23,8 +23,10 @@ import stellarnear.lost_ark_companion.R;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatActivity {
-    SettingsFragment settingsFragment;
+public class SettingsActivity extends AppCompatActivity { //FOR ICON PICKER implements IconDialog.Callback {
+    private SettingsFragment settingsFragment;
+
+    //FOR ICON PICKER private IconPack iconPack=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, settingsFragment)
                 .commit();
+
     }
 
     //
@@ -53,11 +56,61 @@ public class SettingsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 settingsFragment.onUpButton();
+
                 return true;
         }
         return true;
     }
 
+    /*FOR ICON PICKER
+
+    private void showPicker(){
+        IconDialog dialog = (IconDialog) getSupportFragmentManager().findFragmentByTag("icon-dialog");
+        IconDialogSettings.Builder builder = new IconDialogSettings.Builder();
+        builder.setMaxSelection(1);
+        IconDialog iconDialog = dialog != null ? dialog
+                : IconDialog.newInstance(builder.build());
+
+            iconDialog.show(getSupportFragmentManager(),"icon-dialog");
+    }
+
+    @Nullable
+    @Override
+    public IconPack getIconDialogIconPack() {
+        return  iconPack != null ? iconPack : loadIconPack();
+    }
+
+
+
+    private IconPack loadIconPack() {
+        // Create an icon pack loader with application context.
+        IconPackLoader loader = new IconPackLoader(this);
+
+        // Create an icon pack and load all drawables.
+        if(iconPack==null) {
+            iconPack = IconPackDefault.createDefaultIconPack(loader);
+            iconPack.loadDrawables(loader.getDrawableLoader());
+            iconPack = loader.load(R.xml.lost_ark_icons,R.xml.lost_ark_icons_tags, Collections.singletonList(Locale.ENGLISH),iconPack);
+        }
+        return iconPack;
+    }
+
+    @Override
+    public void onIconDialogIconsSelected(@NonNull IconDialog dialog, @NonNull List<Icon> icons) {
+        // Show a toast with the list of selected icon IDs.
+        StringBuilder sb = new StringBuilder();
+        for (Icon icon : icons) {
+            sb.append(icon.getId());
+            sb.append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        Toast.makeText(this, "Icons selected: " + sb, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onIconDialogCancelled() {}
+
+     */
     @Override
     public void onBackPressed() {
         settingsFragment.onUpButton();
@@ -71,4 +124,6 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
         super.onDestroy();
     }
+
+
 }

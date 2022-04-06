@@ -6,14 +6,12 @@ import java.util.List;
 import stellarnear.lost_ark_companion.Log.CustomLog;
 
 public class Character {
+    private final transient CustomLog log = new CustomLog(this.getClass());
     private String name;
     private String work;
     private Integer ilvl;
     private String id;
     private String workId;
-
-    private final transient CustomLog log = new CustomLog(this.getClass());
-
     private List<Task> characterTasks = new ArrayList<>();
 
     public Character(String name, String work, int ilvl) {

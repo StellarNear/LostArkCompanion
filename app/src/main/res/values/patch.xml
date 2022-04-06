@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"17h"</string>
+    <string name="time_spend">"28h"</string>
     <string name="basic_infos">"Custom application to monitor advancement of task on Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
-V0:
-WIP
-----------------------------------------------------------------------------------"
-    </string>
+v1.1:
+-Icon selector when creating a task
+-Rework UI and colors
+----------------------------------------------------------------------------------
+v1.0:
+-Working application with base feature (creation character and task and monitor rest on chaos and guardian
+----------------------------------------------------------------------------------"</string>
 
 </resources>

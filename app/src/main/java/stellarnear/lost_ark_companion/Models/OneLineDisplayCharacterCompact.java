@@ -55,6 +55,7 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
                                     c.setIlvl(tools.toInt(input.getText().toString()));
                                     ExpeditionManager.getInstance(mC).saveToDB();
                                     ilvl.setText("[" + c.getIlvl() + "]");
+                                    RefreshManager.getRefreshManager().triggerRefresh();
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -179,7 +180,7 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
             public void run() {
                 ImageView image = mainView.findViewById(frontBar);
                 ImageView progress = mainView.findViewById(idBackBar);
-                task.initRestBarUI(image,progress,mC);
+                task.initRestBarUI(image, progress, mC);
             }
         });
     }

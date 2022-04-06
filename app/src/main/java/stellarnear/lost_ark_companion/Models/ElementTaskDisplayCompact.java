@@ -21,7 +21,11 @@ public class ElementTaskDisplayCompact implements ElementTask {
     public View getTaskElement(final Task task) {
         LayoutInflater inflater = LayoutInflater.from(mC);
         View templateTaskElement = inflater.inflate(R.layout.task_element_compact, null);
-        templateTaskElement.findViewById(R.id.circular_task_icon).setBackground(tools.getDrawable(mC, task.getId() + "_ico"));
+        try {
+            templateTaskElement.findViewById(R.id.circular_task_icon).setBackground(tools.getDrawable(mC, task.getDrawableId()));
+        } catch (Exception e) {
+            templateTaskElement.findViewById(R.id.circular_task_icon).setBackground(mC.getDrawable(R.drawable.mire_test));
+        }
 
         CircularProgressBar circular = templateTaskElement.findViewById(R.id.circular_progress_task);
         setCircular(circular, task);

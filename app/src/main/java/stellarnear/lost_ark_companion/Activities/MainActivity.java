@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences settings;
     private MainActivityFragment mainFrag = null;
     private TimeChecker timeChecker;
+    private final Tools tools = Tools.getTools();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void buildMainPage() {
-        setContentView(R.layout.activity_main);
-        mainFrameFrag = findViewById(R.id.fragment_main_frame_layout);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().hide();
-
-        Window window = getWindow();
-        window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
-        getSupportActionBar().show();
-        startFragment();
-    }
-
+    // other
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -72,25 +61,41 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (mainFrag != null) {
+            timeChecker.checkCurrentTime();
             RefreshManager.getRefreshManager().triggerRefresh();
         } else {
             buildMainPage();
         }
     }
 
+    private void buildMainPage() {
+        setContentView(R.layout.activity_main);
+        mainFrameFrag = findViewById(R.id.fragment_main_frame_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().hide();
+
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
+        getSupportActionBar().show();
+
+        startFragment();
+    }
+
     private void startFragment() {
         if (mainFrag == null) {
-            mainFrag = new MainActivityFragment();
             timeChecker = TimeChecker.getInstance(getApplicationContext());
-            int delay = Tools.getTools().toInt(settings.getString("checktimer_delay", String.valueOf(getApplicationContext().getResources().getInteger(R.integer.checktimer_delay_DEF))));
+            timeChecker.checkCurrentTime();
+            mainFrag = new MainActivityFragment();
+            final int delay = Tools.getTools().toInt(settings.getString("checktimer_delay", String.valueOf(getApplicationContext().getResources().getInteger(R.integer.checktimer_delay_DEF))));
 
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    if (mainFrag.isAdded() && mainFrag.isVisible() && timeChecker.checkCurrentTime()) {
+                    if (mainFrag != null && mainFrag.isResumed() && timeChecker.checkCurrentTime()) {
                         RefreshManager.getRefreshManager().triggerRefresh();
                     }
-                    handler.postDelayed(this, 60 * delay * 1000);
+                    handler.postDelayed(this, 60 * (Math.max(delay, 1)) * 1000);
                 }
             }, 60 * delay * 1000);
         }

@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Locale;
 
 import stellarnear.lost_ark_companion.Activities.MainActivity;
@@ -18,12 +19,11 @@ public class TimeChecker {
     private static TimeChecker instance = null;
     private final Context mC;
     private final Tools tools = Tools.getTools();
-    Expedition expedition = MainActivity.expedition;
     private final SharedPreferences settings;
-
     private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private final SimpleDateFormat formatterHour = new SimpleDateFormat("HH");
     private final SimpleDateFormat formatterDayOfTheWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+    Expedition expedition = MainActivity.expedition;
 
     private TimeChecker(Context mC) {
         this.mC = mC;
@@ -40,7 +40,7 @@ public class TimeChecker {
     public boolean checkCurrentTime() {
 
         boolean needRefreshUi = false;
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC+1"));
         LocalDateTime storedDate = MainActivity.expedition.getStoredDate();
 
         long nReset = resetDiff(now, storedDate);

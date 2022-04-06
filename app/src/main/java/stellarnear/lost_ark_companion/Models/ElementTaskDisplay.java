@@ -23,7 +23,11 @@ public class ElementTaskDisplay implements ElementTask {
     public View getTaskElement(final Task task) {
         LayoutInflater inflater = LayoutInflater.from(mC);
         View templateTaskElement = inflater.inflate(R.layout.task_element, null);
-        templateTaskElement.findViewById(R.id.task_background).setBackground(tools.getDrawable(mC, task.getId() + "_ico"));
+        try {
+            templateTaskElement.findViewById(R.id.task_background).setBackground(tools.getDrawable(mC, task.getDrawableId()));
+        } catch (Exception e) {
+            templateTaskElement.findViewById(R.id.task_background).setBackground(mC.getDrawable(R.drawable.mire_test));
+        }
         TextView text = templateTaskElement.findViewById(R.id.task_name);
         text.setText(task.getName());
         LinearLayout checkboxes = templateTaskElement.findViewById(R.id.checkboxes_tasks); //horizontal
