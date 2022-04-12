@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"28h"</string>
-    <string name="basic_infos">"Custom application to monitor advancement of task on Lost Ark." </string>
+    <string name="time_spend">"33h"</string>
+    <string name="basic_infos">"Custom application to monitor advancement of tasks in Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.3:
+-Manage task present on certain days
+-Can remove or add task for only one character
+-Add the possibility to complete a task by boat (stronghold). Just hold click on a task checkbox(full mode) / logo (compact mode)
+----------------------------------------------------------------------------------
+v1.2:
+-Fetch all icons from android's phone resources if wanted during task icon selection
+----------------------------------------------------------------------------------
 v1.1:
 -Icon selector when creating a task
 -Rework UI and colors

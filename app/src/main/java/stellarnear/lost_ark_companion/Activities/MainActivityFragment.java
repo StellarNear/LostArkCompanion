@@ -91,9 +91,11 @@ public class MainActivityFragment extends Fragment {
 
         expeLine.removeAllViews();
         for (Task task : MainActivity.expedition.getExpeditionTasks()) {
-            View elementTask = elementLiner.getTaskElement(task);
-            elementTask.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-            expeLine.addView(elementTask);
+            if (task.getAppearance() == null || TimeChecker.getInstance(getContext()).isThatDay(task.getAppearance())) {
+                View elementTask = elementLiner.getTaskElement(task);
+                elementTask.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+                expeLine.addView(elementTask);
+            }
         }
 
         LinearLayout grid = returnFragView.findViewById(R.id.characters_grid);

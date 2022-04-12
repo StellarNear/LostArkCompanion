@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:src="@drawable/bar_overlay" />
 
         </FrameLayout>
@@ -123,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:src="@drawable/bar_overlay" />
 
         </FrameLayout>

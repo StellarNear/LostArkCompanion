@@ -1,6 +1,8 @@
 package stellarnear.lost_ark_companion.Models;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import stellarnear.lost_ark_companion.Log.CustomLog;
@@ -64,7 +66,6 @@ public class Character {
     }
 
     public void computeResetDaily() {
-
         for (Task task : this.characterTasks) {
             if (task.isDaily()) {
                 task.reset();
@@ -83,15 +84,23 @@ public class Character {
 
     public void resetWeekly() {
         for (Task task : this.characterTasks) {
-            if (!task.isDaily()) {
-                task.reset();
-            }
+            task.reset();
         }
-        //other daily task will be reset here
-        computeResetDaily();
     }
 
     public List<Task> getTasks() {
+        Collections.sort(characterTasks, new Comparator<Task>() {
+            @Override
+            public int compare(final Task t1, final Task t2) {
+                if (t1.isDaily() && !t2.isDaily()) {
+                    return -1;
+                } else if (!t1.isDaily() && t2.isDaily()) {
+                    return 1;
+                } else {
+                    return t1.getName().compareToIgnoreCase(t2.getName());
+                }
+            }
+        });
         return characterTasks;
     }
 

@@ -125,11 +125,20 @@ public class Tools {
 
     public Drawable getDrawable(Context mC, String id) {
         Drawable draw = null;
+
         int imgId = mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
         if (imgId != 0) {
             try {
                 draw = mC.getDrawable(imgId);
             } catch (Exception e) {
+
+            }
+        } else {
+            try {
+                int imgIdAndroid = mC.getResources().getIdentifier(id, "drawable", "android"); //maybe we select a base android icon
+                draw = mC.getDrawable(imgIdAndroid);
+            } catch (Exception e) {
+
             }
         }
         return draw;

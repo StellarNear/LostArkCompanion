@@ -57,9 +57,9 @@ public class ElementTaskDisplayCompact implements ElementTask {
             public boolean onLongClick(View view) {
                 new AlertDialog.Builder(mC)
                         .setIcon(R.drawable.ic_warning_black_24dp)
-                        .setTitle("Undo one occurance ?")
-                        .setMessage("Do you really want to undo one completion of " + task.getName() + " ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle("Manual edition")
+                        .setMessage("You can undo one occurance, or validate one by stronghold expedition for " + task.getName() + ".")
+                        .setNegativeButton("Undo", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 task.cancelOne();
@@ -68,7 +68,16 @@ public class ElementTaskDisplayCompact implements ElementTask {
                                 circular.setProgressWithAnimation(task.getCurrentDone());
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("By boat", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                task.doneByBoat();
+                                ExpeditionManager.getInstance(mC).saveToDB();
+                                setColor(circular, task);
+                                circular.setProgressWithAnimation(task.getCurrentDone());
+                            }
+                        })
+                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }

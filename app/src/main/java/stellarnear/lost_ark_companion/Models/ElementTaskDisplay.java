@@ -77,8 +77,37 @@ public class ElementTaskDisplay implements ElementTask {
                             task.refreshRestBar(mC);
                         }
                     }
+                }
+            });
 
-
+            box.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    new AlertDialog.Builder(mC)
+                            .setIcon(R.drawable.ic_warning_black_24dp)
+                            .setTitle("Manual edition")
+                            .setMessage("You can undo one occurance, or validate one by stronghold expedition for " + task.getName() + ".")
+                            .setNegativeButton("Undo", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    task.cancelOne();
+                                    ExpeditionManager.getInstance(mC).saveToDB();
+                                }
+                            })
+                            .setPositiveButton("By boat", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    task.doneByBoat();
+                                    ExpeditionManager.getInstance(mC).saveToDB();
+                                }
+                            })
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                    return true;
                 }
             });
         }

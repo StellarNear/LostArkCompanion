@@ -94,6 +94,9 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
         LinearLayout tasks = mainView.findViewById(R.id.tasks_list_one_line_char);
         ElementTaskDisplay elementLiner = new ElementTaskDisplay(mC);
         for (final Task task : c.getTasks()) {
+            if (task.getAppearance() != null && !TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
+                continue;
+            }
             final View taskElement = elementLiner.getTaskElement(task);
 
             taskElement.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));

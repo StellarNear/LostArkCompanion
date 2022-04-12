@@ -20,8 +20,16 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
-        android:key="character_tasks"
-        android:title="Characters tasks">
+        android:key="common_character_tasks"
+        android:title="Common Character's tasks">
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="detail_character_tasks"
+        android:title="Detail characters tasks">
         <Preference
             android:layout="@layout/divider_pref"
             android:selectable="false" />

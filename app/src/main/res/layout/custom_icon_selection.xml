@@ -24,6 +24,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/android_icons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_margin="@dimen/general_margin"
+                android:src="@drawable/ic_baseline_android_24" />
+
+
             <TextView
                 android:id="@+id/toast_list_title"
                 android:layout_width="wrap_content"
@@ -44,12 +53,17 @@
 
         </FrameLayout>
 
-        <GridLayout
-            android:id="@+id/icons_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="6"
-            android:orientation="horizontal" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:id="@+id/icons_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="6"
+                android:orientation="horizontal" />
+        </ScrollView>
 
 
     </LinearLayout>

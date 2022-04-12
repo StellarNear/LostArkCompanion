@@ -111,8 +111,10 @@ public class SettingsFragment extends CustomPreferenceFragment {
                 case "pref_tasks":
                     PreferenceCategory listExpeTask = (PreferenceCategory) findPreference("expedition_tasks");
                     prefTaskFragment.chargeList(listExpeTask, MainActivity.expedition.getExpeditionTasks());
-                    PreferenceCategory listCharTask = (PreferenceCategory) findPreference("character_tasks");
+                    PreferenceCategory listCharTask = (PreferenceCategory) findPreference("common_character_tasks");
                     prefTaskFragment.chargeList(listCharTask, MainActivity.expedition.getCommonCharacterTasks());
+                    PreferenceCategory listCharDetail = (PreferenceCategory) findPreference("detail_character_tasks");
+                    prefTaskFragment.chargeCharList(getPreferenceScreen(), MainActivity.expedition.getCharacters());
                     break;
             }
         }

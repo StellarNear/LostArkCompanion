@@ -1,8 +1,9 @@
 package stellarnear.lost_ark_companion.Models;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,19 +12,22 @@ public class Expedition {
 
     private final List<Task> expeditionTasks = new ArrayList<>();
     private final List<Task> commonCharacterTasks = new ArrayList<>();
-    private final String encodedPatternDate = "yyyy-MM-dd HH:mm";
+
     public List<Character> characters = new ArrayList<>();
     private String name;
     private String storedDate = null;
 
     public Expedition(String name) {
         this.setName(name);
+
         this.commonCharacterTasks.add(new Task(true, false, "Chaos Dungeon", 2, "chaos_dungeon_ico"));
         this.commonCharacterTasks.add(new Task(true, false, "Guardian Raid", 2, "guardian_raid_ico"));
-        this.commonCharacterTasks.add(new Task(false, false, "Silmael", 1, "silmael"));
-        this.expeditionTasks.add(new Task(false, true, "World Boss", 1, "world_boss"));
-        this.expeditionTasks.add(new Task(false, true, "Ghost Ship", 1, "ghost_ship"));
-        this.expeditionTasks.add(new Task(false, true, "Chaos Portal", 1, "chaos_portal"));
+        this.commonCharacterTasks.add(new Task(false, false, "Silmael", 1, "silmael_ico"));
+
+        this.expeditionTasks.add(new Task(true, true, "Island", 1, "island_ico"));
+        this.expeditionTasks.add(new Task(true, true, "World Boss", 1, "world_boss_ico").setAppearance(Arrays.asList("Tuesday", "Friday", "Sunday")));
+        this.expeditionTasks.add(new Task(false, true, "Ghost Ship", 1, "ghost_ship_ico").setAppearance(Arrays.asList("Tuesday", "Thursday", "Saturday")));
+        this.expeditionTasks.add(new Task(true, true, "Chaos Portal", 1, "chaos_portal_ico").setAppearance(Arrays.asList("Monday", "Thursday", "Saturday", "Sunday")));
     }
 
     public String getName() {
@@ -35,6 +39,18 @@ public class Expedition {
     }
 
     public List<Task> getExpeditionTasks() {
+        Collections.sort(expeditionTasks, new Comparator<Task>() {
+            @Override
+            public int compare(final Task t1, final Task t2) {
+                if (t1.isDaily() && !t2.isDaily()) {
+                    return -1;
+                } else if (!t1.isDaily() && t2.isDaily()) {
+                    return 1;
+                } else {
+                    return t1.getName().compareToIgnoreCase(t2.getName());
+                }
+            }
+        });
         return expeditionTasks;
     }
 
@@ -74,8 +90,6 @@ public class Expedition {
 
 
     public void createCharacter(Character c) {
-
-
         c.setTasks(commonCharacterTasks);
         this.characters.add(c);
     }
@@ -92,6 +106,13 @@ public class Expedition {
         }
     }
 
+    public void createTaskForCharacters(Task task, List<String> selectedCharactersIds) {
+        for (String charId : selectedCharactersIds) {
+            Character character = getCharacterById(charId);
+            character.getTasks().add(new Task(task));
+        }
+    }
+
     public void deleteTask(Task task) {
         this.expeditionTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
         this.commonCharacterTasks.removeIf(x -> x.getId().equalsIgnoreCase(task.getId()));
@@ -103,13 +124,27 @@ public class Expedition {
     }
 
 
-    public LocalDateTime getStoredDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(encodedPatternDate);
-        return LocalDateTime.parse(storedDate, formatter);
+    public LocalDate getStoredDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(storedDate, formatter);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public void setStoredDate(LocalDateTime storedDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(encodedPatternDate);
+    public void setStoredDate(LocalDate storedDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.storedDate = storedDate.format(formatter);
     }
+
+    public Character getCharacterById(String characterId) {
+        for (Character character : this.characters) {
+            if (character.getId().equalsIgnoreCase(characterId)) {
+                return character;
+            }
+        }
+        return null;
+    }
+
 }

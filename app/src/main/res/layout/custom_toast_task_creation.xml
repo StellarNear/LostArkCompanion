@@ -45,8 +45,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weekly" />
+
+            <CheckBox
+                android:id="@+id/only_on_creation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Only on" />
         </RadioGroup>
 
+        <HorizontalScrollView
+            android:id="@+id/advance_days_scroll"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/advance_days_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </HorizontalScrollView>
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,8 +85,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Per Expedition" />
-        </RadioGroup>
 
+            <RadioButton
+                android:id="@+id/only_for_creation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Only for" />
+        </RadioGroup>
+        <HorizontalScrollView
+            android:id="@+id/advance_character_scroll"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/advance_character_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+            </LinearLayout>
+
+        </HorizontalScrollView>
 
         <EditText
             android:id="@+id/occurance_creation"
@@ -94,5 +134,10 @@
                 android:tooltipText="Choose Task Icon" />
         </LinearLayout>
 
+
+
+
     </LinearLayout>
+
+
 </LinearLayout>

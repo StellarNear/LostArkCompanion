@@ -102,6 +102,10 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
         LinearLayout tasks = mainView.findViewById(R.id.tasks_list_one_line_char_circular);
         ElementTaskDisplayCompact elementLiner = new ElementTaskDisplayCompact(mC);
         for (final Task task : c.getTasks()) {
+            if (task.getAppearance() != null && !TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
+                continue;
+            }
+
             final View taskElement = elementLiner.getTaskElement(task);
 
             taskElement.setOnLongClickListener(new View.OnLongClickListener() {

@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.List;
+
 import stellarnear.lost_ark_companion.R;
 
 public class Task {
@@ -13,15 +15,16 @@ public class Task {
     private final boolean crossAccount;
     private final int occurance;
     private final String id;
+    private final String drawableId;
     private String name;
     private int currentDone;
     private int rest = 0;
+    private List<String> appearance = null;
 
     //UI stuff
     private transient ImageView progressBarUI = null;
     private transient int oriWidthBarUI;
     private transient int oriHeightBarUI;
-    private final String drawableId;
 
 
     public Task(boolean daily, boolean crossAccount, String name, int occurance, String drawableId) {
@@ -42,6 +45,7 @@ public class Task {
         this.currentDone = 0;
         this.id = another.name.replace(" ", "_").toLowerCase();
         this.drawableId = another.drawableId;
+        this.appearance = another.appearance;
     }
 
     public String getId() {
@@ -68,9 +72,15 @@ public class Task {
         return daily;
     }
 
-
     public int getCurrentDone() {
         return this.currentDone;
+    }
+
+    public void doneByBoat() {
+        this.currentDone++;
+        if (this.currentDone > this.occurance) {
+            this.currentDone = this.occurance;
+        }
     }
 
     public void addDone() {
@@ -167,5 +177,14 @@ public class Task {
         } else {
             return this.drawableId;
         }
+    }
+
+    public List<String> getAppearance() {
+        return appearance;
+    }
+
+    public Task setAppearance(List<String> days) {
+        this.appearance = days;
+        return this;
     }
 }

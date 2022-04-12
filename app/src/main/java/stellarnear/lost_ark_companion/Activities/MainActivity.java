@@ -27,11 +27,11 @@ import stellarnear.lost_ark_companion.R;
 public class MainActivity extends AppCompatActivity {
 
     public static Expedition expedition = null;
+    private final Tools tools = Tools.getTools();
     private FrameLayout mainFrameFrag;
     private SharedPreferences settings;
     private MainActivityFragment mainFrag = null;
     private TimeChecker timeChecker;
-    private final Tools tools = Tools.getTools();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
