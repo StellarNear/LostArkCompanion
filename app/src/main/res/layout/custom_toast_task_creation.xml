@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_border_creation"
     android:gravity="center"
-    android:minWidth="300dp"
+    android:minWidth="400dp"
     android:orientation="vertical"
     android:padding="@dimen/general_margin">
 
@@ -29,8 +29,9 @@
 
 
         <RadioGroup
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -56,8 +57,8 @@
         <HorizontalScrollView
             android:id="@+id/advance_days_scroll"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/advance_days_line"
@@ -68,9 +69,11 @@
 
             </LinearLayout>
         </HorizontalScrollView>
+
         <RadioGroup
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -92,26 +95,27 @@
                 android:layout_height="wrap_content"
                 android:text="Only for" />
         </RadioGroup>
+
         <HorizontalScrollView
             android:id="@+id/advance_character_scroll"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
             <LinearLayout
                 android:id="@+id/advance_character_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
-            </LinearLayout>
+                android:orientation="horizontal"></LinearLayout>
 
         </HorizontalScrollView>
 
         <EditText
-            android:id="@+id/occurance_creation"
+            android:id="@+id/occurrence_creation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Occurance"
+            android:hint="Occurrence"
             android:inputType="number" />
 
         <LinearLayout
@@ -133,8 +137,6 @@
                 android:textIsSelectable="false"
                 android:tooltipText="Choose Task Icon" />
         </LinearLayout>
-
-
 
 
     </LinearLayout>

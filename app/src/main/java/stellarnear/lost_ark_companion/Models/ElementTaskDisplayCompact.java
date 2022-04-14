@@ -34,7 +34,7 @@ public class ElementTaskDisplayCompact implements ElementTask {
     }
 
     private void setCircular(CircularProgressBar circular, Task task) {
-        circular.setMax(task.getOccurance());
+        circular.setMax(task.getOccurrence());
         setColor(circular, task);
         circular.setProgressWithAnimation(task.getCurrentDone());
 
@@ -58,7 +58,7 @@ public class ElementTaskDisplayCompact implements ElementTask {
                 new AlertDialog.Builder(mC)
                         .setIcon(R.drawable.ic_warning_black_24dp)
                         .setTitle("Manual edition")
-                        .setMessage("You can undo one occurance, or validate one by stronghold expedition for " + task.getName() + ".")
+                        .setMessage("You can undo one occurrence, or validate one by stronghold expedition for " + task.getName() + ".")
                         .setNegativeButton("Undo", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -89,7 +89,7 @@ public class ElementTaskDisplayCompact implements ElementTask {
     }
 
     private void setColor(CircularProgressBar circular, Task task) {
-        double coef = (1.0 * task.getCurrentDone()) / (1.0 * task.getOccurance());
+        double coef = (1.0 * task.getCurrentDone()) / (1.0 * task.getOccurrence());
         if (coef >= 0.75) {
             circular.setColor(mC.getColor(R.color.task_done));
         } else if (coef < 0.75 && coef >= 0.5) {

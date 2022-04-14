@@ -39,7 +39,7 @@ public class ElementTaskDisplay implements ElementTask {
     private void buildCheckBoxList(LinearLayout checkboxes, Task task) {
         int nDone = 0;
         checkboxes.removeAllViews();
-        for (int i = 1; i <= task.getOccurance(); i++) {
+        for (int i = 1; i <= task.getOccurrence(); i++) {
             final CheckBox box = new CheckBox(mC);
             if (nDone < task.getCurrentDone()) {
                 box.setChecked(true);
@@ -86,7 +86,7 @@ public class ElementTaskDisplay implements ElementTask {
                     new AlertDialog.Builder(mC)
                             .setIcon(R.drawable.ic_warning_black_24dp)
                             .setTitle("Manual edition")
-                            .setMessage("You can undo one occurance, or validate one by stronghold expedition for " + task.getName() + ".")
+                            .setMessage("You can undo one occurrence, or validate one by stronghold expedition for " + task.getName() + ".")
                             .setNegativeButton("Undo", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

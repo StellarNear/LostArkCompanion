@@ -20,4 +20,10 @@
         android:summary="Parameters and information about the application"
         android:title="Application settings" />
 
+
+    <PreferenceScreen
+        android:icon="@drawable/ic_baseline_help_outline_24"
+        android:key="pref_how_to"
+        android:summary="Explains basic usage of the application"
+        android:title="How to" />
 </PreferenceScreen>

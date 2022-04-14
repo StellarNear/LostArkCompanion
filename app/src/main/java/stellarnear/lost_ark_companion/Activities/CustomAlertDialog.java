@@ -89,7 +89,7 @@ public class CustomAlertDialog {
     private void setTimer() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         if (settings.getBoolean("switch_autoclose_dialog", mC.getResources().getBoolean(R.bool.switch_autoclose_dialog_DEF)) && !permanent) {
-            int duration = Tools.getTools().toInt(settings.getString("custom_alert_long_duration", String.valueOf(mC.getResources().getInteger(R.integer.custom_alert_long_duration_DEF))));
+            int duration = Tools.getTools().toInt(String.valueOf(mC.getResources().getInteger(R.integer.custom_alert_long_duration_DEF)));
             Handler h = new Handler();
             h.postDelayed(new Runnable() {
                 @Override

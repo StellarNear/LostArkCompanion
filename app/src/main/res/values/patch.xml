@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"33h"</string>
+    <string name="time_spend">"34h"</string>
     <string name="basic_infos">"Custom application to monitor advancement of tasks in Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v2.0:
+-Add auto update mechanism
+----------------------------------------------------------------------------------
+v1.4:
+-Add an how to section in menu
+-Add Glaivier class
+-Add few icons (quests)
+----------------------------------------------------------------------------------
 v1.3:
 -Manage task present on certain days
 -Can remove or add task for only one character

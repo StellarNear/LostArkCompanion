@@ -13,7 +13,7 @@ public class Task {
 
     private final boolean daily;
     private final boolean crossAccount;
-    private final int occurance;
+    private final int occurrence;
     private final String id;
     private final String drawableId;
     private String name;
@@ -27,11 +27,11 @@ public class Task {
     private transient int oriHeightBarUI;
 
 
-    public Task(boolean daily, boolean crossAccount, String name, int occurance, String drawableId) {
+    public Task(boolean daily, boolean crossAccount, String name, int occurrence, String drawableId) {
         this.daily = daily;
         this.crossAccount = crossAccount;
         this.name = name;
-        this.occurance = occurance;
+        this.occurrence = occurrence;
         this.currentDone = 0;
         this.id = name.replace(" ", "_").toLowerCase();
         this.drawableId = drawableId;
@@ -41,7 +41,7 @@ public class Task {
         this.daily = another.daily;
         this.crossAccount = another.crossAccount;
         this.name = another.name;
-        this.occurance = another.occurance;
+        this.occurrence = another.occurrence;
         this.currentDone = 0;
         this.id = another.name.replace(" ", "_").toLowerCase();
         this.drawableId = another.drawableId;
@@ -52,8 +52,8 @@ public class Task {
         return id;
     }
 
-    public int getOccurance() {
-        return occurance;
+    public int getOccurrence() {
+        return occurrence;
     }
 
     public String getName() {
@@ -78,8 +78,8 @@ public class Task {
 
     public void doneByBoat() {
         this.currentDone++;
-        if (this.currentDone > this.occurance) {
-            this.currentDone = this.occurance;
+        if (this.currentDone > this.occurrence) {
+            this.currentDone = this.occurrence;
         }
     }
 
@@ -91,13 +91,13 @@ public class Task {
                 this.rest = 0;
             }
         }
-        if (this.currentDone > this.occurance) {
-            this.currentDone = this.occurance;
+        if (this.currentDone > this.occurrence) {
+            this.currentDone = this.occurrence;
         }
     }
 
     public void reset() {
-        this.rest += (this.occurance - this.currentDone) * 10;
+        this.rest += (this.occurrence - this.currentDone) * 10;
         if (this.rest > 100) {
             this.rest = 100;
         }

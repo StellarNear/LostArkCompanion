@@ -8,7 +8,6 @@ import android.graphics.PorterDuff;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -107,37 +106,6 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
             }
 
             final View taskElement = elementLiner.getTaskElement(task);
-
-            taskElement.setOnLongClickListener(new View.OnLongClickListener() {
-
-                @Override
-                public boolean onLongClick(View view) {
-                    new AlertDialog.Builder(mC)
-                            .setIcon(R.drawable.ic_warning_black_24dp)
-                            .setTitle("Remove this task ?")
-                            .setMessage("Do you really want to delete " + task.getName() + " ?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (task.getId().equalsIgnoreCase("chaos_dungeon") || task.getId().equalsIgnoreCase("guardian_raid")) {
-                                        tools.customToast(mC, task.getName() + " can't be deleted (Chaos and Guardians are baseline) !");
-                                    } else {
-                                        c.getTasks().remove(task);
-                                        ExpeditionManager.getInstance(mC).saveToDB();
-                                        ((ViewGroup) taskElement.getParent()).removeView(taskElement);
-                                        tools.customToast(mC, task.getName() + " removed for " + c.getName() + " !");
-                                    }
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .show();
-                    return true;
-                }
-            });
 
             if (!task.getId().equalsIgnoreCase("guardian_raid") && !task.getId().equalsIgnoreCase("chaos_dungeon")) {
                 taskElement.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));

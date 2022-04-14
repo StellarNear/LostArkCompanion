@@ -5,14 +5,6 @@
         android:summary="Display application in full screen"
         android:title="FullScreen" />
 
-    <stellarnear.lost_ark_companion.Divers.EditTextPreference
-        android:defaultValue="@integer/custom_alert_long_duration_DEF"
-        android:inputType="number"
-        android:key="custom_alert_long_duration"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:summary="Value : %s ms"
-        android:title="Duration of instant popups" />
     <SwitchPreference
         android:defaultValue="@bool/compact_mode_DEF"
         android:key="compact_mode"
@@ -40,5 +32,9 @@
         android:summary="Value : %s minutes"
         android:title="Delay beetween two checks of the time" />
 
-
+    <SwitchPreference
+        android:defaultValue="@bool/switch_shadow_link_def"
+        android:key="switch_shadow_link"
+        android:summary="Connect to google to check for new app version"
+        android:title="ShadowLink" />
 </PreferenceScreen>

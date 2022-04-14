@@ -27,6 +27,9 @@
             android:selectable="false" />
     </PreferenceCategory>
 
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
     <PreferenceCategory
         android:key="detail_character_tasks"
         android:title="Detail characters tasks">

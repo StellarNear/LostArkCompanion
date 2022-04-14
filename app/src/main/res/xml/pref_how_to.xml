@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
+    <PreferenceCategory
+        android:key="task"
+        android:title="Task Features">
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Long click on the checkbox(full mode) or the icon(compact mode) to undo a completion"
+            android:title="Undo one occurrence" />
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Long click on the checkbox(full mode) or the icon(compact mode) to validate withotu spending rest (what does a stronghold's exepdition)"
+            android:title="Validate by stronghold expedition" />
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Long click on the rest bars to edit the value"
+            android:title="Change rest value" />
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="The tasks are ordered by daily first then weekly then alphabetically"
+            android:title="Order of tasks" />
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Some task can be present only on a certain day of the week (you can set that during creation). Thoses tasks will not appear if not accessible the present day"
+            android:title="Appearance of tasks" />
+    </PreferenceCategory>
+
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
+    <PreferenceCategory
+        android:key="characters"
+        android:title="Character Features">
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Long click on the ilvl text of the character to change the value"
+            android:title="Change ilvl value" />
+
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Characters are ordered by ilvl"
+            android:title="Order of characters" />
+    </PreferenceCategory>
+
+
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
+    <PreferenceCategory
+        android:key="general"
+        android:title="General system">
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="The application checks for time every x minutes (can be set in settings) while opened and check when the activity is displayed"
+            android:title="Time checking" />
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Each 11AM (UTC+1) the app will reset all daily task, and compute rest bar for Chaos Dungeon and Guardian Raid"
+            android:title="Daily reset" />
+        <Preference
+            android:layout="@layout/divider_pref"
+            android:selectable="false" />
+        <EditTextPreference
+            android:selectable="false"
+            android:summary="Each 11AM (UTC+1) on Thursday the app will reset all task"
+            android:title="Weekly reset" />
+    </PreferenceCategory>
+    <Preference
+        android:layout="@layout/divider_pref"
+        android:selectable="false" />
+
+</PreferenceScreen>

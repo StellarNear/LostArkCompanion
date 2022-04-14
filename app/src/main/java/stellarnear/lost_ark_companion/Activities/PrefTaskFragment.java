@@ -38,6 +38,7 @@ public class PrefTaskFragment {
     private final Activity mA;
     private final Context mC;
     private final Tools tools = Tools.getTools();
+
     private OnRefreshEventListener mListener;
     private String selectedIconId = null;
     private ImageButton iconSelect;
@@ -57,7 +58,7 @@ public class PrefTaskFragment {
             pref.setKey("task_" + task.getName());
             pref.setTitle(task.getName());
 
-            String txt = task.getOccurance() + " time per " + (task.isDaily() ? "day" : "week") + " for " + (task.isCrossAccount() ? "the expedition" : "each character") + (task.getAppearance() != null && task.getAppearance().size() > 0 ? " only " + task.getAppearance().toString() : "");
+            String txt = task.getOccurrence() + " time per " + (task.isDaily() ? "day" : "week") + " for " + (task.isCrossAccount() ? "the expedition" : "each character") + (task.getAppearance() != null && task.getAppearance().size() > 0 ? " only " + task.getAppearance().toString() : "");
             pref.setSummary(txt);
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -97,13 +98,16 @@ public class PrefTaskFragment {
         for (Character character : listChar) {
             PreferenceCategory listCat = new PreferenceCategory(mC);
             listCat.setTitle(character.getId());
+
             listCatMain.addPreference(listCat);
+            listCat.addPreference(getDivider());
+
             for (final Task task : character.getTasks()) {
                 Preference pref = new Preference(mC);
                 pref.setKey(character.getId() + "_task_" + task.getName());
                 pref.setTitle(task.getName());
 
-                String txt = task.getOccurance() + " time per " + (task.isDaily() ? "day" : "week") + (task.getAppearance() != null && task.getAppearance().size() > 0 ? " only " + task.getAppearance().toString() : "");
+                String txt = task.getOccurrence() + " time per " + (task.isDaily() ? "day" : "week") + (task.getAppearance() != null && task.getAppearance().size() > 0 ? " only " + task.getAppearance().toString() : "");
                 pref.setSummary(txt);
                 pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
@@ -136,9 +140,16 @@ public class PrefTaskFragment {
                 });
                 listCat.addPreference(pref);
             }
+            listCat.addPreference(getDivider());
         }
     }
 
+    private Preference getDivider() {
+        Preference divider = new Preference(mC);
+        divider.setLayoutResource(R.layout.divider_pref);
+        divider.setSelectable(false);
+        return divider;
+    }
 
     public void createTask() {
         LayoutInflater inflater = mA.getLayoutInflater();
@@ -164,13 +175,13 @@ public class PrefTaskFragment {
 
                 boolean daily = ((RadioButton) creationView.findViewById(R.id.daily_creation)).isChecked();
                 boolean crossAccount = ((RadioButton) creationView.findViewById(R.id.cross_account_creation)).isChecked();
-                String occuranceTxt = ((EditText) creationView.findViewById(R.id.occurance_creation)).getText().toString();
+                String occurrenceTxt = ((EditText) creationView.findViewById(R.id.occurrence_creation)).getText().toString();
 
-                if (name.equalsIgnoreCase("") || occuranceTxt.equalsIgnoreCase("") || selectedIconId == null) {
+                if (name.equalsIgnoreCase("") || occurrenceTxt.equalsIgnoreCase("") || selectedIconId == null) {
                     tools.customToast(mC, "You should fill all the fields and select an icon !");
                 } else {
-                    int occurance = Integer.parseInt(occuranceTxt);
-                    Task task = new Task(daily, crossAccount, name, occurance, selectedIconId);
+                    int occurrence = Integer.parseInt(occurrenceTxt);
+                    Task task = new Task(daily, crossAccount, name, occurrence, selectedIconId);
 
                     if (selectedDaysAppearance().size() > 0) {
                         task.setAppearance(selectedDaysAppearance());
