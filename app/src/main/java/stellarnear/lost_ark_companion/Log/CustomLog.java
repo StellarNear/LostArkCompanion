@@ -59,15 +59,20 @@ public class CustomLog {
     }
 
     public void err(Context mC, String msg, Exception e) {
-        tools.customToast(mC, "Erreur:" + msg);
+        tools.customToast(mC, "Error:" + msg);
         allLogs.add(new LogMsg(Level.ERROR, msg, e));
         Log.e("ERROR", msg, e);
     }
 
-    public void fatal(final Activity mA, String msg, Exception e) {
+    public void fatal(Context mC, String msg, Exception e) {
         allLogs.add(new LogMsg(Level.FATAL_ERROR, msg, e));
         Log.e("FATAL_ERROR", msg, e);
-        tools.customToast(mA, "A fatal error occured");
+        tools.customToast(mC, "Fatal Error:" + msg);
+    }
+
+    public void fatal(String msg, Exception e) {
+        allLogs.add(new LogMsg(Level.FATAL_ERROR, msg, e));
+        Log.e("FATAL_ERROR", msg, e);
     }
 
 

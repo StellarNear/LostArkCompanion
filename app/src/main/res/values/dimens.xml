@@ -12,6 +12,7 @@
     <dimen name="icon_task">25dp</dimen>
     <dimen name="cicular_progress">40dp</dimen>
     <dimen name="icon_task_selection">50dp</dimen>
+    <dimen name="offset_y_message_bottom">200dp</dimen>
 
 
 </resources>

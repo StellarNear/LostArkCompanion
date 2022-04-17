@@ -1,6 +1,7 @@
 package stellarnear.lost_ark_companion.Activities;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -31,6 +32,7 @@ public class MainActivityFragment extends Fragment {
     private final Tools tools = Tools.getTools();
     private View returnFragView;
     private SharedPreferences settings;
+    private Context mC;
 
     public MainActivityFragment() {
     }
@@ -43,32 +45,33 @@ public class MainActivityFragment extends Fragment {
             container.removeAllViews();
         }
         returnFragView = inflater.inflate(R.layout.fragment_main, container, false);
-        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mC = getContext();
+        settings = PreferenceManager.getDefaultSharedPreferences(mC);
 
         buildFrag();
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (settings.getBoolean("test_mode", getContext().getResources().getBoolean(R.bool.test_mode_DEF))) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        if (settings.getBoolean("test_mode", mC.getResources().getBoolean(R.bool.test_mode_DEF))) {
             returnFragView.findViewById(R.id.fake_test).setVisibility(View.VISIBLE);
             returnFragView.findViewById(R.id.test_pass_day).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TimeChecker.getInstance(getContext()).cheatPassDay(1);
-                    tools.customToast(getContext(), "Passing one day...");
+                    TimeChecker.getInstance(mC).cheatPassDay(1);
+                    tools.customToast(mC, "Passing one day...");
                 }
             });
             returnFragView.findViewById(R.id.test_pass_2_days).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TimeChecker.getInstance(getContext()).cheatPassDay(2);
-                    tools.customToast(getContext(), "Passing two day...");
+                    TimeChecker.getInstance(mC).cheatPassDay(2);
+                    tools.customToast(mC, "Passing two day...");
                 }
             });
             returnFragView.findViewById(R.id.test_check_time).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    tools.customToast(getContext(), "checking time...");
-                    if (TimeChecker.getInstance(getContext()).checkCurrentTime()) {
+                    tools.customToast(mC, "checking time...");
+                    if (TimeChecker.getInstance(mC).checkCurrentTime()) {
                         RefreshManager.getRefreshManager().triggerRefresh();
                     }
                 }
@@ -83,15 +86,15 @@ public class MainActivityFragment extends Fragment {
     public void buildFrag() {
         LinearLayout expeLine = returnFragView.findViewById(R.id.expe_tasks);
         ElementTask elementLiner;
-        if (settings.getBoolean("compact_mode", getContext().getResources().getBoolean(R.bool.compact_mode_DEF))) {
-            elementLiner = new ElementTaskDisplayCompact(getContext());
+        if (settings.getBoolean("compact_mode", mC.getResources().getBoolean(R.bool.compact_mode_DEF))) {
+            elementLiner = new ElementTaskDisplayCompact(mC);
         } else {
-            elementLiner = new ElementTaskDisplay(getContext());
+            elementLiner = new ElementTaskDisplay(mC);
         }
 
         expeLine.removeAllViews();
         for (Task task : MainActivity.expedition.getExpeditionTasks()) {
-            if (task.getAppearance() == null || TimeChecker.getInstance(getContext()).isThatDay(task.getAppearance())) {
+            if (task.getAppearance() == null || TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
                 View elementTask = elementLiner.getTaskElement(task);
                 elementTask.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                 expeLine.addView(elementTask);
@@ -106,10 +109,10 @@ public class MainActivityFragment extends Fragment {
 
                 OneLineDisplay oneLiner;
 
-                if (settings.getBoolean("compact_mode", getContext().getResources().getBoolean(R.bool.compact_mode_DEF))) {
-                    oneLiner = new OneLineDisplayCharacterCompact(getContext());
+                if (settings.getBoolean("compact_mode", mC.getResources().getBoolean(R.bool.compact_mode_DEF))) {
+                    oneLiner = new OneLineDisplayCharacterCompact(mC);
                 } else {
-                    oneLiner = new OneLineDisplayCharacter(getContext());
+                    oneLiner = new OneLineDisplayCharacter(mC);
                 }
 
                 grid.removeAllViews();
@@ -120,7 +123,7 @@ public class MainActivityFragment extends Fragment {
                     grid.addView(line);
 
                     if (needAnimation) {
-                        Animation right = AnimationUtils.loadAnimation(getContext(), R.anim.infromright);
+                        Animation right = AnimationUtils.loadAnimation(mC, R.anim.infromright);
                         right.setStartOffset(delay);
                         line.startAnimation(right);
                         delay += 500;

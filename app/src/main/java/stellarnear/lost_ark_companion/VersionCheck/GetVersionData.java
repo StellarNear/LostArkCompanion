@@ -3,6 +3,7 @@ package stellarnear.lost_ark_companion.VersionCheck;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -26,6 +27,7 @@ import stellarnear.lost_ark_companion.BuildConfig;
 
 public class GetVersionData {
     private final Activity mA;
+    private final int TIMEOUT_MILLI = 7000;
     private ProgressDialog dialog;
     private List<VersionData> versionDataList;
     private OnDataRecievedEventListener mListener;
@@ -36,7 +38,23 @@ public class GetVersionData {
         String googleSheetTargetId = "1P7-upmAlpsYFnOsBn7bkRAYWLdgApargNv8PsZzO7y8";
         String sheetName = BuildConfig.APPLICATION_ID.replace("stellarnear.", "");
 
-        new JsonTask().execute("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=" + googleSheetTargetId + "&sheet=" + sheetName);
+        AsyncTask<String, String, String> getData = new JsonTask();
+
+        getData.execute("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=" + googleSheetTargetId + "&sheet=" + sheetName);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getData.cancel(true)) {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    if (mListenerFail != null) {
+                        mListenerFail.onEvent();
+                    }
+                }
+            }
+        }, TIMEOUT_MILLI);
     }
 
     public List<VersionData> getVersionDataList() {
@@ -76,7 +94,7 @@ public class GetVersionData {
             try {
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(5000);
+                connection.setConnectTimeout(TIMEOUT_MILLI);
                 connection.connect();
 
                 InputStream stream = connection.getInputStream();
@@ -95,7 +113,7 @@ public class GetVersionData {
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 if (connection != null) {

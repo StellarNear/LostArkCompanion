@@ -1,6 +1,5 @@
 package stellarnear.lost_ark_companion.Divers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -89,27 +88,34 @@ public class Tools {
     }
 
 
-    public void customToast(Context mC, String txt) {
+    public void customToast(Context mC, String txt, String... mode) {
         // Set the toast and duration
 
         Toast mToastToShow = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
 
         TextView v = mToastToShow.getView().findViewById(android.R.id.message);
-        if (v != null) v.setGravity(Gravity.CENTER);
 
-        mToastToShow.setGravity(Gravity.CENTER, 0, 0);
+        if (v != null) {
+            v.setGravity(Gravity.CENTER);
+        }
+        if (mode.length > 0 && mode[0].equalsIgnoreCase("bottom")) {
+            mToastToShow.setGravity(Gravity.BOTTOM, 0, mC.getResources().getDimensionPixelOffset(R.dimen.offset_y_message_bottom));
+        } else {
+            mToastToShow.setGravity(Gravity.CENTER, 0, 0);
+        }
+
         mToastToShow.show();
 
     }
 
-    public void playVideo(Activity activity, Context context, String rawPath) {
-        LayoutInflater inflater = activity.getLayoutInflater();
+    public void playVideo(Context context, String rawPath) {
+        LayoutInflater inflater = LayoutInflater.from(context);
         final View layoutRecordVideo = inflater.inflate(R.layout.video_full_screen, null);
-        final CustomAlertDialog customVideo = new CustomAlertDialog(activity, context, layoutRecordVideo);
+        final CustomAlertDialog customVideo = new CustomAlertDialog(null, context, layoutRecordVideo);
         customVideo.setPermanent(true);
         final VideoView video = layoutRecordVideo.findViewById(R.id.fullscreen_video);
         video.setVisibility(View.VISIBLE);
-        String fileName = "android.resource://" + activity.getPackageName() + rawPath;
+        String fileName = "android.resource://" + context.getPackageName() + rawPath;
         video.setMediaController(null);
         video.setVideoURI(Uri.parse(fileName));
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

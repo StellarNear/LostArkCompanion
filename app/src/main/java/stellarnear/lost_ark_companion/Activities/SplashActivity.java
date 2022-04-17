@@ -129,41 +129,47 @@ public class SplashActivity extends CustomActivity {
     }
 
     private void checkUpdate() {
-        //checking for internet
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        Boolean internetOk = activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        if (internetOk && settings.getBoolean("switch_shadow_link", getApplicationContext().getResources().getBoolean(R.bool.switch_shadow_link_def))) {
-            final GetVersionData getDataVersion;
-            try {
-                getDataVersion = new GetVersionData(SplashActivity.this);
-                getDataVersion.setOnDataFailEventListener(new GetVersionData.OnDataFailEventListener() {
-                    @Override
-                    public void onEvent() {
-                        startMainActivity();
-                    }
-                });
+        try {
+            //checking for internet
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            Boolean internetOk = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            if (internetOk && settings.getBoolean("switch_shadow_link", getApplicationContext().getResources().getBoolean(R.bool.switch_shadow_link_def))) {
+                final GetVersionData getDataVersion;
+                try {
+                    getDataVersion = new GetVersionData(SplashActivity.this);
+                    getDataVersion.setOnDataFailEventListener(new GetVersionData.OnDataFailEventListener() {
+                        @Override
+                        public void onEvent() {
+                            tools.customToast(getApplicationContext(), "Could not check for new version...");
+                            startMainActivity();
+                        }
+                    });
 
-                getDataVersion.setOnDataRecievedEventListener(new GetVersionData.OnDataRecievedEventListener() {
-                    @Override
-                    public void onEvent() {
-                        List<VersionData> listVersionData = getDataVersion.getVersionDataList();
-                        if (listVersionData != null && listVersionData.size() > 0) {
-                            VersionData newVersion = checkForNewVersion(listVersionData);
-                            if (newVersion != null) {
-                                askForUpgrade(newVersion);
-                            } else {
-                                tools.customToast(getApplicationContext(), "You are up to date !");
-                                startMainActivity();
+                    getDataVersion.setOnDataRecievedEventListener(new GetVersionData.OnDataRecievedEventListener() {
+                        @Override
+                        public void onEvent() {
+                            List<VersionData> listVersionData = getDataVersion.getVersionDataList();
+                            if (listVersionData != null && listVersionData.size() > 0) {
+                                VersionData newVersion = checkForNewVersion(listVersionData);
+                                if (newVersion != null) {
+                                    askForUpgrade(newVersion);
+                                } else {
+                                    tools.customToast(getApplicationContext(), "You are up to date !");
+                                    startMainActivity();
+                                }
                             }
                         }
-                    }
-                });
-            } catch (Exception e) {
-                log.err("An error occured during version checking", e);
+                    });
+                } catch (Exception e) {
+                    log.err("An error occured during version checking", e);
+                    startMainActivity();
+                }
+            } else {
                 startMainActivity();
             }
-        } else {
+        } catch (Exception e) {
+            log.err("An error occured during version checking", e);
             startMainActivity();
         }
     }
@@ -344,7 +350,7 @@ public class SplashActivity extends CustomActivity {
                 input.close();
 
             } catch (Exception e) {
-                log.fatal(SplashActivity.this, "Error during the download of the file", e);
+                log.fatal( "Error during the download of the file", e);
             }
 
             return null;

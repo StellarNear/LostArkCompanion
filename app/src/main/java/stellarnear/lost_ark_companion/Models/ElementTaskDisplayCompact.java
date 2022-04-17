@@ -44,6 +44,7 @@ public class ElementTaskDisplayCompact implements ElementTask {
             public void onClick(View view) {
                 task.addDone();
                 ExpeditionManager.getInstance(mC).saveToDB();
+                SuccessManager.checkSuccess(mC);
                 setColor(circular, task);
                 circular.setProgressWithAnimation(task.getCurrentDone());
                 if ((task.getId().equalsIgnoreCase("chaos_dungeon") || task.getId().equalsIgnoreCase("guardian_raid") && task.getRest() >= 20)) { //sinon la barre bougera pas aucun interet à refresh

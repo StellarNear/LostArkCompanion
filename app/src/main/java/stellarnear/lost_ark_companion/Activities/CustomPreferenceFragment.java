@@ -21,7 +21,7 @@ public abstract class CustomPreferenceFragment extends PreferenceFragment {
             this.settings = PreferenceManager.getDefaultSharedPreferences(getContext());
             onCreateFragment();
         } catch (Exception e) {
-            log.fatal(getActivity(), e.getMessage(), e);
+            log.fatal(getContext(), e.getMessage(), e);
         }
     }
 
@@ -32,7 +32,7 @@ public abstract class CustomPreferenceFragment extends PreferenceFragment {
         try {
             onPreferenceTreeClickFragment(preferenceScreen, preference);
         } catch (Exception e) {
-            log.fatal(getActivity(), e.getMessage(), e);
+            log.fatal(getContext(), e.getMessage(), e);
         }
         return true;
     }
@@ -44,7 +44,7 @@ public abstract class CustomPreferenceFragment extends PreferenceFragment {
         try {
             onDestroyFragment();
         } catch (Exception e) {
-            log.fatal(getActivity(), e.getMessage(), e);
+            log.fatal(getContext(), e.getMessage(), e);
         }
         super.onDestroy();
     }

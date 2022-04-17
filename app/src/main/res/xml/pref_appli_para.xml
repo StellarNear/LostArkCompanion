@@ -33,6 +33,12 @@
         android:title="Delay beetween two checks of the time" />
 
     <SwitchPreference
+        android:defaultValue="@bool/success_check_def"
+        android:key="success_check"
+        android:summary="Trigger animation on completion"
+        android:title="Success check" />
+
+    <SwitchPreference
         android:defaultValue="@bool/switch_shadow_link_def"
         android:key="switch_shadow_link"
         android:summary="Connect to google to check for new app version"

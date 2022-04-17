@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
@@ -34,6 +35,7 @@ import stellarnear.lost_ark_companion.R;
 public class PostConnectionVersion {
     private final CustomLog log;
     private final Context mC;
+    private final int TIMEOUT_MILLI = 5000;
 
     public PostConnectionVersion(Context mC) {
         this.mC = mC;
@@ -42,6 +44,13 @@ public class PostConnectionVersion {
         if (settings.getBoolean("switch_shadow_link", mC.getResources().getBoolean(R.bool.switch_shadow_link_def))) {
             SendRequestData send = new SendRequestData();
             send.execute();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    send.cancel(true);
+                }
+            }, TIMEOUT_MILLI);
         }
     }
 
