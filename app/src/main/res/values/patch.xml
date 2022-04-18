@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"37h"</string>
+    <string name="time_spend">"38h"</string>
     <string name="basic_infos">"Custom application to monitor advancement of tasks in Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v2.2:
+- TODO darkmode
+-Store easter egg status on completion to prevent replaying on relaunch
+----------------------------------------------------------------------------------
 v2.1:
 -Add easter egg on completion
 -Optimization on checking new version

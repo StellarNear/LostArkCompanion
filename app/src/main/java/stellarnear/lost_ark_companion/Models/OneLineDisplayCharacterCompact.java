@@ -101,7 +101,7 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
         LinearLayout tasks = mainView.findViewById(R.id.tasks_list_one_line_char_circular);
         ElementTaskDisplayCompact elementLiner = new ElementTaskDisplayCompact(mC);
         for (final Task task : c.getTasks()) {
-            if (task.getAppearance() != null && !TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
+            if (!TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
                 continue;
             }
 
@@ -135,7 +135,6 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         task.setRest(tools.toInt(input.getText().toString()));
                         ExpeditionManager.getInstance(mC).saveToDB();
-                        task.refreshRestBar(mC);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

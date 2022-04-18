@@ -94,7 +94,7 @@ public class MainActivityFragment extends Fragment {
 
         expeLine.removeAllViews();
         for (Task task : MainActivity.expedition.getExpeditionTasks()) {
-            if (task.getAppearance() == null || TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
+            if (TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
                 View elementTask = elementLiner.getTaskElement(task);
                 elementTask.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                 expeLine.addView(elementTask);

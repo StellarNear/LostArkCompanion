@@ -18,6 +18,7 @@ public class Task {
     private final String drawableId;
     private String name;
     private int currentDone;
+    private int previousRest = 0;
     private int rest = 0;
     private List<String> appearance = null;
 
@@ -25,6 +26,7 @@ public class Task {
     private transient ImageView progressBarUI = null;
     private transient int oriWidthBarUI;
     private transient int oriHeightBarUI;
+    private transient Context mC;
 
 
     public Task(boolean daily, boolean crossAccount, String name, int occurrence, String drawableId) {
@@ -85,6 +87,7 @@ public class Task {
 
     public void addDone() {
         this.currentDone++;
+        this.previousRest = this.rest;
         if (this.rest >= 20) {
             this.rest -= 20;
             if (this.rest < 0) {
@@ -93,6 +96,10 @@ public class Task {
         }
         if (this.currentDone > this.occurrence) {
             this.currentDone = this.occurrence;
+        }
+
+        if (this.progressBarUI != null && this.mC != null) {
+            refreshRestBar();
         }
     }
 
@@ -109,6 +116,11 @@ public class Task {
         if (this.currentDone < 0) {
             this.currentDone = 0;
         }
+
+        if (this.progressBarUI != null && this.mC != null) {
+            this.rest = this.previousRest;
+            refreshRestBar();
+        }
     }
 
     public int getRest() {
@@ -117,10 +129,13 @@ public class Task {
 
     public void setRest(int rest) {
         this.rest = rest;
+        if (this.progressBarUI != null && this.mC != null) {
+            refreshRestBar();
+        }
     }
 
-    public void refreshRestBar(Context mC) {
-        if (this.progressBarUI != null) {
+    public void refreshRestBar() {
+        if (this.progressBarUI != null && this.mC != null) {
             ViewGroup.LayoutParams para = progressBarUI.getLayoutParams();
             Double coef = (double) this.rest / 100.0;
             if (coef < 0d) {
@@ -145,6 +160,7 @@ public class Task {
     }
 
     public void initRestBarUI(View image, ImageView progress, Context mC) {
+        this.mC = mC;
         this.progressBarUI = progress;
         ViewGroup.LayoutParams para = progressBarUI.getLayoutParams();
         this.oriWidthBarUI = image.getMeasuredWidth();

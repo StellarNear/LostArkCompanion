@@ -75,7 +75,6 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
             @Override
             public boolean onLongClick(View view) {
                 askForOvewriteRest(c.getTaskByID("chaos_dungeon"), mainView);
-                c.getTaskByID("chaos_dungeon").refreshRestBar(mC);
                 return true;
             }
         });
@@ -84,7 +83,6 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
             @Override
             public boolean onLongClick(View view) {
                 askForOvewriteRest(c.getTaskByID("guardian_raid"), mainView);
-                c.getTaskByID("guardian_raid").refreshRestBar(mC);
                 return true;
             }
         });
@@ -93,7 +91,7 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
         LinearLayout tasks = mainView.findViewById(R.id.tasks_list_one_line_char);
         ElementTaskDisplay elementLiner = new ElementTaskDisplay(mC);
         for (final Task task : c.getTasks()) {
-            if (task.getAppearance() != null && !TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
+            if (!TimeChecker.getInstance(mC).isThatDay(task.getAppearance())) {
                 continue;
             }
             final View taskElement = elementLiner.getTaskElement(task);
@@ -117,7 +115,6 @@ public class OneLineDisplayCharacter implements OneLineDisplay {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         task.setRest(tools.toInt(input.getText().toString()));
                         ExpeditionManager.getInstance(mC).saveToDB();
-                        task.refreshRestBar(mC);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

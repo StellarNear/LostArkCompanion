@@ -47,9 +47,6 @@ public class ElementTaskDisplayCompact implements ElementTask {
                 SuccessManager.checkSuccess(mC);
                 setColor(circular, task);
                 circular.setProgressWithAnimation(task.getCurrentDone());
-                if ((task.getId().equalsIgnoreCase("chaos_dungeon") || task.getId().equalsIgnoreCase("guardian_raid") && task.getRest() >= 20)) { //sinon la barre bougera pas aucun interet à refresh
-                    task.refreshRestBar(mC);
-                }
             }
         });
 

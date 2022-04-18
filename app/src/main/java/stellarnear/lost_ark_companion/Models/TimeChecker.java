@@ -77,7 +77,7 @@ public class TimeChecker {
                     }
                     needRefreshUi = true;
                 }
-                SuccessManager.reset();
+                SuccessManager.reset(mC);
                 tools.customToast(mC, "Since the last update we had " + nDaily + " daily reset and " + nWeekly + " weekly reset...");
             } else {
                 if (now.getDayOfWeek().toString().equalsIgnoreCase("Thursday")) {
@@ -87,7 +87,7 @@ public class TimeChecker {
                     expedition.resetDaily();
                     tools.customToast(mC, "Daily Reset");
                 }
-                SuccessManager.reset();
+                SuccessManager.reset(mC);
                 needRefreshUi = true;
             }
         } else if (settings.getBoolean("display_all_checks", mC.getResources().getBoolean(R.bool.display_all_checks_DEF))) {

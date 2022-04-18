@@ -13,18 +13,23 @@ import stellarnear.lost_ark_companion.R;
 
 public class SuccessManager {
 
-    private static ArrayList<String> hadSuccessForCharacterId = new ArrayList<>();
     private static final Tools tools = Tools.getTools();
 
     public SuccessManager() {
 
     }
 
-    public static void reset() {
-        hadSuccessForCharacterId = new ArrayList<>();
+    public static void reset(Context mC) {
+        MainActivity.expedition.resetSuccessForCharacterId();
+        ExpeditionManager.getInstance(mC).saveToDB();
     }
 
     public static void checkSuccess(Context mC) {
+        //for migration if it wasn't there before
+        if(MainActivity.expedition.getSuccessForCharacterId()==null){
+            reset(mC);
+        }
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         if (!settings.getBoolean("success_check", mC.getResources().getBoolean(R.bool.success_check_def))) {
             return;
@@ -33,7 +38,7 @@ public class SuccessManager {
         boolean totalWin = true;
         List<String> toPlayNow = new ArrayList<>();
         for (Character c : MainActivity.expedition.getCharacters()) {
-            if (!hadSuccessForCharacterId.contains(c.getId())) {
+            if (! MainActivity.expedition.getSuccessForCharacterId().contains(c.getId())) {
                 boolean successForChar = true;
                 for (Task t : c.getTasks()) {
                     if (TimeChecker.getInstance(mC).isThatDay(t.getAppearance())) {
@@ -47,8 +52,9 @@ public class SuccessManager {
                     totalWin = false;
                     break;
                 } else {
-                    hadSuccessForCharacterId.add(c.getId());
-                    toPlayNow.add(c.getId());
+                    MainActivity.expedition.getSuccessForCharacterId().add(c.getId());
+                    ExpeditionManager.getInstance(mC).saveToDB();
+                    toPlayNow.add(c.getName().substring(0, 1).toUpperCase() + c.getName().substring(1));
                 }
             }
         }
@@ -60,8 +66,9 @@ public class SuccessManager {
                 }
             }
         }
-        if (totalWin && !hadSuccessForCharacterId.contains("GLOBAL_WIN")) {
-            hadSuccessForCharacterId.add("GLOBAL_WIN");
+        if (totalWin && ! MainActivity.expedition.getSuccessForCharacterId().contains("GLOBAL_WIN")) {
+            MainActivity.expedition.getSuccessForCharacterId().add("GLOBAL_WIN");
+            ExpeditionManager.getInstance(mC).saveToDB();
             toPlayNow.add("GLOBAL_WIN");
         }
 
@@ -74,5 +81,6 @@ public class SuccessManager {
                 tools.customToast(mC, "Nice, you completed all tasks for " + String.join(" and ", toPlayNow) + " !", "bottom");
             }
         }
+
     }
 }

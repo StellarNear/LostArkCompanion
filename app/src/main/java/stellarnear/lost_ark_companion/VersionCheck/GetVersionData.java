@@ -150,7 +150,7 @@ public class GetVersionData {
                 if (mListener != null) {
                     mListener.onEvent();
                 }
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 if (mListenerFail != null) {
                     mListenerFail.onEvent();
