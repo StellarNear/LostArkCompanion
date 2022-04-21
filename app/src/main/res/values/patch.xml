@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"38h"</string>
+    <string name="time_spend">"42h"</string>
     <string name="basic_infos">"Custom application to monitor advancement of tasks in Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v2.2:
-- TODO darkmode
+-Add Dracula mode as a new application's theme
 -Store easter egg status on completion to prevent replaying on relaunch
 ----------------------------------------------------------------------------------
 v2.1:

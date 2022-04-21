@@ -40,7 +40,15 @@ public class MainActivity extends AppCompatActivity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
         super.onCreate(savedInstanceState);
+
+        if (settings.getBoolean("dracula_mode", getApplicationContext().getResources().getBoolean(R.bool.dracula_mode_DEF))) {
+            setTheme(R.style.darkTheme_NoActionBar);
+        } else {
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+
 
         if (expedition == null) {
             Window window = getWindow();
@@ -71,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void buildMainPage() {
         setContentView(R.layout.activity_main);
         mainFrameFrag = findViewById(R.id.fragment_main_frame_layout);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().hide();

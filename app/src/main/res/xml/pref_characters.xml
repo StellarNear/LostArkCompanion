@@ -8,6 +8,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="characters_list"
         android:title="Characters list">
         <Preference

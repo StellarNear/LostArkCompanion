@@ -26,7 +26,7 @@ public class SuccessManager {
 
     public static void checkSuccess(Context mC) {
         //for migration if it wasn't there before
-        if(MainActivity.expedition.getSuccessForCharacterId()==null){
+        if (MainActivity.expedition.getSuccessForCharacterId() == null) {
             reset(mC);
         }
 
@@ -38,7 +38,7 @@ public class SuccessManager {
         boolean totalWin = true;
         List<String> toPlayNow = new ArrayList<>();
         for (Character c : MainActivity.expedition.getCharacters()) {
-            if (! MainActivity.expedition.getSuccessForCharacterId().contains(c.getId())) {
+            if (!MainActivity.expedition.getSuccessForCharacterId().contains(c.getId())) {
                 boolean successForChar = true;
                 for (Task t : c.getTasks()) {
                     if (TimeChecker.getInstance(mC).isThatDay(t.getAppearance())) {
@@ -66,7 +66,7 @@ public class SuccessManager {
                 }
             }
         }
-        if (totalWin && ! MainActivity.expedition.getSuccessForCharacterId().contains("GLOBAL_WIN")) {
+        if (totalWin && !MainActivity.expedition.getSuccessForCharacterId().contains("GLOBAL_WIN")) {
             MainActivity.expedition.getSuccessForCharacterId().add("GLOBAL_WIN");
             ExpeditionManager.getInstance(mC).saveToDB();
             toPlayNow.add("GLOBAL_WIN");

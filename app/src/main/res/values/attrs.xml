@@ -8,4 +8,26 @@
         <attr name="progressBarThickness" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="ds">
+        <attr name="background_color" format="color"/>
+        <attr name="text_color" format="color"/>
+        <attr name="char_name" format="color"/>
+        <attr name="char_logo" format="color"/>
+        <attr name="background_char_start" format="color"/>
+        <attr name="background_char_end" format="color"/>
+        <attr name="title_bar_start" format="color"/>
+        <attr name="title_bar_center" format="color"/>
+        <attr name="title_bar_end" format="color"/>
+        <attr name="divider_color" format="color"/>
+
+    </declare-styleable>
+    <attr name="divider_height" format="reference"/>
+
+
+    <attr name="appBarOverlay" format="reference"/>
+    <attr name="popupOverlayStyle" format="reference"/>
+    <attr name="background_banner" format="reference"/>
+    <attr name="expe_ico" format="reference"/>
+    <attr name="roaster_ico" format="reference"/>
+
 </resources>

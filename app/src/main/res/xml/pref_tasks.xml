@@ -10,6 +10,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="expedition_tasks"
         android:title="Expedition tasks">
         <Preference
@@ -20,6 +21,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="common_character_tasks"
         android:title="Common Character's tasks">
         <Preference
@@ -31,6 +33,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="detail_character_tasks"
         android:title="Detail characters tasks">
         <Preference

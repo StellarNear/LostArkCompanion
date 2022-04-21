@@ -57,7 +57,7 @@
             <ImageView
                 android:layout_width="@dimen/logo_section"
                 android:layout_height="@dimen/logo_section"
-                android:src="@drawable/expe_ico" />
+                android:src="?attr/expe_ico" />
 
             <TextView
                 android:id="@+id/expe_title"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Expedition"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/text_color"
                 android:textSize="25sp" />
         </LinearLayout>
 
@@ -95,7 +95,7 @@
             <ImageView
                 android:layout_width="@dimen/logo_section"
                 android:layout_height="@dimen/logo_section"
-                android:src="@drawable/roaster_ico" />
+                android:src="?attr/roaster_ico" />
 
             <TextView
                 android:id="@+id/roster_title"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:text="Roster"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/text_color"
                 android:textSize="25sp" />
         </LinearLayout>
 

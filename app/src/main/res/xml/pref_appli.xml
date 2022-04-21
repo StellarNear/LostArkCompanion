@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
     <PreferenceScreen
-        android:icon="@drawable/ic_info_black_24dp"
+
+        android:icon="@drawable/ic_info_24dp"
         android:key="infos"
         android:summary="Application information"
         android:title="Infos" />
 
     <PreferenceScreen
-        android:icon="@drawable/ic_build_black_24dp"
+        android:icon="@drawable/ic_build_24dp"
         android:key="pref_appli_para"
         android:summary="Application settings"
         android:title="Settings" />
 
     <PreferenceScreen
-        android:icon="@drawable/ic_undo_black_24dp"
+        android:icon="@drawable/ic_undo_24dp"
         android:key="pref_appli_reset"
         android:summary="Erase all data of the application"
         android:title="Reset" />

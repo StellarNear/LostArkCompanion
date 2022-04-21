@@ -6,6 +6,12 @@
         android:title="FullScreen" />
 
     <SwitchPreference
+        android:defaultValue="@bool/dracula_mode_DEF"
+        android:key="dracula_mode"
+        android:summary="Swtich to dark mode"
+        android:title="Dracula" />
+
+    <SwitchPreference
         android:defaultValue="@bool/compact_mode_DEF"
         android:key="compact_mode"
         android:summary="Make every character line smaller with less text and no checkbox"

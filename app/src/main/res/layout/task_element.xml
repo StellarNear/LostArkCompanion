@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="NAME"
-                android:textColor="@color/frament_text_color" />
+                android:textColor="?attr/char_name" />
 
             <LinearLayout
                 android:id="@+id/checkboxes_tasks"

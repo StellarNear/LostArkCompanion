@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_pref_height"
-    android:background="@color/divider_pref"></androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="?attr/divider_height"
+    android:background="?attr/divider_color"></androidx.constraintlayout.widget.ConstraintLayout>

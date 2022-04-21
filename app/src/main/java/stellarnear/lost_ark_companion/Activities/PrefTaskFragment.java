@@ -97,7 +97,9 @@ public class PrefTaskFragment {
     public void chargeCharList(PreferenceScreen listCatMain, List<Character> listChar) {
         for (Character character : listChar) {
             PreferenceCategory listCat = new PreferenceCategory(mC);
-            listCat.setTitle(character.getId());
+            listCat.setLayoutResource(R.layout.preferences_category);
+            listCat.setKey("pref_cat_task_" + character.getId());
+            listCat.setTitle(character.getName());
 
             listCatMain.addPreference(listCat);
             listCat.addPreference(getDivider());
@@ -146,6 +148,7 @@ public class PrefTaskFragment {
 
     private Preference getDivider() {
         Preference divider = new Preference(mC);
+
         divider.setLayoutResource(R.layout.divider_pref);
         divider.setSelectable(false);
         return divider;

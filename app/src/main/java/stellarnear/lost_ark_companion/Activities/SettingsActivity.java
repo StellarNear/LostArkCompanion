@@ -23,10 +23,9 @@ import stellarnear.lost_ark_companion.R;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatActivity { //FOR ICON PICKER implements IconDialog.Callback {
+public class SettingsActivity extends AppCompatActivity {
     private SettingsFragment settingsFragment;
 
-    //FOR ICON PICKER private IconPack iconPack=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,14 @@ public class SettingsActivity extends AppCompatActivity { //FOR ICON PICKER impl
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
         super.onCreate(savedInstanceState);
+
+        if (settings.getBoolean("dracula_mode", getApplicationContext().getResources().getBoolean(R.bool.dracula_mode_DEF))) {
+            setTheme(R.style.darkThemeSettings);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -56,61 +62,11 @@ public class SettingsActivity extends AppCompatActivity { //FOR ICON PICKER impl
         switch (item.getItemId()) {
             case android.R.id.home:
                 settingsFragment.onUpButton();
-
                 return true;
         }
         return true;
     }
 
-    /*FOR ICON PICKER
-
-    private void showPicker(){
-        IconDialog dialog = (IconDialog) getSupportFragmentManager().findFragmentByTag("icon-dialog");
-        IconDialogSettings.Builder builder = new IconDialogSettings.Builder();
-        builder.setMaxSelection(1);
-        IconDialog iconDialog = dialog != null ? dialog
-                : IconDialog.newInstance(builder.build());
-
-            iconDialog.show(getSupportFragmentManager(),"icon-dialog");
-    }
-
-    @Nullable
-    @Override
-    public IconPack getIconDialogIconPack() {
-        return  iconPack != null ? iconPack : loadIconPack();
-    }
-
-
-
-    private IconPack loadIconPack() {
-        // Create an icon pack loader with application context.
-        IconPackLoader loader = new IconPackLoader(this);
-
-        // Create an icon pack and load all drawables.
-        if(iconPack==null) {
-            iconPack = IconPackDefault.createDefaultIconPack(loader);
-            iconPack.loadDrawables(loader.getDrawableLoader());
-            iconPack = loader.load(R.xml.lost_ark_icons,R.xml.lost_ark_icons_tags, Collections.singletonList(Locale.ENGLISH),iconPack);
-        }
-        return iconPack;
-    }
-
-    @Override
-    public void onIconDialogIconsSelected(@NonNull IconDialog dialog, @NonNull List<Icon> icons) {
-        // Show a toast with the list of selected icon IDs.
-        StringBuilder sb = new StringBuilder();
-        for (Icon icon : icons) {
-            sb.append(icon.getId());
-            sb.append(", ");
-        }
-        sb.delete(sb.length() - 2, sb.length());
-        Toast.makeText(this, "Icons selected: " + sb, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onIconDialogCancelled() {}
-
-     */
     @Override
     public void onBackPressed() {
         settingsFragment.onUpButton();
@@ -118,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity { //FOR ICON PICKER impl
 
     @Override
     protected void onDestroy() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();

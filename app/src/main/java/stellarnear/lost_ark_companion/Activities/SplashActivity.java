@@ -57,6 +57,8 @@ public class SplashActivity extends CustomActivity {
     @Override
     protected void doActivity() {
 
+        startMainActivity();
+
         Animation in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.infade);
         Animation out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.outfade);
         in.setStartOffset(500);
@@ -350,7 +352,7 @@ public class SplashActivity extends CustomActivity {
                 input.close();
 
             } catch (Exception e) {
-                log.fatal( "Error during the download of the file", e);
+                log.fatal("Error during the download of the file", e);
             }
 
             return null;

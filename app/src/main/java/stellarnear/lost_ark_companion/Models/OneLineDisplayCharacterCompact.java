@@ -35,7 +35,6 @@ public class OneLineDisplayCharacterCompact implements OneLineDisplay {
 
         TextView name = mainView.findViewById(R.id.char_name);
         name.setText(c.getName().substring(0, 1).toUpperCase() + c.getName().substring(1));
-        name.setTextColor(mC.getColor(R.color.colorPrimaryDark));
 
         TextView ilvl = mainView.findViewById(R.id.ilvl);
         if (c.getIlvl() > 0) {

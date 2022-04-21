@@ -3,9 +3,13 @@ package stellarnear.lost_ark_companion.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.view.View;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,12 +30,25 @@ public class SettingsFragment extends CustomPreferenceFragment {
     private PrefInfoScreenFragment prefInfoScreenFragment;
     private PrefCharacterFragment prefCharactersFragment;
     private PrefTaskFragment prefTaskFragment;
+    private final SharedPreferences.OnSharedPreferenceChangeListener listener =
+            new SharedPreferences.OnSharedPreferenceChangeListener() {
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                    if (key.equalsIgnoreCase("dracula_mode")) {
+                        Intent intent = new Intent(mA, MainActivity.class);// Switch to MainActivity
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        mA.startActivity(intent);
+                    }
+                }
+            };
+
 
     @Override
     protected void onCreateFragment() {
         this.mA = getActivity();
         this.mC = getContext();
         addPreferencesFromResource(R.xml.pref);
+        settings.registerOnSharedPreferenceChangeListener(listener);
         prefInfoScreenFragment = new PrefInfoScreenFragment(mA, mC);
         prefCharactersFragment = new PrefCharacterFragment(mA, mC);
         prefCharactersFragment.setRefreshEventListener(new PrefCharacterFragment.OnRefreshEventListener() {
@@ -91,8 +108,8 @@ public class SettingsFragment extends CustomPreferenceFragment {
     }
 
     @Override
-    protected void onDestroyFragment() {
-
+    public void onDestroyFragment() {
+        settings.unregisterOnSharedPreferenceChangeListener(listener);
     }
 
 
@@ -113,10 +130,26 @@ public class SettingsFragment extends CustomPreferenceFragment {
                     prefTaskFragment.chargeList(listExpeTask, MainActivity.expedition.getExpeditionTasks());
                     PreferenceCategory listCharTask = (PreferenceCategory) findPreference("common_character_tasks");
                     prefTaskFragment.chargeList(listCharTask, MainActivity.expedition.getCommonCharacterTasks());
-                    PreferenceCategory listCharDetail = (PreferenceCategory) findPreference("detail_character_tasks");
                     prefTaskFragment.chargeCharList(getPreferenceScreen(), MainActivity.expedition.getCharacters());
                     break;
             }
+        }
+        customizeDividers();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        customizeDividers();
+    }
+
+    private void customizeDividers() {
+        try {
+            View rootView = getView();
+            ListView list = (ListView) rootView.findViewById(android.R.id.list);
+            list.setDivider(mC.getDrawable(R.drawable.divider_pref));
+        } catch (Exception e) {
+            log.warn("Could not change divider style", e);
         }
     }
 

@@ -103,7 +103,7 @@ public class CircularProgressBar extends View {
 
     public void setColor(int color) {
         this.color = color;
-        backgroundPaint.setColor(adjustAlpha(color, 0.2f));
+        backgroundPaint.setColor(adjustAlpha(color, 0.3f));
         foregroundPaint.setColor(color);
         invalidate();
         requestLayout();
@@ -127,7 +127,7 @@ public class CircularProgressBar extends View {
         }
 
         backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        backgroundPaint.setColor(adjustAlpha(color, 0.3f));
+        backgroundPaint.setColor(adjustAlpha(color, 0.4f));
         backgroundPaint.setStyle(Paint.Style.STROKE);
         backgroundPaint.setStrokeWidth(strokeWidth);
 

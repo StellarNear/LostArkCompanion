@@ -8,25 +8,83 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/colorBackground</item>
 
-        <item name="icdStyle">@style/CustomIconDialogStyle</item>
+        <item name="text_color">@color/textColorPrimary</item>
+        <item name="background_color">@color/colorBackground</item>
+
+        <item name="background_char_start">@color/light_gray</item>
+        <item name="background_char_end">@color/transparent</item>
+
+        <item name="title_bar_start">@color/white</item>
+        <item name="title_bar_center">@color/colorBackground</item>
+        <item name="title_bar_end">@color/light_gray</item>
+
+        <item name="divider_height">@dimen/divider_pref_height</item>
+        <item name="divider_color">@color/divider_pref</item>
+
+        <item name="char_name">@color/colorPrimaryDark</item>
+        <item name="char_logo">@color/colorPrimary</item>
+
+        <item name="appBarOverlay">@style/AppTheme.AppBarOverlay</item>
+        <item name="popupOverlayStyle">@style/AppTheme.PopupOverlay</item>
+        <item name="background_banner">@drawable/background_banner</item>
+        <item name="expe_ico">@drawable/expe_ico</item>
+        <item name="roaster_ico">@drawable/roaster_ico</item>
+
     </style>
 
-    <!-- Your custom dialog style, don't forget to specify the parent style! -->
-    <style name="CustomIconDialogStyle" parent="IcdStyle">
-        <item name="icdIconColor">@color/colorPrimaryDark</item>
-        <item name="icdListHeaderStyle">@style/CustomHeaderStyle</item>
+
+
+    <style name="darkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/dark_colorBackground</item>
+        <item name="background_color">@color/dark_colorBackground</item>
+
+        <item name="text_color">@color/colorPrimaryLight</item>
+
+        <item name="background_char_end">@color/colorPrimaryDark</item>
+        <item name="background_char_start">@color/dark_colorBackground</item>
+
+        <item name="title_bar_start">@color/colorPrimaryLight</item>
+        <item name="title_bar_center">@color/dark_colorBackground</item>
+        <item name="title_bar_end">@color/darker_gray</item>
+
+        <item name="char_name">@color/colorPrimaryLight</item>
+        <item name="char_logo">@color/white</item>
+
+        <item name="appBarOverlay">@style/darkTheme.AppBarOverlay</item>
+        <item name="popupOverlayStyle">@style/darkTheme.PopupOverlay</item>
+        <item name="background_banner">@drawable/background_banner_dark</item>
+        <item name="expe_ico">@drawable/expe_dark_ico</item>
+        <item name="roaster_ico">@drawable/roaster_dark_ico</item>
     </style>
 
-    <!-- Custom style for the list headers, again don't forget the parent! -->
-    <style name="CustomHeaderStyle" parent="IcdListHeaderStyle">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:typeface">monospace</item>
+    <style name="darkTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="darkThemeSettings" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/dark_colorBackground</item>
+
+        <item name="background_color">@color/dark_colorBackground</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="text_color">@color/colorPrimaryLight</item>
+
+        <item name="divider_height">@dimen/divider_pref_height</item>
+        <item name="divider_color">@color/colorPrimaryLight</item>
+
+        <item name="android:listDivider">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/start_back_color</item>
@@ -35,13 +93,25 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
-        <item name="android:textColorSecondary">@color/textColorPrimary</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="darkTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/black</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
-        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="darkTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="CustomDialog" parent="android:Theme.Dialog">
@@ -50,4 +120,5 @@
     </style>
 
 
+    <color name="darker_gray">#3D3D3D</color>
 </resources>

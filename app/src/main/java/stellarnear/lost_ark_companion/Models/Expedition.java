@@ -16,7 +16,7 @@ public class Expedition {
     public List<Character> characters = new ArrayList<>();
     private String name;
     private String storedDate = null;
-    private ArrayList<String> hadSuccessForCharacterId= new ArrayList<>();
+    private ArrayList<String> hadSuccessForCharacterId = new ArrayList<>();
 
     public Expedition(String name) {
         this.setName(name);
@@ -153,6 +153,6 @@ public class Expedition {
     }
 
     public void resetSuccessForCharacterId() {
-        this.hadSuccessForCharacterId=new ArrayList<>();
+        this.hadSuccessForCharacterId = new ArrayList<>();
     }
 }

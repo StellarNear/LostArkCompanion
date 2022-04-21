@@ -5,6 +5,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="task"
         android:title="Task Features">
         <Preference
@@ -53,6 +54,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="characters"
         android:title="Character Features">
         <Preference
@@ -79,6 +81,7 @@
         android:layout="@layout/divider_pref"
         android:selectable="false" />
     <PreferenceCategory
+        android:layout="@layout/preferences_category"
         android:key="general"
         android:title="General system">
         <Preference
