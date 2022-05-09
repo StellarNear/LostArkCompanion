@@ -149,6 +149,9 @@ public class Expedition {
     }
 
     public ArrayList<String> getSuccessForCharacterId() {
+        if (this.hadSuccessForCharacterId == null) {
+            this.hadSuccessForCharacterId = new ArrayList<>();
+        }
         return this.hadSuccessForCharacterId;
     }
 

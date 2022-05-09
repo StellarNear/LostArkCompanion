@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences settings;
     private MainActivityFragment mainFrag = null;
     private TimeChecker timeChecker;
+    private Handler updateChecker;
+    private Runnable updateRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (mainFrag != null) {
+            final int delay = Tools.getTools().toInt(settings.getString("checktimer_delay", String.valueOf(getApplicationContext().getResources().getInteger(R.integer.checktimer_delay_DEF))));
+            updateChecker.postDelayed(updateRunnable, 60 * delay * 1000);
             timeChecker.checkCurrentTime();
             RefreshManager.getRefreshManager().triggerRefresh();
         } else {
@@ -98,21 +102,28 @@ public class MainActivity extends AppCompatActivity {
             mainFrag = new MainActivityFragment();
             final int delay = Tools.getTools().toInt(settings.getString("checktimer_delay", String.valueOf(getApplicationContext().getResources().getInteger(R.integer.checktimer_delay_DEF))));
 
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            updateChecker = new Handler();
+            updateRunnable = new Runnable() {
                 public void run() {
                     if (mainFrag != null && mainFrag.isResumed() && timeChecker.checkCurrentTime()) {
                         RefreshManager.getRefreshManager().triggerRefresh();
                     }
-                    handler.postDelayed(this, 60 * (Math.max(delay, 1)) * 1000);
+                    updateChecker.postDelayed(this, 60 * (Math.max(delay, 1)) * 1000);
                 }
-            }, 60 * delay * 1000);
+            };
+            updateChecker.postDelayed(updateRunnable, 60 * delay * 1000);
         }
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(mainFrameFrag.getId(), mainFrag);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        updateChecker.removeCallbacks(updateRunnable);
     }
 
     @Override

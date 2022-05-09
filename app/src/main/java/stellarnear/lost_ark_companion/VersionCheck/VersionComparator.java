@@ -26,10 +26,13 @@ public class VersionComparator {
                 olderMaj = tools.toInt(olderParts[0]);
                 break;
             case 2:
+                olderMin = 0;
                 olderMed = tools.toInt(olderParts[1]);
                 olderMaj = tools.toInt(olderParts[0]);
                 break;
             case 1:
+                olderMin = 0;
+                olderMed = 0;
                 olderMaj = tools.toInt(olderParts[0]);
                 break;
             default:
@@ -50,10 +53,13 @@ public class VersionComparator {
                 testMaj = tools.toInt(toTestParts[0]);
                 break;
             case 2:
+                testMin = 0;
                 testMed = tools.toInt(toTestParts[1]);
                 testMaj = tools.toInt(toTestParts[0]);
                 break;
             case 1:
+                testMin = 0;
+                testMed = 0;
                 testMaj = tools.toInt(toTestParts[0]);
                 break;
             default:

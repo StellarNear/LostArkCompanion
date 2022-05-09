@@ -56,8 +56,7 @@ public class SplashActivity extends CustomActivity {
 
     @Override
     protected void doActivity() {
-
-        startMainActivity();
+        new PostConnectionVersion(getApplicationContext()); //sending connexion data to apk versionning usage page
 
         Animation in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.infade);
         Animation out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.outfade);
@@ -99,7 +98,6 @@ public class SplashActivity extends CustomActivity {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                new PostConnectionVersion(getApplicationContext()); //sending connexion data to apk versionning usage page
 
                 // checking for rights
                 int permission = ActivityCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);

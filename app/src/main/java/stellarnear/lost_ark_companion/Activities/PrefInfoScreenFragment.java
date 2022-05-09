@@ -20,8 +20,6 @@ public class PrefInfoScreenFragment {
     public PrefInfoScreenFragment(Activity mA, Context mC) {
         this.mA = mA;
         this.mC = mC;
-
-
         createInfoPopup();
     }
 

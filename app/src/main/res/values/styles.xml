@@ -33,7 +33,6 @@
     </style>
 
 
-
     <style name="darkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/dark_colorBackground</item>
         <item name="background_color">@color/dark_colorBackground</item>

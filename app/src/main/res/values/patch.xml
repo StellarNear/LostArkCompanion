@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"42h"</string>
+    <string name="time_spend">"44h"</string>
     <string name="basic_infos">"Custom application to monitor advancement of tasks in Lost Ark." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v2.4:
+-Add missing classes to prepare global release
+-Add possibility to change localisation to match the user timezone
+----------------------------------------------------------------------------------
+v2.3.1:
+-Optimisation of the battery when the application is in background
+-Fix on comparison of versioning when there is a bugfix release
+----------------------------------------------------------------------------------
+v2.3:
+-Add Demonist and Gunner class and Abyssal Raid icon
+----------------------------------------------------------------------------------
 v2.2:
 -Add Dracula mode as a new application's theme
 -Store easter egg status on completion to prevent replaying on relaunch
 ----------------------------------------------------------------------------------
 v2.1:
 -Add easter egg on completion
--Optimization on checking new version
+-Optimization on checking new versionon
 ----------------------------------------------------------------------------------
 v2.0:
 -Add auto update mechanism

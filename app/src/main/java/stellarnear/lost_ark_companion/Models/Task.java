@@ -186,7 +186,6 @@ public class Task {
         }
     }
 
-
     public String getDrawableId() {
         if (this.drawableId == null) {
             return this.id + "_ico";

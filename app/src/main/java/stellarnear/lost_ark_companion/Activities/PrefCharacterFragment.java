@@ -38,7 +38,7 @@ public class PrefCharacterFragment {
         for (final Character c : MainActivity.expedition.getCharacters()) {
             Preference pref = new Preference(mC);
             pref.setKey("char_" + c.getName());
-            pref.setTitle(c.getName());
+            pref.setTitle(c.getName().substring(0, 1).toUpperCase() + c.getName().substring(1));
             String txt = c.getWork() + " ilvl:" + c.getIlvl();
 
             pref.setSummary(txt);
@@ -128,7 +128,7 @@ public class PrefCharacterFragment {
         // add a radio button list
 
         int checkedItem = -1;
-        final List<String> works = Arrays.asList("Glaivier", "Gunlancer", "Paladin", "SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade", "Sorceress");
+        final List<String> works = Arrays.asList("Deadeye", "Artillerist", "Striker", "Scrapper", "Gunner", "Demonist", "Glaivier", "Gunlancer", "Paladin", "SharpShooter", "Bard", "Berserker", "Spirit", "WarDancer", "DeathBlade", "Sorceress");
         Collections.sort(works);
         builder.setSingleChoiceItems((String[]) works.toArray(), checkedItem, new DialogInterface.OnClickListener() {
             @Override

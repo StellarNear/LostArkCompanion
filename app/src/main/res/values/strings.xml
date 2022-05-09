@@ -2,5 +2,36 @@
     <string name="app_name">Lost Ark Companion</string>
 
     <string name="setting_activity">Settings</string>
+    <string name="choice_timezone_def">UTC+1</string>
 
+    <string-array name="choices_timezone">
+        <item>UTC-14</item>
+        <item>UTC-13</item>
+        <item>UTC-12</item>
+        <item>UTC-11</item>
+        <item>UTC-10</item>
+        <item>UTC-9</item>
+        <item>UTC-8</item>
+        <item>UTC-7</item>
+        <item>UTC-6</item>
+        <item>UTC-5</item>
+        <item>UTC-4</item>
+        <item>UTC-3</item>
+        <item>UTC-2</item>
+        <item>UTC+0</item>
+        <item>UTC+1</item>
+        <item>UTC+2</item>
+        <item>UTC+3</item>
+        <item>UTC+4</item>
+        <item>UTC+5</item>
+        <item>UTC+6</item>
+        <item>UTC+7</item>
+        <item>UTC+8</item>
+        <item>UTC+9</item>
+        <item>UTC+10</item>
+        <item>UTC+11</item>
+        <item>UTC+12</item>
+        <item>UTC+13</item>
+        <item>UTC+14</item>
+    </string-array>
 </resources>

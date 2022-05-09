@@ -23,6 +23,14 @@
         android:summary="Allow button to pass days (for testing)"
         android:title="Test mode" />
 
+    <ListPreference
+        android:defaultValue="@string/choice_timezone_def"
+        android:entries="@array/choices_timezone"
+        android:entryValues="@array/choices_timezone"
+        android:key="choice_timezone"
+        android:summary="Value : %s"
+        android:title="Pick the LostArk server's timezone" />
+
     <SwitchPreference
         android:defaultValue="@bool/display_all_checks_DEF"
         android:key="display_all_checks"

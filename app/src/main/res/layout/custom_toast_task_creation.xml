@@ -56,8 +56,9 @@
 
         <HorizontalScrollView
             android:id="@+id/advance_days_scroll"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fillViewport="true"
             android:visibility="gone">
 
             <LinearLayout
@@ -98,15 +99,15 @@
 
         <HorizontalScrollView
             android:id="@+id/advance_character_scroll"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fillViewport="true"
             android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/advance_character_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:orientation="horizontal"></LinearLayout>
 
         </HorizontalScrollView>
