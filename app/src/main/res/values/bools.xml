@@ -7,7 +7,6 @@
     <bool name="test_mode_DEF">false</bool>
     <bool name="display_all_checks_DEF">false</bool>
     <bool name="compact_mode_DEF">true</bool>
-    <bool name="switch_shadow_link_def">true</bool>
     <bool name="success_check_def">true</bool>
     <bool name="dracula_mode_DEF">false</bool>
 

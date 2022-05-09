@@ -93,11 +93,6 @@ public class Tools {
 
         Toast mToastToShow = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
 
-        TextView v = mToastToShow.getView().findViewById(android.R.id.message);
-
-        if (v != null) {
-            v.setGravity(Gravity.CENTER);
-        }
         if (mode.length > 0 && mode[0].equalsIgnoreCase("bottom")) {
             mToastToShow.setGravity(Gravity.BOTTOM, 0, mC.getResources().getDimensionPixelOffset(R.dimen.offset_y_message_bottom));
         } else {

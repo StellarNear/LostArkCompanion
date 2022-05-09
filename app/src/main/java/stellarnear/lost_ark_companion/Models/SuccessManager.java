@@ -2,7 +2,7 @@ package stellarnear.lost_ark_companion.Models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,6 @@ public class SuccessManager {
                 }
                 if (!successForChar) {
                     totalWin = false;
-                    break;
                 } else {
                     MainActivity.expedition.getSuccessForCharacterId().add(c.getId());
                     ExpeditionManager.getInstance(mC).saveToDB();
